@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fjnu.edu.cn.xjsscttjh">
+    package="cn.edu.fjnu.autominiprogram">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -9,21 +9,21 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <application
         android:allowBackup="true"
-        android:name="fjnu.edu.cn.xjsscttjh.base.AppBaseApplication"
+        android:name="cn.edu.fjnu.autominiprogram.base.AppBaseApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.MainActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.LoginActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.LoginActivity"
             android:label="@string/user_login"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.InitActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.InitActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.SuggestionActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.SuggestionActivity"
             android:label="@string/suggestion_feedback"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.AboutActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.AboutActivity"
             android:label="@string/message_center"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -59,7 +59,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.BrowserActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.BrowserActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -67,7 +67,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.RegisterActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.RegisterActivity"
             android:label="@string/user_register"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -75,7 +75,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.ChartActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.ChartActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -83,7 +83,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.ToolActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.ToolActivity"
             android:screenOrientation="portrait"
             android:label="">
             <intent-filter>
@@ -91,7 +91,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.LotteryDisplayActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.LotteryDisplayActivity"
             android:screenOrientation="portrait"
             android:label="">
             <intent-filter>
@@ -100,7 +100,7 @@
         </activity>
 
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.FcTrendsInfoActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.FcTrendsInfoActivity"
             android:screenOrientation="portrait"
             android:label="@string/trend_chart">
             <intent-filter>
@@ -109,7 +109,7 @@
         </activity>
 
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.FcTrendChartActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.FcTrendChartActivity"
             android:screenOrientation="landscape"
             android:label="">
             <intent-filter>
@@ -118,7 +118,7 @@
         </activity>
 
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.WyTrendChartActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.WyTrendChartActivity"
             android:screenOrientation="landscape"
             android:label="">
             <intent-filter>
@@ -127,7 +127,7 @@
         </activity>
 
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.HistoryOpenActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.HistoryOpenActivity"
             android:screenOrientation="portrait"
             android:label="">
             <intent-filter>
@@ -136,7 +136,7 @@
         </activity>
 
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.ForcaestInfoDisplayActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.ForcaestInfoDisplayActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="">
@@ -146,7 +146,7 @@
         </activity>
 
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.LottyNowOpenActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.LottyNowOpenActivity"
             android:screenOrientation="portrait"
             android:label="@string/newst_lotty_open">
             <intent-filter>
@@ -155,7 +155,7 @@
         </activity>
 
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.FCTrendsTypeActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.FCTrendsTypeActivity"
             android:screenOrientation="portrait"
             android:label="@string/trend_any">
             <intent-filter>
@@ -164,7 +164,7 @@
         </activity>
 
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.ForecastInfoActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.ForecastInfoActivity"
             android:screenOrientation="portrait"
             android:label="@string/lotty_forecast">
             <intent-filter>
@@ -173,7 +173,7 @@
         </activity>
 
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.WyJoinMethodActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.WyJoinMethodActivity"
             android:screenOrientation="portrait"
             android:label="@string/join_method_introduce">
             <intent-filter>
@@ -182,7 +182,7 @@
         </activity>
 
         <activity
-            android:name="fjnu.edu.cn.xjsscttjh.activity.WyJoinMethodDisplayActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.WyJoinMethodDisplayActivity"
             android:screenOrientation="portrait"
             android:label="">
             <intent-filter>
