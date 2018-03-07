@@ -10,11 +10,34 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/edit_user_name"
+                style="@style/common_edit"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:hint="@string/input_user_name"/>
+
+            <Button
+                android:id="@+id/btn_send_code"
+                style="@style/common_btn"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:text="@string/send_code"/>
+
+        </LinearLayout>
+
+
         <EditText
-            android:id="@+id/edit_user_name"
+            android:id="@+id/edit_code"
             style="@style/common_edit"
             android:layout_width="match_parent"
-            android:hint="@string/input_user_name"/>
+            android:hint="@string/enter_vaild_code"
+            android:inputType="number" />
+
 
         <EditText
             android:id="@+id/edit_password"
@@ -30,18 +53,34 @@
             android:layout_width="match_parent"
             android:hint="@string/confirm_password"/>
 
-<!--        <EditText
-            android:id="@+id/edit_mail"
+        <EditText
+            android:id="@+id/edit_recommand_code"
             style="@style/common_edit"
+            android:inputType="text"
             android:layout_width="match_parent"
-            android:hint="@string/input_mail"/>
-
+            android:hint="@string/enter_wechat_recommand_code"/>
 
         <EditText
-            android:id="@+id/edit_nick_name"
+            android:id="@+id/edit_wechat_nickname"
             style="@style/common_edit"
+            android:inputType="text"
             android:layout_width="match_parent"
-            android:hint="@string/input_nickname"/>-->
+            android:hint="@string/enter_wechat_nickname"/>
+
+        <ImageView
+            android:id="@+id/img_wechat_screenshot"
+            android:layout_width="320dp"
+            android:layout_height="180dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_upload_wechat_screenshot"
+            style="@style/common_btn"
+            android:layout_width="match_parent"
+            android:text="@string/upload_wechat_screenshot"/>
+
 
         <Button
             android:id="@+id/btn_register"

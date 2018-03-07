@@ -18,6 +18,7 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import cn.edu.fjnu.autominiprogram.R;
+import cn.edu.fjnu.autominiprogram.activity.MainActivity;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
 import cn.edu.fjnu.autominiprogram.bean.UserInfo;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
@@ -70,6 +71,9 @@ public class LoginFragment extends AppBaseFragment{
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getContext().startActivity(new Intent(getContext(), MainActivity.class));
+                getActivity().finish();
+                /*
                 String userName = mEdtUserName.getText().toString();
                 String passwd = mEdtPassword.getText().toString();
                 mUserName = userName;
@@ -82,7 +86,7 @@ public class LoginFragment extends AppBaseFragment{
                     ToastUtils.showToast("请输入密码");
                     return;
                 }
-                login();
+                login();*/
             }
         });
     }

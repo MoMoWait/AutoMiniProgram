@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">时时彩计划平台</string>
+    <string name="app_name">小程序自动发单</string>
     <string name="app_name_software">时时彩助手软件</string>
     <string name="realtime_color">时时彩</string>
     <string name="other">其他</string>
@@ -10,7 +10,7 @@
     <string name="my">我的</string>
     <string name="toolkit">工具</string>
     <string name="rights">\@2015-2017 All Rights Reserved</string>
-    <string name="input_user_name">输入帐号</string>
+    <string name="input_user_name">输入手机号</string>
     <string name="input_password">输入密码</string>
     <string name="user_name">用户名</string>
     <string name="password">密码</string>
@@ -51,6 +51,8 @@
     <string name="register_succ">注册成功</string>
     <string name="confirm_password">确认密码</string>
     <string name="password_not_same">两次输入的密码不一致</string>
+    <string name="enter_wechat_nickname">输入微信昵称</string>
+    <string name="enter_wechat_recommand_code">输入推荐码</string>
     <string name="photo_view">图片浏览</string>
     <string name="data_change">资料修改</string>
     <string name="user_name_change">用户名修改</string>
@@ -108,4 +110,7 @@
     <string name="ohter">其他</string>
     <string name="newst_lotty_open">最新彩票开奖</string>
     <string name="join_method_introduce">玩法介绍</string>
+    <string name="upload_wechat_screenshot">上传微信截图</string>
+    <string name="send_code">发送验证码</string>
+    <string name="enter_vaild_code">输入验证码</string>
 </resources>

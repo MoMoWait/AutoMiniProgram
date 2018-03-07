@@ -76,10 +76,6 @@ public class ConstData {
     public static final String COLOR_INFO_URL = "http://m.zhcw.com/clienth5.do?transactionType=8020&busiCode=300204&src=0000100001%7C6000003060";
     public static final String WELFARE_INFO_URL = "http://m.zhcw.com/clienth5.do?transactionType=8020&busiCode=300206&src=0000100001%7C6000003060";
     /**
-     * 启动页面停留时间（ms）
-     */
-    public static final long INIT_TIME = 1500;
-    /**
      * 屏幕宽
      */
     public static final int SCREEN_WIDTH = DeviceInfoUtils.getScreenWidth(CommonValues.application);

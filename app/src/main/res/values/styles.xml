@@ -16,7 +16,7 @@
         <item name="android:layout_height">@dimen/h_common</item>
         <item name="android:background">@drawable/common_edit_background</item>
         <item name="android:padding">@dimen/pm_little</item>
-        <item name="android:layout_margin">@dimen/pm_large</item>
+        <item name="android:layout_margin">10dp</item>
     </style>
 
 
@@ -28,7 +28,7 @@
         <item name="android:layout_height">@dimen/h_common</item>
         <item name="android:background">@drawable/common_btn_background</item>
         <item name="android:padding">@dimen/pm_little</item>
-        <item name="android:layout_margin">@dimen/pm_large</item>
+        <item name="android:layout_margin">10dp</item>
     </style>
 
     <!-- TextView通用样式-->
