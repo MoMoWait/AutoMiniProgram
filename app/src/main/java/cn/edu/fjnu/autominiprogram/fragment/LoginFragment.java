@@ -1,6 +1,7 @@
 package cn.edu.fjnu.autominiprogram.fragment;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,10 +19,13 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import cn.edu.fjnu.autominiprogram.R;
+import android.app.ActivityManager.RunningServiceInfo;
+
 import cn.edu.fjnu.autominiprogram.activity.MainActivity;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
 import cn.edu.fjnu.autominiprogram.bean.UserInfo;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
+import cn.edu.fjnu.autominiprogram.service.FloatingwindowService;
 import cn.edu.fjnu.autominiprogram.task.LoginTask;
 import cn.edu.fjnu.autominiprogram.view.LoginActionBarView;
 import io.reactivex.Observable;
@@ -42,6 +46,8 @@ import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
 public class LoginFragment extends AppBaseFragment{
 
     public final String TAG = "LoginFragment";
+    public static final String FLOATING_WINDOW_SERVICE = "cn.edu.fjnu.autominiprogram.service.FloatingwindowService";
+
     /**登陆按钮*/
     @ViewInject(R.id.btn_login)
     private TextView mBtnLogin;
@@ -71,8 +77,13 @@ public class LoginFragment extends AppBaseFragment{
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getContext().startActivity(new Intent(getContext(), MainActivity.class));
-                getActivity().finish();
+                //getContext().startActivity(new Intent(getContext(), MainActivity.class));
+                //getActivity().finish();
+                Intent intent = new Intent(getContext(), FloatingwindowService.class);
+                if (isServiceRunning()) {
+                    getContext().stopService(intent);
+                }
+                getContext().startService(intent);
                 /*
                 String userName = mEdtUserName.getText().toString();
                 String passwd = mEdtPassword.getText().toString();
@@ -91,7 +102,16 @@ public class LoginFragment extends AppBaseFragment{
         });
     }
 
-
+    private boolean isServiceRunning() {
+        ActivityManager manager = (ActivityManager) getContext().getSystemService(getContext().ACTIVITY_SERVICE);
+        for (RunningServiceInfo service : manager
+                .getRunningServices(Integer.MAX_VALUE)) {
+            if (FLOATING_WINDOW_SERVICE.equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
     public void login(){
         DialogUtils.showLoadingDialog(getActivity(), false);
         mLoginTask = new LoginTask();

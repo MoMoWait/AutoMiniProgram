@@ -113,4 +113,5 @@
     <string name="upload_wechat_screenshot">上传微信截图</string>
     <string name="send_code">发送验证码</string>
     <string name="enter_vaild_code">输入验证码</string>
+    <string name="start_auto_click">Start auto click</string>
 </resources>
