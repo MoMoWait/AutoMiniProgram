@@ -45,17 +45,6 @@ import io.reactivex.schedulers.Schedulers;
  */
 @ContentView(R.layout.fragment_home)
 public class HomeFragment extends AppBaseFragment {
-    @ViewInject(R.id.list_lottery)
-    private ListView mListLottery;
-
-    @ViewInject(R.id.spinner_color)
-    private Spinner mSpinnerColor;
-
-    @ViewInject(R.id.progress_load)
-    private ProgressBar mProgressLoad;
-
-    public static final String TAG = "HomeFragment";
-    private boolean isInit = false;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,98 +54,12 @@ public class HomeFragment extends AppBaseFragment {
     @Override
     public void init() {
         super.init();
-        isInit = true;
-        setRetainInstance(true);
-        loadLotteryData();
-        Log.i(TAG, "init");
     }
 
     @Override
     public void onDestroyView() {
-        isInit = false;
         super.onDestroyView();
-        Log.i(TAG, "onDestoryView");
-    }
-
-    //加载APP数据
-    private void loadLotteryData(){
-        ColorTypeAdapter typeAdapter = new ColorTypeAdapter(getContext(), android.R.layout.simple_spinner_item, ConstData.COLOR_TYPES);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        mSpinnerColor.setAdapter(typeAdapter);
-        mSpinnerColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ColorType itemType = (ColorType) parent.getAdapter().getItem(position);
-                asyncLoadColorInfo(itemType.getColorId());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        asyncLoadColorInfo(90);
     }
 
 
-    /**
-     * 获取开奖列表信息,在IO线程中执行
-     * @return
-     */
-    public List<ColorInfo> getHomeColorInfos(int colorID){
-        List<ColorInfo> infos = new ArrayList<>();
-        //请求HTTP数据
-        try{
-            URL url = new URL(String.format(Locale.CHINA, ConstData.BASE_LOTTERY_URL, colorID));
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            byte data[] = new byte[2048];
-            InputStream stream = connection.getInputStream();
-            StringBuilder builder = new StringBuilder();
-            int readLength = stream.read(data);
-            while(readLength > 0){
-                builder.append( new String(data, 0 , readLength, Charset.forName("UTF-8")));
-                readLength = stream.read(data);
-
-            }
-            stream.close();
-            String headContent = builder.toString();
-            JSONObject headerObject = new JSONObject(headContent);
-            JSONArray headerArray =  headerObject.getJSONObject("result").getJSONArray("list");
-            for(int i = 0; i < headerArray.length(); ++i){
-                ColorInfo colorInfo = new ColorInfo();
-                JSONObject itemObject = headerArray.getJSONObject(i);
-                colorInfo.setOpenDate(itemObject.getString("opendate"));
-                colorInfo.setIssueNo(itemObject.getString("issueno"));
-                colorInfo.setNumber(itemObject.getString("number"));
-                infos.add(colorInfo);
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return  infos;
-    }
-
-    public void asyncLoadColorInfo(int colorId){
-        mListLottery.setVisibility(View.GONE);
-        mProgressLoad.setVisibility(View.VISIBLE);
-        Observable.just(colorId).map(new Function<Integer, List<ColorInfo>>() {
-            @Override
-            public List<ColorInfo> apply(@NonNull Integer o) throws Exception {
-                return getHomeColorInfos(o);
-            }
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<ColorInfo>>() {
-                    @Override
-                    public void accept(List<ColorInfo> colorInfos) throws Exception {
-                        //设置适配器
-                        ColorAdapter colorAdapter = new ColorAdapter(getActivity(), R.layout.adapter_color, 0, colorInfos);
-                        if(isInit){
-                            mListLottery.setAdapter(colorAdapter);
-                            mProgressLoad.setVisibility(View.GONE);
-                            mListLottery.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
-    }
 }
