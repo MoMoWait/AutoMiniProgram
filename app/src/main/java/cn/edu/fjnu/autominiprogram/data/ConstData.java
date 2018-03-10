@@ -90,14 +90,14 @@ public class ConstData {
     /**
      * 底部导航栏的文字选中显示
      */
-    public static final int TAB_SELECT_TEXT_COLOR = ContextCompat.getColor(CommonValues.application, R.color.tab_select_text_green);
+    public static final int TAB_SELECT_TEXT_COLOR = ContextCompat.getColor(CommonValues.application, R.color.tab_select_text_blue);
     /**
      * 底部导航项
      */
     public static final TabItem[] TAB_ITEMS = new TabItem[]{
             //new TabItem(CommonValues.application.getString(R.string.app_name), R.mipmap.home_normal, R.mipmap.home_select_green, TAB_TEXT_COLOR, TAB_SELECT_TEXT_COLOR, HomeAllFragment.class),
             new TabItem(CommonValues.application.getString(R.string.home), R.mipmap.home_normal, R.mipmap.home_select_blue, TAB_TEXT_COLOR, TAB_SELECT_TEXT_COLOR, HomeFragment.class),
-            new TabItem(CommonValues.application.getString(R.string.notifiaction), R.mipmap.discovery_normal, R.mipmap.home_select_blue, TAB_TEXT_COLOR, TAB_SELECT_TEXT_COLOR, NotifactionFragment.class),
+            new TabItem(CommonValues.application.getString(R.string.notifiaction), R.mipmap.discovery_normal, R.mipmap.discovery_select_blue, TAB_TEXT_COLOR, TAB_SELECT_TEXT_COLOR, NotifactionFragment.class),
             new TabItem(CommonValues.application.getString(R.string.setting), R.mipmap.message_normal, R.mipmap.message_select_blue, TAB_TEXT_COLOR, TAB_SELECT_TEXT_COLOR, SettingsFramgnet.class),
 //            new TabItem(CommonValues.application.getString(R.string.my), R.mipmap.my_normal, R.mipmap.my_select_green, TAB_TEXT_COLOR, TAB_SELECT_TEXT_COLOR, MyFragment.class)
     };
