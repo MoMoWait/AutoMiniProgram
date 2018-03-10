@@ -27,4 +27,11 @@
     <!-- 图片显示 -->
     <dimen name="image_thumbnail_size">100dp</dimen>
     <dimen name="image_thumbnail_spacing">1dp</dimen>
+    
+    <!--悬浮框-->
+    <dimen name="main_test_view_width">260dp</dimen>
+    <!-- Preference widget area width (to the left of the text) -->
+    <dimen name="main_test_view__height">200dp</dimen>
+    <dimen name="touch_step_height">15dp</dimen>
+
 </resources>
