@@ -7,6 +7,7 @@ import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -93,8 +94,7 @@ public class FloatingwindowService extends Service {
         mView = view.findViewById(R.id.floating_view);
         mView.setOnTouchListener(mTouchListener);
         initWmParams();
-        mView.setBackgroundColor(Color.RED);
-        mWm.addView(mView, mWmParams);
+        mWm.addView(view, mWmParams);
         setupViews();
     }
 
@@ -104,7 +104,6 @@ public class FloatingwindowService extends Service {
             mWmParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
                     | WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;// 2002|WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
             // ;
-            // mWmParams.format = PixelFormat.TRANSLUCENT;
             mWmParams.flags |= 8;
             // mWmParams.flags |=
             // WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED;
@@ -123,8 +122,8 @@ public class FloatingwindowService extends Service {
             mWmParams.x = 0;
             mWmParams.y = 0;
 
-            mWmParams.width = mWidth;
-            mWmParams.height = mHeight;
+            mWmParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+            mWmParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         }
     }
 

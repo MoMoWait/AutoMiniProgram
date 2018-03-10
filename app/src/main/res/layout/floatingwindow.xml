@@ -3,22 +3,26 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/floating_view">
+    android:id="@+id/floating_view"
+    android:background="@color/yellow"
+    android:padding="20dp">
 
     <Button
         android:id="@+id/main_item_test_stop"
+        style="@style/common_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/start_auto_click"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/white"/>
 
     <Button
         android:id="@+id/btn_setting"
+        style="@style/common_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/setting"
-        android:textColor="@android:color/black"/>
+        android:text="@string/system_setting"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

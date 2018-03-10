@@ -115,5 +115,6 @@
     <string name="enter_vaild_code">输入验证码</string>
     <string name="notifiaction">通知</string>
     <string name="setting">设置</string>
-    <string name="start_auto_click">Start auto click</string>
+    <string name="start_auto_click">自动启停</string>
+    <string name="system_setting">系统设置</string>
 </resources>
