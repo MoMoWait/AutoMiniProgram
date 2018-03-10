@@ -84,6 +84,7 @@ public class LoginFragment extends AppBaseFragment{
                     getContext().stopService(intent);
                 }
                 getContext().startService(intent);
+                getActivity().finish();
                 /*
                 String userName = mEdtUserName.getText().toString();
                 String passwd = mEdtPassword.getText().toString();

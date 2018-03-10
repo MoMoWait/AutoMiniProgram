@@ -23,7 +23,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
+
 import cn.edu.fjnu.autominiprogram.R;
+import cn.edu.fjnu.autominiprogram.activity.MainActivity;
 
 
 public class FloatingwindowService extends Service {
@@ -45,6 +49,9 @@ public class FloatingwindowService extends Service {
     private Button mStartStopBtn = null;
     private WakeLock mWakeLock;
     private int[] mColor = {Color.RED, Color.WHITE, Color.YELLOW};
+
+    @ViewInject(R.id.btn_setting)
+    private Button mBtnSetting;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -82,6 +89,7 @@ public class FloatingwindowService extends Service {
                 .getSystemService("window");
 
         View view = inflater.inflate(R.layout.floatingwindow, null);
+        x.view().inject(this, view);
         mView = view.findViewById(R.id.floating_view);
         mView.setOnTouchListener(mTouchListener);
         initWmParams();
@@ -126,6 +134,14 @@ public class FloatingwindowService extends Service {
             @Override
             public void onClick(View v) {
                 ClearData();
+            }
+        });
+        mBtnSetting.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FloatingwindowService.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
     }

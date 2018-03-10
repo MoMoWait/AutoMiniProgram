@@ -11,7 +11,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/start_auto_click"
-        android:textColor="@android:color/black">
-    </Button>
+        android:textColor="@android:color/black"/>
+
+    <Button
+        android:id="@+id/btn_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/setting"
+        android:textColor="@android:color/black"/>
 
 </LinearLayout>
