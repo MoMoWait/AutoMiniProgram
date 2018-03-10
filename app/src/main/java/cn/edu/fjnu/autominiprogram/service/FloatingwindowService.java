@@ -3,8 +3,10 @@ package cn.edu.fjnu.autominiprogram.service;
 import java.util.Timer;
 
 
+import android.accessibilityservice.AccessibilityService;
 import android.app.ActivityManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
@@ -15,12 +17,14 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -28,10 +32,15 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import cn.edu.fjnu.autominiprogram.R;
+import cn.edu.fjnu.autominiprogram.accessibility.AccessibilityOpenHelperActivity;
+import cn.edu.fjnu.autominiprogram.accessibility.AccessibilityOperator;
+import cn.edu.fjnu.autominiprogram.accessibility.OpenAccessibilitySettingHelper;
 import cn.edu.fjnu.autominiprogram.activity.MainActivity;
 
-
-public class FloatingwindowService extends Service {
+import android.accessibilityservice.AccessibilityService;
+import android.view.accessibility.AccessibilityEvent;
+import cn.edu.fjnu.autominiprogram.accessibility.OpenAccessibilitySettingHelper;
+public class FloatingwindowService extends AccessibilityService {
     public static final String TAG = "MainTestService";
 
     private Timer mTimer = null;
@@ -53,12 +62,14 @@ public class FloatingwindowService extends Service {
 
     @ViewInject(R.id.btn_setting)
     private Button mBtnSetting;
-
+    @ViewInject(R.id.btn_start_calibratio)
+    private Button mBtnStartCalibratio;
+    /*
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
-
+*/
     private void holdWakeLock() {
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         mWakeLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK,
@@ -141,6 +152,13 @@ public class FloatingwindowService extends Service {
                 Intent intent = new Intent(FloatingwindowService.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+            }
+        });
+        mBtnStartCalibratio.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG, "mBtnStartCalibratio click");
+                OpenAccessibilitySettingHelper.jumpToSettingPage(getApplicationContext());
             }
         });
     }
@@ -277,5 +295,61 @@ public class FloatingwindowService extends Service {
 //        } else
         return false;
     }
+
+    @Override
+    protected boolean onKeyEvent(KeyEvent event) {
+        Log.d(TAG, "onKeyEvent");
+        int key = event.getKeyCode();
+        switch(key){
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                Intent downintent = new Intent("com.exmaple.broadcaster.KEYDOWN");
+                downintent.putExtra("dtime", System.currentTimeMillis());
+                sendBroadcast(downintent);
+                Log.d(TAG, "KEYCODE_VOLUME_DOWN");
+                break;
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                Intent upintent = new Intent("com.exmaple.broadcaster.KEYUP");
+                upintent.putExtra("utime", System.currentTimeMillis());
+                sendBroadcast(upintent);
+                Log.d(TAG, "KEYCODE_VOLUME_UP");
+                break;
+        }
+        return super.onKeyEvent(event);
+    }
+
+    @Override
+    public void onInterrupt() {
+
+    }
+
+    @Override
+    public void onCreate() {
+        Log.i(TAG, "RobMoney::onCreate");
+        super.onCreate();
+
+    }
+
+    @Override
+    public void onAccessibilityEvent(AccessibilityEvent event) {
+        // 此方法是在主线程中回调过来的，所以消息是阻塞执行的
+        // 获取包名
+        String pkgName = event.getPackageName().toString();
+        int eventType = event.getEventType();
+        // AccessibilityOperator封装了辅助功能的界面查找与模拟点击事件等操作
+        AccessibilityOperator.getInstance().updateEvent(this, event);
+
+        Log.d(TAG, "onAccessibilityEvent pkgName = "+ pkgName + " event = "+event);
+        switch (eventType) {
+            case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
+                break;
+        }
+    }
+
+    @Override
+    protected void onServiceConnected() {
+        super.onServiceConnected();
+    }
+
+
 
 }

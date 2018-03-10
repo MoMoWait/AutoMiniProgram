@@ -85,4 +85,7 @@
     <color name="tab_select_text_blue">#1296db</color>
     <color name="tab_select_text_red">#d81e06</color>
     <color name="tab_select_text_green">#1afa29</color>
+
+
+    <color name="accessibility_transparent">#00000000</color>
 </resources>

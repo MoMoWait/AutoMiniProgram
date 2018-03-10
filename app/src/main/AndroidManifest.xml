@@ -191,11 +191,46 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <service android:name="cn.edu.fjnu.autominiprogram.service.FloatingwindowService">
+        // 注册辅助功能服务
+        <service android:name="cn.edu.fjnu.autominiprogram.service.FloatingwindowService"
+            android:exported="true"
+            android:label="@string/accessibility_tip"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:process=":BackgroundService">
             <intent-filter android:priority = "1000">
                 <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
+            // 通过xml文件完成辅助功能相关配置，也可以在onServiceConnected中动态配置
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_config"/>
+        </service>
+
+        <activity
+            android:name="cn.edu.fjnu.autominiprogram.accessibility.AccessibilityOpenHelperActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:process=":BackgroundService"
+            android:taskAffinity="com.open.helper"
+            android:theme="@style/Accessibility.Transparent.Activity" />
+
+        <activity android:name="cn.edu.fjnu.autominiprogram.accessibility.AccessibilityNormalSample"
+            android:process=":BackgroundService"/>
+
+        // 注册辅助功能服务
+        <service android:name="cn.edu.fjnu.autominiprogram.accessibility.AccessibilitySampleService"
+            android:label="@string/accessibility_tip"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:process=":BackgroundService">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            // 通过xml文件完成辅助功能相关配置，也可以在onServiceConnected中动态配置
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_config"/>
         </service>
     </application>
 
