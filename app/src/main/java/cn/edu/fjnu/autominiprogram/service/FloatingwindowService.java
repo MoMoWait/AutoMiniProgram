@@ -26,6 +26,7 @@ import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.xutils.view.annotation.ViewInject;
@@ -40,6 +41,8 @@ import cn.edu.fjnu.autominiprogram.activity.MainActivity;
 import android.accessibilityservice.AccessibilityService;
 import android.view.accessibility.AccessibilityEvent;
 import cn.edu.fjnu.autominiprogram.accessibility.OpenAccessibilitySettingHelper;
+import momo.cn.edu.fjnu.androidutils.utils.SizeUtils;
+
 public class FloatingwindowService extends AccessibilityService {
     public static final String TAG = "MainTestService";
 
@@ -59,11 +62,26 @@ public class FloatingwindowService extends AccessibilityService {
     private Button mStartStopBtn = null;
     private WakeLock mWakeLock;
     private int[] mColor = {Color.RED, Color.WHITE, Color.YELLOW};
-
+    /**
+     * 当前是否正在定位
+     */
+    private boolean mIsSeekPosition;
+    /**
+     * 悬浮框坐标x
+     */
+    private int mViewX;
+    /**
+     * 悬浮框坐标y
+     */
+    private int mViewY;
     @ViewInject(R.id.btn_setting)
     private Button mBtnSetting;
     @ViewInject(R.id.btn_start_calibratio)
     private Button mBtnStartCalibratio;
+    @ViewInject(R.id.btn_seek_position)
+    private Button mBtnSeekPosition;
+    @ViewInject(R.id.layout_btn_container)
+    private LinearLayout mLayoutBtnContainer;
     /*
     @Override
     public IBinder onBind(Intent intent) {
@@ -116,6 +134,7 @@ public class FloatingwindowService extends AccessibilityService {
                     | WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;// 2002|WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
             // ;
             mWmParams.flags |= 8;
+            mWmParams.format = PixelFormat.TRANSPARENT;
             // mWmParams.flags |=
             // WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED;
             mWmParams.gravity = Gravity.LEFT | Gravity.TOP;
@@ -161,6 +180,26 @@ public class FloatingwindowService extends AccessibilityService {
                 OpenAccessibilitySettingHelper.jumpToSettingPage(getApplicationContext());
             }
         });
+        mBtnSeekPosition.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mIsSeekPosition = true;
+                mLayoutBtnContainer.setVisibility(View.GONE);
+                mView.setBackgroundResource(R.drawable.luck_number_back_red);
+            }
+        });
+        mView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mIsSeekPosition){
+                    mIsSeekPosition = false;
+                    //获取点击的中心点坐标
+                    Log.i(TAG, "click->position:" + "(" + (mViewX + SizeUtils.dp2px(15)) + "," + (mViewY + SizeUtils.dp2px(15)) + ")");
+                    mView.setBackgroundColor(Color.TRANSPARENT);
+                    mLayoutBtnContainer.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void ClearData() {
@@ -198,9 +237,9 @@ public class FloatingwindowService extends AccessibilityService {
             }
             if (!isDoubleClick) {
                 tarckFlinger(event);
-                return true;
+                return !mIsSeekPosition;
             }
-            return true;
+            return !mIsSeekPosition;
         }
     };
 
@@ -212,10 +251,18 @@ public class FloatingwindowService extends AccessibilityService {
 		 */
         mCurrentX = (int) event.getRawX();
         mCurrentY = (int) event.getRawY();
+        if(mIsSeekPosition){
+            mViewX = mCurrentX;
+            mViewY = mCurrentY;
+        }
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mStartX = (int) event.getX();
                 mStartY = (int) event.getY();
+                Log.i(TAG, "tarckFlinger->mCurrentX:" + mCurrentX);
+                Log.i(TAG, "tarckFlinger->mCurrentY:" + mCurrentY);
+                Log.i(TAG, "tarckFlinger->mStartX:" + mStartX);
+                Log.i(TAG, "tarckFlinger->mstartY:" + mStartY);
                 break;
             case MotionEvent.ACTION_MOVE:
                 updateWindowParams();
@@ -337,7 +384,7 @@ public class FloatingwindowService extends AccessibilityService {
         int eventType = event.getEventType();
         // AccessibilityOperator封装了辅助功能的界面查找与模拟点击事件等操作
         AccessibilityOperator.getInstance().updateEvent(this, event);
-
+        Log.i(TAG, "onAccessibilityEvnent->event->className:" + event.getClass().getName());
         Log.d(TAG, "onAccessibilityEvent pkgName = "+ pkgName + " event = "+event);
         switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
