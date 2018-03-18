@@ -41,6 +41,9 @@ import cn.edu.fjnu.autominiprogram.activity.MainActivity;
 import android.accessibilityservice.AccessibilityService;
 import android.view.accessibility.AccessibilityEvent;
 import cn.edu.fjnu.autominiprogram.accessibility.OpenAccessibilitySettingHelper;
+import cn.edu.fjnu.autominiprogram.hkh.Constant;
+import cn.edu.fjnu.autominiprogram.hkh.Main;
+import cn.edu.fjnu.autominiprogram.hkh.Ocr;
 import momo.cn.edu.fjnu.androidutils.utils.SizeUtils;
 
 public class FloatingwindowService extends AccessibilityService {
@@ -62,6 +65,8 @@ public class FloatingwindowService extends AccessibilityService {
     private Button mStartStopBtn = null;
     private WakeLock mWakeLock;
     private int[] mColor = {Color.RED, Color.WHITE, Color.YELLOW};
+
+    private Main mMain;
     /**
      * 当前是否正在定位
      */
@@ -111,6 +116,7 @@ public class FloatingwindowService extends AccessibilityService {
         Message message = new Message();
         message.what = REFRESH_VIEW;
         mHandler.sendMessage(message);
+        mMain = new Main(getApplicationContext());
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -163,6 +169,23 @@ public class FloatingwindowService extends AccessibilityService {
             @Override
             public void onClick(View v) {
                 ClearData();
+                Runnable mRunable = new Runnable(){
+                    @Override
+                    public void run() {
+                        while(true) {
+                            mMain.sale();
+                            try {
+                                Thread.sleep(10000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                };
+                Thread thread = new Thread(mRunable);
+                thread.start();
+                mWmParams.width=50;
+                mWmParams.height=50;
             }
         });
         mBtnSetting.setOnClickListener(new View.OnClickListener(){
@@ -177,7 +200,28 @@ public class FloatingwindowService extends AccessibilityService {
             @Override
             public void onClick(View v) {
                 Log.e(TAG, "mBtnStartCalibratio click");
-                OpenAccessibilitySettingHelper.jumpToSettingPage(getApplicationContext());
+                Runnable mRunable = new Runnable() {
+                    @Override
+                    public void run() {
+                        int count = 0;
+                        //while(true) {
+                            count++;
+                            Constant.chat_status = false;
+                            Constant.interval_chat = -1;
+                            mMain.initRegularPosition(367, 75);
+                            try {
+                                Thread.sleep(5000);
+                                Log.e(TAG, "count = " + count);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        //}
+                    }
+                };
+                Thread thread = new Thread(mRunable);
+                thread.start();
+
+                //OpenAccessibilitySettingHelper.jumpToSettingPage(getApplicationContext());
             }
         });
         mBtnSeekPosition.setOnClickListener(new View.OnClickListener(){
