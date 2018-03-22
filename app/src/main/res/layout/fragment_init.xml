@@ -3,14 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
-    <ImageView
-        android:id="@+id/img_init"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/img_init"
-        android:scaleType="fitXY"/>
-<!--
+    android:background="@color/fragment_background">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,6 +36,6 @@
         android:text="@string/rights"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:textColor="#7f000000"/>-->
+        android:textColor="#7f000000"/>
 
 </RelativeLayout>

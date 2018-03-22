@@ -44,9 +44,6 @@ import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 @ContentView(R.layout.fragment_init)
 public class InitFragment extends AppBaseFragment{
     private static final String TAG = "InitFragment";
-    @ViewInject(R.id.img_init)
-    private ImageView mImgInit;
-
     private InitTask mInitTask;
     private AppLoadTask mLoadTask;
     private ContentLoadTask mContentTask;

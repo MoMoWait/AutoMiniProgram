@@ -6,7 +6,8 @@ import android.annotation.TargetApi;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.accessibility.utils.AccessibilityLog;
+import cn.edu.fjnu.autominiprogram.accessibility.utils.AccessibilityLog;
+
 
 /**
  * Created by popfisher on 2017/7/6.

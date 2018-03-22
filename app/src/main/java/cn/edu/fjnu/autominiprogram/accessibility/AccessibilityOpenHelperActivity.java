@@ -7,12 +7,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.accessibility.utils.AccessibilityUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import cn.edu.fjnu.autominiprogram.R;
+import cn.edu.fjnu.autominiprogram.accessibility.utils.AccessibilityUtil;
 
 
 /**

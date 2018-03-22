@@ -1,8 +1,8 @@
-package com.accessibility.utils;
+package cn.edu.fjnu.autominiprogram.accessibility.utils;
 
-        import android.util.Log;
+import android.util.Log;
 
-        import  momo.cn.edu.fjnu.androidutils.BuildConfig;
+import  momo.cn.edu.fjnu.androidutils.BuildConfig;
 
 /**
  * Created by popfisher on 2017/7/11.

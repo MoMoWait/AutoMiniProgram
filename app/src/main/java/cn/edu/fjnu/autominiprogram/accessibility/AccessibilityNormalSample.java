@@ -6,9 +6,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 
-import com.accessibility.utils.AccessibilityLog;
 
 import cn.edu.fjnu.autominiprogram.R;
+import cn.edu.fjnu.autominiprogram.accessibility.utils.AccessibilityLog;
 
 /**
  * Created by popfisher on 2017/7/10.

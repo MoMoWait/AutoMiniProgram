@@ -1,4 +1,4 @@
-package com.accessibility.utils;
+package cn.edu.fjnu.autominiprogram.accessibility.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +35,7 @@ public class AccessibilityUtil {
 
         String packageName = context.getPackageName();
         final String serviceStr = packageName + "/" + ACCESSIBILITY_SERVICE_PATH;
-        com.accessibility.utils.AccessibilityLog.printLog("serviceStr: " + serviceStr);
+        AccessibilityLog.printLog("serviceStr: " + serviceStr);
         if (accessibilityEnabled == 1) {
             TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
 

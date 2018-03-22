@@ -77,15 +77,10 @@ public class LoginFragment extends AppBaseFragment{
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //getContext().startActivity(new Intent(getContext(), MainActivity.class));
                 //getActivity().finish();
-                Intent intent = new Intent(getContext(), FloatingwindowService.class);
-                if (isServiceRunning()) {
-                    getContext().stopService(intent);
-                }
-                getContext().startService(intent);
-                getActivity().finish();
-                /*
+
                 String userName = mEdtUserName.getText().toString();
                 String passwd = mEdtPassword.getText().toString();
                 mUserName = userName;
@@ -98,7 +93,7 @@ public class LoginFragment extends AppBaseFragment{
                     ToastUtils.showToast("请输入密码");
                     return;
                 }
-                login();*/
+                login();
             }
         });
     }
@@ -129,14 +124,23 @@ public class LoginFragment extends AppBaseFragment{
             @Override
             public void accept(Integer status) throws Exception {
                 DialogUtils.closeLoadingDialog();
-                if(status == ConstData.TaskResult.SUCC){
-                    Intent resultData = new Intent();
-                    resultData.putExtra(ConstData.IntentKey.USER_NAME, mUserName);
-                    getActivity().setResult(Activity.RESULT_OK, resultData);
+                if (status == ConstData.TaskResult.SUCC) {
+                    Intent intent = new Intent(getContext(), FloatingwindowService.class);
+                    if (isServiceRunning()) {
+                        getContext().stopService(intent);
+                    }
+                    getContext().startService(intent);
                     getActivity().finish();
-                }else{
+
+                } else {
                     ToastUtils.showToast(getString(R.string.login_failed));
                 }
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                DialogUtils.closeLoadingDialog();
+                ToastUtils.showToast(getString(R.string.login_failed));
             }
         });
 

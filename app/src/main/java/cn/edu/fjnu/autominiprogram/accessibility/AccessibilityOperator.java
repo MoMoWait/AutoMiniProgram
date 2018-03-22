@@ -8,9 +8,10 @@ import android.os.Build;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.accessibility.utils.AccessibilityLog;
 
 import java.util.List;
+
+import cn.edu.fjnu.autominiprogram.accessibility.utils.AccessibilityLog;
 
 /**
  * Created by popfisher on 2017/7/11.

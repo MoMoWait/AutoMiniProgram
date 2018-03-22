@@ -1,15 +1,15 @@
 package cn.edu.fjnu.autominiprogram.task;
 
 import android.os.AsyncTask;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
+import org.json.JSONObject;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
-import momo.cn.edu.fjnu.androidutils.utils.PackageUtils;
+import cn.edu.fjnu.autominiprogram.data.ServiceManager;
+import cn.edu.fjnu.autominiprogram.data.UrlService;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by Administrator on 2017\9\14 0014.
@@ -17,6 +17,9 @@ import momo.cn.edu.fjnu.androidutils.utils.PackageUtils;
  */
 
 public class LoginTask extends AsyncTask<String, Integer, Integer> {
+
+    private static final String TAG = "LoginTask";
+
     public interface Callback{
         void onResult(int status);
     }
@@ -36,33 +39,22 @@ public class LoginTask extends AsyncTask<String, Integer, Integer> {
     protected Integer doInBackground(String... strings) {
         String userName = strings[0];
         String passwd = strings[1];
+        UrlService service = ServiceManager.getInstance().getUrlService();
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            JSONObject reqObject = new JSONObject();
+            reqObject.put("username", userName);
+            reqObject.put("password", passwd);
+            RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),reqObject.toString());
+            Call<ResponseBody> resBody = service.loigin(body);
+            Response<ResponseBody> response  = resBody.execute();
+            String result = response.body().string();
+            JSONObject resObject = new JSONObject(result);
+            return resObject.getString("Msg").equals("success")? ConstData.TaskResult.SUCC : ConstData.TaskResult.FAILED;
         }catch (Exception e){
+            e.printStackTrace();
             return ConstData.TaskResult.FAILED;
         }
-        String url = "jdbc:mysql://120.24.18.183:3306/Lotty";
-        try {
-            Connection connection = DriverManager.getConnection(url, ConstData.DataBaseData.USER_NAME, ConstData.DataBaseData.PASSWORD);
-            //搜索用户表
-            PreparedStatement selectPrepareStatement = connection.prepareStatement("select * from User where userName=? and password=? and packageName=?");
-            selectPrepareStatement.setString(1, userName);
-            selectPrepareStatement.setString(2, passwd);
-            selectPrepareStatement.setString(3, PackageUtils.getPackageName());
-            ResultSet selectSet = selectPrepareStatement.executeQuery();
-            if(selectSet.first()){
-                selectSet.close();
-                selectPrepareStatement.close();
-                connection.close();
-                return ConstData.TaskResult.SUCC;
-            }
-            selectSet.close();
-            selectPrepareStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            return ConstData.TaskResult.FAILED;
-        }
-        return ConstData.TaskResult.FAILED;
+
     }
 
     @Override
