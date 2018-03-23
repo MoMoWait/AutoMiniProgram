@@ -29,9 +29,13 @@ public interface UrlService {
     @Streaming
     Call<ResponseBody> downloadOtherFile();
 
-    @POST("manager/login")
+    @POST("usermanage/userlogin")
     @Headers({"Content-Type:application/json;charset=UTF-8"})
     Call<ResponseBody> loigin(@Body RequestBody body);
+
+    @POST("usermanage/resacc")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> register(@Body RequestBody body);
 
 
 }

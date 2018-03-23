@@ -15,10 +15,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <EditText
-                android:id="@+id/edit_user_name"
+                android:id="@+id/edit_phone_num"
                 style="@style/common_edit"
                 android:layout_width="0dp"
                 android:layout_weight="3"
+                android:inputType="number"
                 android:hint="@string/input_user_name"/>
 
             <Button

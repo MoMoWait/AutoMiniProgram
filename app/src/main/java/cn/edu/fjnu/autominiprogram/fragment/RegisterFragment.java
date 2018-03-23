@@ -35,14 +35,18 @@ import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
 @ContentView(R.layout.fragment_register)
 public class RegisterFragment extends AppBaseFragment {
     private static final String TAG = "RegisterFragment";
-    @ViewInject(R.id.edit_user_name)
-    private EditText mEditUserName;
+    @ViewInject(R.id.edit_phone_num)
+    private EditText mEditPhoneNum;
     @ViewInject(R.id.edit_password)
     private EditText mEditPassword;
     @ViewInject(R.id.edit_confirm_password)
     private EditText mEditConfirmPassword;
     @ViewInject(R.id.btn_register)
     private Button mBtnRegister;
+    @ViewInject(R.id.edit_recommand_code)
+    private EditText mEditRecommandCode;
+    @ViewInject(R.id.edit_wechat_nickname)
+    private EditText mEditWechatNickName;
 
     private RegisterUserTask mRegisterTask;
 
@@ -59,10 +63,12 @@ public class RegisterFragment extends AppBaseFragment {
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userName = mEditUserName.getText().toString().trim();
+                String userName = mEditPhoneNum.getText().toString().trim();
                 String password = mEditPassword.getText().toString();
                 String confirmPassword = mEditConfirmPassword.getText().toString();
-                if(TextUtils.isEmpty(userName) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)){
+                final String nickeName = mEditWechatNickName.getText().toString().trim();
+                final String recommandCode = mEditRecommandCode.getText().toString().trim();
+                if(TextUtils.isEmpty(userName) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword) || TextUtils.isEmpty(nickeName)){
                     ToastUtils.showToast(getString(R.string.input_all));
                     return;
                 }
@@ -77,7 +83,7 @@ public class RegisterFragment extends AppBaseFragment {
                 Observable.just(info).map(new Function<UserInfo, Integer>() {
                     @Override
                     public Integer apply(@NonNull UserInfo userInfo) throws Exception {
-                        return  mRegisterTask.register(userInfo.getUserName(), userInfo.getPasswd());
+                        return  mRegisterTask.register(userInfo.getUserName(), userInfo.getPasswd(), nickeName, recommandCode);
                     }
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Consumer<Integer>() {
