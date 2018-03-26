@@ -175,6 +175,20 @@ public class ConstData {
     }
 
     /**
+     * 错误消息
+     */
+    public interface ErrorInfo{
+        /**没有错误*/
+        int NO_ERR = 0;
+        /**未知错误*/
+        int UNKNOW_ERR = -1;
+        /**网络错误*/
+        int NET_ERR = 2000;
+        /**账号已经存在*/
+        int ACCOUNT_EXIST = 2001;
+    }
+
+    /**
      * 组件之间传递的key
      */
     public interface IntentKey{

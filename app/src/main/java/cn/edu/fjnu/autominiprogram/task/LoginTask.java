@@ -42,8 +42,8 @@ public class LoginTask extends AsyncTask<String, Integer, Integer> {
         UrlService service = ServiceManager.getInstance().getUrlService();
         try{
             JSONObject reqObject = new JSONObject();
-            reqObject.put("username", userName);
-            reqObject.put("password", passwd);
+            reqObject.put("phone", userName);
+            reqObject.put("pwd", passwd);
             RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),reqObject.toString());
             Call<ResponseBody> resBody = service.loigin(body);
             Response<ResponseBody> response  = resBody.execute();
