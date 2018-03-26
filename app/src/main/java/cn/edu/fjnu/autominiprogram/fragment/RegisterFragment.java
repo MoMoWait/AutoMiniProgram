@@ -90,10 +90,12 @@ public class RegisterFragment extends AppBaseFragment {
                             @Override
                             public void accept(Integer status) throws Exception {
                                 DialogUtils.closeLoadingDialog();
-                                if(status == ConstData.TaskResult.SUCC){
+                                if(status == ConstData.ErrorInfo.NO_ERR){
                                     ToastUtils.showToast(getString(R.string.register_succ));
                                     getActivity().finish();
-                                }else{
+                                }else if(status == ConstData.ErrorInfo.ACCOUNT_EXIST){
+                                    ToastUtils.showToast(getString(R.string.account_exist));
+                                }else if(status == ConstData.ErrorInfo.UNKNOW_ERR){
                                     ToastUtils.showToast(getString(R.string.register_failed));
                                 }
                             }

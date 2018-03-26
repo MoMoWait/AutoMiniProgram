@@ -55,6 +55,10 @@ public class ToastUtils {
         sToast.show();
     }
 
+    public static void showToast(int resId){
+
+    }
+
     /**
      *显示Toast信息
      * @param content 显示的文字内容

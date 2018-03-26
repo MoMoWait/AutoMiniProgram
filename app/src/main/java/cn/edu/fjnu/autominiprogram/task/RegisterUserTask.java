@@ -6,6 +6,7 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
+import java.net.SocketTimeoutException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -65,10 +66,10 @@ public class RegisterUserTask extends AsyncTask<String, Integer, Integer> {
             String result = response.body().string();
             Log.i(TAG, "doInbackgournd->result:" + result);
             JSONObject resObject = new JSONObject(result);
-            return resObject.getString("msg").equals("success")? ConstData.TaskResult.SUCC : ConstData.TaskResult.FAILED;
+            return resObject.getString("msg").equals("success")? ConstData.ErrorInfo.NO_ERR : ConstData.ErrorInfo.ACCOUNT_EXIST;
         }catch (Exception e){
             e.printStackTrace();
-            return ConstData.TaskResult.FAILED;
+            return ConstData.ErrorInfo.UNKNOW_ERR;
         }
     }
 
