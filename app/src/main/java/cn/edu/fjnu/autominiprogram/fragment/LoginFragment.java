@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,27 +115,30 @@ public class LoginFragment extends AppBaseFragment{
         UserInfo info = new UserInfo();
         info.setUserName(mUserName);
         info.setPasswd(mPasswd);
-        Observable.just(info).map(new Function<UserInfo, Integer>() {
+        Observable.just(info).map(new Function<UserInfo, UserInfo>() {
             @Override
-            public Integer apply(@NonNull UserInfo userInfo) throws Exception {
+            public UserInfo apply(@NonNull UserInfo userInfo) throws Exception {
                 mLoginTask = new LoginTask();
                 return mLoginTask.login(userInfo.getUserName(), userInfo.getPasswd());
             }
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Integer>() {
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<UserInfo>() {
             @Override
-            public void accept(Integer status) throws Exception {
+            public void accept(UserInfo userInfo) throws Exception {
                 DialogUtils.closeLoadingDialog();
-                if (status == ConstData.TaskResult.SUCC) {
+                Log.i(TAG, "login->userInfo:" + userInfo);
+                if(userInfo == null){
+                    ToastUtils.showToast(getString(R.string.login_failed));
+                }else if(userInfo.getState() == ConstData.UserState.NORMAL){
                     Intent intent = new Intent(getContext(), FloatingwindowService.class);
                     if (isServiceRunning()) {
                         getContext().stopService(intent);
                     }
                     getContext().startService(intent);
                     getActivity().finish();
-
-                } else {
-                    ToastUtils.showToast(getString(R.string.login_failed));
+                }else if(userInfo.getState() == ConstData.UserState.DISABLE){
+                    ToastUtils.showToast(R.string.account_disable);
                 }
+
             }
         }, new Consumer<Throwable>() {
             @Override

@@ -186,6 +186,40 @@ public class ConstData {
         int NET_ERR = 2000;
         /**账号已经存在*/
         int ACCOUNT_EXIST = 2001;
+        /**
+         * 账号被禁用
+         */
+        int ACCOUNT_DISABLE = 2002;
+    }
+
+    /**
+     * 用户类型
+     */
+    public interface UserTypes{
+        /**
+         * 正式用户，推荐人已提现
+         */
+        int FORMAL_RECOMMAND = 1;
+        /**
+         * 正式用户，推荐人未提现
+         */
+        int FORMAL_UNRECOMMAND = 2;
+        /**
+         * 未审核用户，推荐人已提现
+         */
+        int TEMP_RECOMMAND = 3;
+        /**
+         * 未审核用户，推荐人未提现
+         */
+        int TEMP_UNRECOMMAND = 4;
+    }
+
+    /**
+     * 用户状态
+     */
+    public interface UserState{
+        int NORMAL = 1;
+        int DISABLE = 2;
     }
 
     /**
