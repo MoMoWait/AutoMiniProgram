@@ -1,5 +1,6 @@
 package cn.edu.fjnu.autominiprogram.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -47,7 +49,10 @@ public class RegisterFragment extends AppBaseFragment {
     private EditText mEditRecommandCode;
     @ViewInject(R.id.edit_wechat_nickname)
     private EditText mEditWechatNickName;
-
+    @ViewInject(R.id.btn_upload_wechat_screenshot)
+    private Button mBtnUploadWechatScreenshot;
+    @ViewInject(R.id.img_wechat_screenshot)
+    private ImageView mImgWechatScreenshot;
     private RegisterUserTask mRegisterTask;
 
     @Nullable
@@ -102,5 +107,22 @@ public class RegisterFragment extends AppBaseFragment {
                         });
             }
         });
+        mBtnUploadWechatScreenshot.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startSelectPhoto();
+            }
+        });
+    }
+
+    @Override
+    public void onSelectPhoto(Uri uri) {
+        if(uri == null){
+            ToastUtils.showToast(R.string.sel_photo_failed);
+        }else{
+            //显示图片
+            mImgWechatScreenshot.setVisibility(View.VISIBLE);
+            x.image().bind(mImgWechatScreenshot, uri.getPath());
+        }
     }
 }

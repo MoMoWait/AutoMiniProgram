@@ -81,13 +81,29 @@ public abstract class BaseFragment extends Fragment {
                 onTakePicture();
             else if(requestCode == RequestCodeForActivity.RQC_SELECT_PHOTO){
                 Uri localUri = data.getData();
+                if(localUri == null){
+                    onSelectPhoto(null);
+                    return;
+                }
                 String[] projStrings = { MediaStore.Images.Media.DATA };
                 Cursor cursor = getActivity().managedQuery(localUri, projStrings, null, null,
                         null);
-                int cloum_index = cursor
-                        .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                if(cursor == null){
+                    onSelectPhoto(null);
+                    return;
+                }
+                int cloumIndex = -1;
+                try{
+                    cloumIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);;
+                }catch (Exception e){
+                    //no handle
+                }
                 cursor.moveToFirst();
-                String pathString = cursor.getString(cloum_index);
+                if(cloumIndex == -1){
+                    onSelectPhoto(null);
+                    return;
+                }
+                String pathString = cursor.getString(cloumIndex);
                // startPhotoZoom();
                 onSelectPhoto(Uri.fromFile(new File(pathString)));
             }else if(requestCode == RequestCodeForActivity.RQC_CROP_PHOTO){
