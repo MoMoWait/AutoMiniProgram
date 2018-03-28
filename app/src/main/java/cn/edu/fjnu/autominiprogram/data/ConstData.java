@@ -249,6 +249,10 @@ public class ConstData {
         String INSTALL_TIME = "install_time";
         /**下载的彩票包的MD5值*/
         String LOTTY_APK_MD5 = "lotty_apk_md5";
+        /**
+         * 当前登陆的用户信息
+         */
+        String CURR_USER_INFO = "curr_user_info";
     }
 
     /**

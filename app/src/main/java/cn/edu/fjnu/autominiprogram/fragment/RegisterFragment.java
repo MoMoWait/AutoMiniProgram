@@ -1,20 +1,21 @@
 package cn.edu.fjnu.autominiprogram.fragment;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
-
+import java.io.ByteArrayOutputStream;
 import cn.edu.fjnu.autominiprogram.R;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
 import cn.edu.fjnu.autominiprogram.bean.UserInfo;
@@ -26,6 +27,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import momo.cn.edu.fjnu.androidutils.utils.BitmapUtils;
 import momo.cn.edu.fjnu.androidutils.utils.DialogUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
 
@@ -123,6 +125,38 @@ public class RegisterFragment extends AppBaseFragment {
             //显示图片
             mImgWechatScreenshot.setVisibility(View.VISIBLE);
             x.image().bind(mImgWechatScreenshot, uri.getPath());
+            final String filePath = uri.getPath();
+            Observable.just(filePath).map(new Function<String, String>() {
+                @Override
+                public String apply(String s) throws Exception {
+                    try{
+                        Bitmap bitmap = BitmapUtils.getScaledBitmapFromFile(filePath, 540, 960);
+                        return BitmapUtils.getBase64String(bitmap);
+                    }catch (OutOfMemoryError error){
+                        //no handle
+                    }catch (Exception e){
+                        //no handle
+                    }
+                    return  null;
+
+                }
+            }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
+                @Override
+                public void accept(String s) throws Exception {
+                    if(s != null){
+
+                    }else{
+                        //上传图片失败
+
+                    }
+                }
+            }, new Consumer<Throwable>() {
+                @Override
+                public void accept(Throwable throwable) throws Exception {
+
+                }
+            });
+
         }
     }
 }

@@ -45,6 +45,7 @@ import cn.edu.fjnu.autominiprogram.hkh.Constant;
 import cn.edu.fjnu.autominiprogram.hkh.Main;
 import cn.edu.fjnu.autominiprogram.hkh.Ocr;
 import momo.cn.edu.fjnu.androidutils.utils.SizeUtils;
+import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
 
 public class FloatingwindowService extends AccessibilityService {
     public static final String TAG = "MainTestService";
@@ -108,10 +109,10 @@ public class FloatingwindowService extends AccessibilityService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent == null) {
-            Log.e(TAG, "onStartCommand(): intent = null");
-            return -1;
-        }
+        //f (intent == null) {
+        ///    Log.e(TAG, "onStartCommand(): intent = null");
+          //  return -1;
+        //}
         createFloatingView(LayoutInflater.from(this));
         Message message = new Message();
         message.what = REFRESH_VIEW;
@@ -122,7 +123,7 @@ public class FloatingwindowService extends AccessibilityService {
 
     private void createFloatingView(LayoutInflater inflater) {
         mWm = (WindowManager) getApplicationContext()
-                .getSystemService("window");
+                .getSystemService(Context.WINDOW_SERVICE);
 
         View view = inflater.inflate(R.layout.floatingwindow, null);
         x.view().inject(this, view);

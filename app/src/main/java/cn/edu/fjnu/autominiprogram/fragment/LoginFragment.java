@@ -36,6 +36,8 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import momo.cn.edu.fjnu.androidutils.utils.DialogUtils;
+import momo.cn.edu.fjnu.androidutils.utils.JsonUtils;
+import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
 
 
@@ -129,6 +131,8 @@ public class LoginFragment extends AppBaseFragment{
                 if(userInfo == null){
                     ToastUtils.showToast(getString(R.string.login_failed));
                 }else if(userInfo.getState() == ConstData.UserState.NORMAL){
+                    //此处保存用户信息
+                    StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.CURR_USER_INFO, JsonUtils.objectToJson(userInfo).toString());
                     Intent intent = new Intent(getContext(), FloatingwindowService.class);
                     if (isServiceRunning()) {
                         getContext().stopService(intent);

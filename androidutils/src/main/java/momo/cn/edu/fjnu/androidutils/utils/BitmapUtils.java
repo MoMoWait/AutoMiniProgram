@@ -9,8 +9,10 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
+import android.util.Base64;
 import android.view.View;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
@@ -140,6 +142,23 @@ public class BitmapUtils {
 		view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
 		view.draw(c);
 		return b;
+	}
+
+	/**
+	 * 获取图片的Base64编码
+	 * @param bitmap
+	 * @return
+	 */
+	public static String getBase64String(Bitmap bitmap){
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+		byte[] bytes = outputStream.toByteArray();
+		try{
+			outputStream.close();
+		}catch (Exception e){
+			//no handle
+		}
+		return Base64.encodeToString(bytes, Base64.DEFAULT);
 	}
 
 }

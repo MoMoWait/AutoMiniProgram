@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,6 +32,7 @@ import cn.edu.fjnu.autominiprogram.adapter.ColorTypeAdapter;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
 import cn.edu.fjnu.autominiprogram.bean.ColorInfo;
 import cn.edu.fjnu.autominiprogram.bean.ColorType;
+import cn.edu.fjnu.autominiprogram.bean.UserInfo;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -38,6 +40,8 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import momo.cn.edu.fjnu.androidutils.utils.JsonUtils;
+import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 
 /**
  * Created by gaofei on 2017/9/9.
@@ -45,6 +49,14 @@ import io.reactivex.schedulers.Schedulers;
  */
 @ContentView(R.layout.fragment_home)
 public class HomeFragment extends AppBaseFragment {
+    @ViewInject(R.id.text_user_name)
+    private TextView mTextUserName;
+    @ViewInject(R.id.text_recommend_code)
+    private TextView mTextRecommendCode;
+    @ViewInject(R.id.text_money)
+    private TextView mTextMoney;
+
+    private UserInfo mUserInfo;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,7 +66,20 @@ public class HomeFragment extends AppBaseFragment {
     @Override
     public void init() {
         super.init();
+        //还原当前登陆的用户信息
+        String strUserInfo = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.CURR_USER_INFO);
+        JSONObject userInfoObject = null;
+        try{
+            userInfoObject = new JSONObject(strUserInfo);
+        }catch (Exception e){
+            //no handle
+        }
+        mUserInfo = (UserInfo) JsonUtils.jsonToObject(UserInfo.class, userInfoObject);
+        mTextUserName.setText(mUserInfo.getUserName());
+        mTextRecommendCode.setText(String.valueOf(mUserInfo.getSpreader()));
+        mTextMoney.setText(String.valueOf(mUserInfo.getMoney()));
     }
+
 
     @Override
     public void onDestroyView() {
