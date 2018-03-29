@@ -211,6 +211,17 @@
                 android:resource="@xml/accessibility_config"/>
         </service>
 
+
+        <activity
+            android:name="cn.edu.fjnu.autominiprogram.activity.ForgetPasswordActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/forget_passwd_title">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
         <activity
             android:name="cn.edu.fjnu.autominiprogram.accessibility.AccessibilityOpenHelperActivity"
             android:excludeFromRecents="true"

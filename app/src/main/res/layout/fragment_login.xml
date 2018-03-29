@@ -31,7 +31,15 @@
             android:layout_width="match_parent"
             android:hint="@string/input_password"
             android:inputType="textPassword" />
-
+        <TextView
+            android:id="@+id/text_forget_passwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/forget_passwd"
+            android:textColor="@color/pre_production_blue"
+            android:gravity="right"
+            android:paddingRight="10dp"/>
         <Button
             android:id="@+id/btn_login"
             style="@style/common_btn"

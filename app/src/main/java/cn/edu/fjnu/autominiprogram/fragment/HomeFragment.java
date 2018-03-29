@@ -76,7 +76,7 @@ public class HomeFragment extends AppBaseFragment {
         }
         mUserInfo = (UserInfo) JsonUtils.jsonToObject(UserInfo.class, userInfoObject);
         mTextUserName.setText(mUserInfo.getUserName());
-        mTextRecommendCode.setText(String.valueOf(mUserInfo.getSpreader()));
+        mTextRecommendCode.setText("推荐人ID：" + String.valueOf(mUserInfo.getSpreader()));
         mTextMoney.setText(String.valueOf(mUserInfo.getMoney()));
     }
 
