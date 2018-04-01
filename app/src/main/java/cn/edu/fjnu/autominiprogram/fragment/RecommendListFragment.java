@@ -2,6 +2,7 @@ package cn.edu.fjnu.autominiprogram.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +46,7 @@ import okhttp3.ResponseBody;
  */
 @ContentView(R.layout.fragment_recommend_list)
 public class RecommendListFragment extends AppBaseFragment {
-
+    private static final String TAG = RecommendListFragment.class.getSimpleName();
     @ViewInject(R.id.list_recommend)
     private ListView mListRecommend;
     private UserInfo mUserInfo;
@@ -89,6 +91,8 @@ public class RecommendListFragment extends AppBaseFragment {
                             recommendUserInfo.setPhone(itemObject.getString("user_phone"));
                             recommendUserInfo.setNickName(itemObject.getString("user_nickname"));
                             recommendUserInfo.setType(itemObject.getInt("user_type"));
+                            //Timestamp timestamp = (Timestamp) itemObject.get("user_restime");
+                            //Log.i(TAG, "msg_time:" + timestamp.getTime());
                             recommendUserInfo.setRestime(itemObject.getString("user_restime"));
                             recommendUserInfo.setCanGet(itemObject.getDouble("canGet"));
                             recommendUserInfos.add(recommendUserInfo);

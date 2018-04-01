@@ -2,6 +2,7 @@ package cn.edu.fjnu.autominiprogram.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ import okhttp3.ResponseBody;
 public class SystemNotificationFragment extends AppBaseFragment {
 
     private UserInfo mUserInfo;
-
+    private static final String TAG = SystemNotificationFragment.class.getSimpleName();
     @ViewInject(R.id.list_notification)
     private ListView mListNotification;
 

@@ -38,12 +38,12 @@ public interface UrlService {
     Call<ResponseBody> register(@Body RequestBody body);
 
     @POST("usermanage/getCode")
-    @Headers({"Content-Type:application/json;charset=UTF-8", "Cookie:JSESSIONID=B3B881ED393F888B89CF322BDEC1EE87; Path=/YouLeTao; HttpOnly"})
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
     Call<ResponseBody> getCode(@Body RequestBody body);
 
     @POST("usermanage/checkCode")
-    @Headers({"Content-Type:application/json;charset=UTF-8", "Cookie:JSESSIONID=B3B881ED393F888B89CF322BDEC1EE87; Path=/YouLeTao; HttpOnly"})
-    Call<ResponseBody> checkCode(@Body RequestBody body);
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> checkCode(@Body RequestBody body, @Header("Cookie") String sessionID);
 
     @POST("usermanage/changepwd")
     @Headers({"Content-Type:application/json;charset=UTF-8"})
@@ -64,4 +64,8 @@ public interface UrlService {
     @POST("userinfo/getMySpreaderList")
     @Headers({"Content-Type:application/json;charset=UTF-8"})
     Call<ResponseBody> getRecommendList(@Body RequestBody body);
+
+    @POST("suggestion/insertSuggestion")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> insertSuggestion(@Body RequestBody body);
 }

@@ -69,7 +69,7 @@ public class RecommendAdapter extends ArrayAdapter<RecommendUserInfo> {
                     textUserType.setText("用户类型：" + "正式用户（可提现）");
                     break;
             }
-            textNickName.setText("推荐时间：" + itemColorInfo.getRestime());
+            textUserRecommendTime.setText("推荐时间：" + itemColorInfo.getRestime());
             textCanGet.setText("可提金额：" + itemColorInfo.getCanGet());
 
         }

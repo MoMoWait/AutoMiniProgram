@@ -246,6 +246,7 @@ public class ConstData {
         String WEB_LOAD_CONTENT = "web_load_content";
         String WEB_LOAD_TIME = "web_load_time";
         String WEB_LOAD_TITLE = "web_load_title";
+        String SESSION_ID = "session_id";
     }
 
     /**
@@ -265,6 +266,24 @@ public class ConstData {
          * 忘记密码手机号码
          */
         String FORGET_PASSWORD_PHONE = "forget_password_phone";
+        /**当前手机号*/
+        String CURR_PHONE = "curr_phone";
+        /**当前密码*/
+        String CURR_PASSWORD = "curr_password";
+        /**起点x坐标*/
+        String START_X = "start_x";
+        /**起点y坐标*/
+        String START_Y = "start_y";
+        /**发单群数*/
+        String SEND_GROUP_NUM = "send_group_num";
+        /**发单间隔随机*/
+        String IS_SEND_TWEEN_RANDOM = "is_send_tween_random";
+        /**发单间隔时间*/
+        String SEND_TWEEN_TIME = "send_tween_time";
+        /**自动发单开始时间*/
+        String AUTO_SEND_START_TIME = "auto_send_start_time";
+        /**自动发单结束时间*/
+        String AUTO_SEND_END_TIME = "auto_end_start_time";
     }
 
     /**

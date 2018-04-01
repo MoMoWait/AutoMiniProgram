@@ -49,17 +49,17 @@ public class RegisterUserTask extends AsyncTask<String, Integer, Integer> {
         String userName = strings[0];
         String passwd = strings[1];
         String nickName = strings[2];
-        String recommandCode = null;
-        if(strings.length > 3)
-         recommandCode = strings[3];
+        String recommandCode = strings[3];
+        String photoBase64 = strings[4];
         UrlService service = ServiceManager.getInstance().getUrlService();
         try{
             JSONObject reqObject = new JSONObject();
             reqObject.put("phone", userName);
             reqObject.put("pwd", passwd);
             reqObject.put("nick", nickName);
-            if(recommandCode != null)
-                reqObject.put("spreader", recommandCode);
+            //if(recommandCode != null)
+            reqObject.put("spreader", recommandCode);
+            reqObject.put("base64", photoBase64);
             RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),reqObject.toString());
             Call<ResponseBody> resBody = service.register(body);
             Response<ResponseBody> response  = resBody.execute();
@@ -78,9 +78,7 @@ public class RegisterUserTask extends AsyncTask<String, Integer, Integer> {
         mCallback.onResult(result);
     }
 
-    public int register(String userName, String passwd, String nickName, String recommandCode){
-        if(TextUtils.isEmpty(recommandCode))
-            return doInBackground(userName, passwd, nickName);
-        return doInBackground(userName, passwd, nickName, recommandCode);
+    public int register(String userName, String passwd, String nickName, String recommendCode, String photoBase64){
+        return doInBackground(userName, passwd, nickName, recommendCode, photoBase64);
     }
 }

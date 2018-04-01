@@ -53,6 +53,7 @@
     <string name="password_not_same">两次输入的密码不一致</string>
     <string name="enter_wechat_nickname">输入微信昵称</string>
     <string name="enter_wechat_recommand_code">输入推荐码</string>
+    <string name="enter_recommend_phone_num">输入推荐人手机号</string>
     <string name="photo_view">图片浏览</string>
     <string name="data_change">资料修改</string>
     <string name="user_name_change">用户名修改</string>
@@ -153,4 +154,17 @@
     <string name="recommend_list">推荐列表</string>
     <string name="no_recommend_user">无推荐用户</string>
     <string name="get_recommend_list_failed">获取推荐列表失败</string>
+    <string name="sel_phone">获取推荐列表失败</string>
+    <string name="upload_wechat_photo_tip">请上传微信截图</string>
+    <string name="min_window">窗口最小</string>
+    <string name="sending_group_num">发单群数</string>
+    <string name="enter_send_group_num">输入发单群数</string>
+    <string name="sending_tween">发单间隔</string>
+    <string name="sending_tween_minute">发单间隔(分钟)</string>
+    <string name="enter_sending_tween">输入发单间隔</string>
+    <string name="auto_start_stop">自动启停</string>
+    <string name="enter_start_time">输入开始时间</string>
+    <string name="enter_stop_time">输入结束时间</string>
+    <string name="endtime_must_large_starttime">结束时间必须大于开始时间</string>
+    <string name="setting_success">设置成功</string>
 </resources>

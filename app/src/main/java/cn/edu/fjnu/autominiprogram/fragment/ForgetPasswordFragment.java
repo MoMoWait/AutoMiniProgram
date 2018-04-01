@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 /**
  * Created by gaofei on 2018/3/29.
@@ -78,7 +80,13 @@ public class ForgetPasswordFragment extends AppBaseFragment {
                         JSONObject reqObject = new JSONObject();
                         reqObject.put("phone", s);
                         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),reqObject.toString());
-                        ResponseBody responseBody = urlService.getCode(body).execute().body();
+                        retrofit2.Response<ResponseBody> response = urlService.getCode(body).execute();
+                        String sessionId = response.headers().get("Set-Cookie");
+                        //Log.i(TAG, "sessionId:" + sessionId);
+                        if(sessionId != null){
+                            StorageUtils.saveDataToSharedPreference(ConstData.IntentKey.SESSION_ID, sessionId);
+                        }
+                        ResponseBody responseBody = response.body();
                         if(responseBody != null){
                             String result = responseBody.string();
                             String msgResult = new JSONObject(result).getString("msg");
@@ -150,7 +158,8 @@ public class ForgetPasswordFragment extends AppBaseFragment {
                         reqObject.put("phone", phoneNum);
                         reqObject.put("code", code);
                         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),reqObject.toString());
-                        ResponseBody responseBody = urlService.checkCode(body).execute().body();
+                        String sessionID = StorageUtils.getDataFromSharedPreference(ConstData.IntentKey.SESSION_ID);
+                        ResponseBody responseBody = urlService.checkCode(body, sessionID).execute().body();
                         if(responseBody != null){
                             String result = responseBody.string();
                             String msgResult = new JSONObject(result).getString("msg");

@@ -1,6 +1,7 @@
 package cn.edu.fjnu.autominiprogram.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,6 +14,10 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 import cn.edu.fjnu.autominiprogram.R;
+import cn.edu.fjnu.autominiprogram.activity.SendingAutoStartStopActivity;
+import cn.edu.fjnu.autominiprogram.activity.SendingTweenActivity;
+import cn.edu.fjnu.autominiprogram.activity.SettingSendGroupActivity;
+import cn.edu.fjnu.autominiprogram.activity.SuggestionActivity;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
 /**
  * Created by gaofei on 2018/3/8.
@@ -20,25 +25,28 @@ import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
  */
 
 @ContentView(R.layout.fragment_settings)
-public class SettingsFramgnet extends AppBaseFragment {
+public class SettingsFramgnet extends AppBaseFragment implements View.OnClickListener{
 
-    @ViewInject(R.id.img_head_photo)
-    private ImageView mImgHeadPhoto;
+    @ViewInject(R.id.layout_send_group_num)
+    private LinearLayout mLayoutSendGroupNum;
 
-    @ViewInject(R.id.layout_about)
-    private LinearLayout mLayoutAbout;
+    @ViewInject(R.id.layout_hello)
+    private LinearLayout mLayoutHello;
 
     @ViewInject(R.id.layout_suggestion)
     private LinearLayout mLayoutSuggestion;
 
-    @ViewInject(R.id.layout_information)
-    private LinearLayout mLayoutInformation;
+    @ViewInject(R.id.layout_tween_time)
+    private LinearLayout mLayoutTweenTime;
+
+    @ViewInject(R.id.layout_auto_start_stop)
+    private LinearLayout mLayoutAutoStartStop;
+
+    @ViewInject(R.id.layout_logcat_trace)
+    private LinearLayout mLayoutLogcatTrace;
 
     @ViewInject(R.id.layout_update)
     private LinearLayout mLayoutUpdate;
-
-    @ViewInject(R.id.text_login)
-    private TextView mTextLogin;
 
     private boolean mIsLogin;
 
@@ -51,8 +59,28 @@ public class SettingsFramgnet extends AppBaseFragment {
 
     @Override
     public void init(){
-
+        mLayoutSendGroupNum.setOnClickListener(this);
+        mLayoutTweenTime.setOnClickListener(this);
+        mLayoutAutoStartStop.setOnClickListener(this);
+        mLayoutSuggestion.setOnClickListener(this);
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.layout_send_group_num:
+                startActivity(new Intent(getContext(), SettingSendGroupActivity.class));
+                break;
+            case R.id.layout_tween_time:
+                startActivity(new Intent(getContext(), SendingTweenActivity.class));
+                break;
+            case R.id.layout_auto_start_stop:
+                startActivity(new Intent(getContext(), SendingAutoStartStopActivity.class));
+                break;
+            case R.id.layout_suggestion:
+                startActivity(new Intent(getContext(), SuggestionActivity.class));
+                break;
+        }
+    }
 }

@@ -25,7 +25,8 @@
         android:hint="QQ/电话"
         android:paddingLeft="10dp"
         android:inputType="number"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:visibility="gone"/>
     <Button
         android:id="@+id/btn_suggestion"
         android:layout_width="match_parent"

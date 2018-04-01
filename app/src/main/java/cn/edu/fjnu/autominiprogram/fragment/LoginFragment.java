@@ -3,10 +3,14 @@ package cn.edu.fjnu.autominiprogram.fragment;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,6 +84,30 @@ public class LoginFragment extends AppBaseFragment{
             actionBar.setDisplayShowCustomEnabled(true);
             actionBar.setCustomView(new LoginActionBarView(getContext()));
         }
+        if(Build.VERSION.SDK_INT >= 23){
+            if (!Settings.canDrawOverlays(getContext())) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                ToastUtils.showToast("请打开悬浮窗权限");
+                startActivity(intent);
+            }
+        }
+
+        String userName = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.CURR_PHONE);
+        String password = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.CURR_PASSWORD);
+        if(!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)){
+            mUserName = userName;
+            mPasswd = password;
+            mEdtUserName.setText(userName);
+            mEdtPassword.setText(password);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    login();
+                }
+            }, 100);
+
+        }
+
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,6 +172,8 @@ public class LoginFragment extends AppBaseFragment{
                 }else if(userInfo.getState() == ConstData.UserState.NORMAL){
                     //此处保存用户信息
                     StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.CURR_USER_INFO, JsonUtils.objectToJson(userInfo).toString());
+                    StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.CURR_PHONE, userInfo.getPhone());
+                    StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.CURR_PASSWORD, userInfo.getPasswd());
                     Intent intent = new Intent(getContext(), FloatingwindowService.class);
                     if (isServiceRunning()) {
                         getContext().stopService(intent);

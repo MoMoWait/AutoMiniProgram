@@ -71,6 +71,8 @@ public abstract class BaseFragment extends Fragment {
         Intent intent = new Intent();
         intent.setType("image/*");//打开图片方式
         intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         startActivityForResult(intent, RequestCodeForActivity.RQC_SELECT_PHOTO);
     }
 
@@ -85,27 +87,8 @@ public abstract class BaseFragment extends Fragment {
                     onSelectPhoto(null);
                     return;
                 }
-                String[] projStrings = { MediaStore.Images.Media.DATA };
-                Cursor cursor = getActivity().managedQuery(localUri, projStrings, null, null,
-                        null);
-                if(cursor == null){
-                    onSelectPhoto(null);
-                    return;
-                }
-                int cloumIndex = -1;
-                try{
-                    cloumIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);;
-                }catch (Exception e){
-                    //no handle
-                }
-                cursor.moveToFirst();
-                if(cloumIndex == -1){
-                    onSelectPhoto(null);
-                    return;
-                }
-                String pathString = cursor.getString(cloumIndex);
-               // startPhotoZoom();
-                onSelectPhoto(Uri.fromFile(new File(pathString)));
+                onSelectPhoto(localUri);
+
             }else if(requestCode == RequestCodeForActivity.RQC_CROP_PHOTO){
                 onPhotoCrop(mCropFilePath);
             }

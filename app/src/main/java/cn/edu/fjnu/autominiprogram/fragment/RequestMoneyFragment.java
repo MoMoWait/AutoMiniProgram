@@ -100,7 +100,7 @@ public class RequestMoneyFragment extends AppBaseFragment {
                         reqObject.put("spreader_id", mUserInfo.getUserId());
                         reqObject.put("aliacc", mAiliPayAccount);
                         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),reqObject.toString());
-                        ResponseBody responseBody = urlService.checkCode(body).execute().body();
+                        ResponseBody responseBody = urlService.requestMoney(body).execute().body();
                         if(responseBody != null){
                             String result = responseBody.string();
                             if(new JSONObject(result).getString("msg").equals(ConstData.MsgResult.SUCC))
