@@ -175,6 +175,14 @@ public class ConstData {
     }
 
     /**
+     * 响应结果消息
+     */
+    public interface MsgResult{
+        String SUCC = "success";
+        String failed = "fail";
+    }
+
+    /**
      * 错误消息
      */
     public interface ErrorInfo{
@@ -253,6 +261,10 @@ public class ConstData {
          * 当前登陆的用户信息
          */
         String CURR_USER_INFO = "curr_user_info";
+        /**
+         * 忘记密码手机号码
+         */
+        String FORGET_PASSWORD_PHONE = "forget_password_phone";
     }
 
     /**

@@ -1,5 +1,6 @@
 package cn.edu.fjnu.autominiprogram.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -7,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -27,6 +30,8 @@ import java.util.List;
 import java.util.Locale;
 
 import cn.edu.fjnu.autominiprogram.R;
+import cn.edu.fjnu.autominiprogram.activity.MyMoneyActivity;
+import cn.edu.fjnu.autominiprogram.activity.RecommendListActivity;
 import cn.edu.fjnu.autominiprogram.adapter.ColorAdapter;
 import cn.edu.fjnu.autominiprogram.adapter.ColorTypeAdapter;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
@@ -55,6 +60,14 @@ public class HomeFragment extends AppBaseFragment {
     private TextView mTextRecommendCode;
     @ViewInject(R.id.text_money)
     private TextView mTextMoney;
+    @ViewInject(R.id.layout_my_money)
+    private RelativeLayout mlayoutMyMoney;
+    @ViewInject(R.id.layout_request_money)
+    private RelativeLayout mLayoutRequestMoney;
+    @ViewInject(R.id.text_request_money)
+    private TextView mTextRequestMoney;
+    @ViewInject(R.id.layout_recommend_list)
+    private LinearLayout mLayoutRecommendList;
 
     private UserInfo mUserInfo;
     @Nullable
@@ -76,10 +89,36 @@ public class HomeFragment extends AppBaseFragment {
         }
         mUserInfo = (UserInfo) JsonUtils.jsonToObject(UserInfo.class, userInfoObject);
         mTextUserName.setText(mUserInfo.getUserName());
-        mTextRecommendCode.setText("推荐人ID：" + String.valueOf(mUserInfo.getSpreader()));
-        mTextMoney.setText(String.valueOf(mUserInfo.getMoney()));
+        mTextRecommendCode.setText(mUserInfo.getPhone());
+        mTextRequestMoney.setText(String.valueOf(mUserInfo.getCanGet()));
+
+        initEvent();
     }
 
+
+    private void initEvent(){
+        mlayoutMyMoney.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //Intent intent = new Intent(getContext(), MyMoneyActivity.class);
+                //startActivity(intent);
+            }
+        });
+        mLayoutRequestMoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MyMoneyActivity.class);
+                startActivity(intent);
+            }
+        });
+        mLayoutRecommendList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), RecommendListActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 
     @Override
     public void onDestroyView() {

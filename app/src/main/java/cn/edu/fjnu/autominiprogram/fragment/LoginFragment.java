@@ -22,6 +22,7 @@ import org.xutils.x;
 import cn.edu.fjnu.autominiprogram.R;
 import android.app.ActivityManager.RunningServiceInfo;
 
+import cn.edu.fjnu.autominiprogram.activity.ForgetPasswordActivity;
 import cn.edu.fjnu.autominiprogram.activity.MainActivity;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
 import cn.edu.fjnu.autominiprogram.bean.UserInfo;
@@ -60,6 +61,8 @@ public class LoginFragment extends AppBaseFragment{
     private EditText mEdtPassword;
     @ViewInject(R.id.img_user_head)
     private ImageView mImgUserHead;
+    @ViewInject(R.id.text_forget_passwd)
+    private TextView mTextForgetPassword;
     private String mUserName;
     private String mPasswd;
     private LoginTask mLoginTask;
@@ -97,6 +100,14 @@ public class LoginFragment extends AppBaseFragment{
                     return;
                 }
                 login();
+            }
+        });
+
+        mTextForgetPassword.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ForgetPasswordActivity.class);
+                getContext().startActivity(intent);
             }
         });
     }

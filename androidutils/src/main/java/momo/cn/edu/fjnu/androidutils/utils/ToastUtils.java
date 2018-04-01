@@ -56,7 +56,10 @@ public class ToastUtils {
     }
 
     public static void showToast(int resId){
-
+        if(sToast == null)
+            sToast = Toast.makeText(CommonValues.application, "", Toast.LENGTH_SHORT);
+        sToast.setText(resId);
+        sToast.show();
     }
 
     /**

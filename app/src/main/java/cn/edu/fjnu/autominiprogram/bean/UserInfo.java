@@ -44,6 +44,10 @@ public class UserInfo {
      * 推广位
      */
     private String spreadSpace;
+    /**
+     * 可以拿到多少钱
+     */
+    private double canGet;
     public String getUserName() {
         return userName;
     }
@@ -132,6 +136,14 @@ public class UserInfo {
         this.spreadSpace = spreadSpace;
     }
 
+    public double getCanGet() {
+        return canGet;
+    }
+
+    public void setCanGet(double canGet) {
+        this.canGet = canGet;
+    }
+
     @Override
     public String toString() {
         return "UserInfo{" +
@@ -145,6 +157,7 @@ public class UserInfo {
                 ", groupNum=" + groupNum +
                 ", spreader=" + spreader +
                 ", money=" + money +
+                ", canGet=" + canGet +
                 '}';
     }
 }

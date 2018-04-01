@@ -65,6 +65,7 @@ public class LoginTask extends AsyncTask<String, Integer, UserInfo> {
             resInfo.setSingleNum(resObject.getInt("user_singlenum"));
             resInfo.setSpreader(resObject.getInt("user_spreader"));
             resInfo.setMoney(resObject.get("money") == null  || resObject.getString("money").equals("null")?  0 : resObject.getDouble("money"));
+            resInfo.setCanGet(resObject.getDouble("canGet"));
             return resInfo;
         }catch (Exception e){
             e.printStackTrace();
