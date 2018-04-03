@@ -3,11 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AutoMiniProgram.iml" filepath="$PROJECT_DIR$/AutoMiniProgram.iml" />
-      <module fileurl="file://D:\Github\AutoMiniProgram\AutoMiniProgram.iml" filepath="D:\Github\AutoMiniProgram\AutoMiniProgram.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidutils/androidutils.iml" filepath="$PROJECT_DIR$/androidutils/androidutils.iml" />
-      <module fileurl="file://D:\Github\AutoMiniProgram\androidutils\androidutils.iml" filepath="D:\Github\AutoMiniProgram\androidutils\androidutils.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\Github\AutoMiniProgram\app\app.iml" filepath="D:\Github\AutoMiniProgram\app\app.iml" />
     </modules>
   </component>
 </project>

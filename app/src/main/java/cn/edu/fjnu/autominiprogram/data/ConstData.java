@@ -171,6 +171,11 @@ public class ConstData {
     public static final String CRASH_FILE_NAME = "crash.log";
 
     /**
+     * 通用日志文件名
+     */
+    public static final String COMMON_LOG_FILE_NAME = "app.log";
+
+    /**
      * 异步块执行结果
      */
     public interface TaskResult{

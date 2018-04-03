@@ -6,6 +6,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import cn.edu.fjnu.autominiprogram.utils.CommonUtils;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -39,7 +40,10 @@ public class ServiceManager {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                Log.i(TAG, message);
+                //此处写入文件日志
+                CommonUtils.weriteLogToFile(message);
+                //Log.i(TAG, message);
+
             }
         });
         //设定日志级别
