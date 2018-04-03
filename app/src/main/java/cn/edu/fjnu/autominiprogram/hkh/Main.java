@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import cn.edu.fjnu.autominiprogram.data.ConstData;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
@@ -141,8 +142,15 @@ public class Main {
         for(Point point: sale_point){
             ShellUtils.click_point(point);
             try {
-                Log.e(TAG, "间隔时间为"+Constant.send_tween_time+"分钟");
-                Thread.sleep(Constant.send_tween_time*60*1000);
+                int tmp_time;
+                if(Constant.is_send_tween_random){
+                    Random r = new Random();
+                    tmp_time = r.nextInt(15)*1000*60;
+                }else{
+                    tmp_time = Constant.send_tween_time*1000*60;
+                }
+                Log.e(TAG, "间隔时间为" + tmp_time +" ms");
+                Thread.sleep(tmp_time);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -159,6 +167,15 @@ public class Main {
             }
 
             ShellUtils.click_point(Constant.point_checkbox);
+
+            //发送问候语句
+            SimpleDateFormat sDateFormat = new SimpleDateFormat("HH:mm");
+            String time = sDateFormat.format(new Date());
+            if(time.equals(Constant.hello_time)){
+                Log.e(TAG,"问候语句触发，内容是：" + Constant.hello_content);
+                ShellUtils.inputtext(Constant.hello_content);
+            }
+
             ShellUtils.click_point(Constant.point_send);
 
             ShellUtils.click_back();
@@ -255,7 +272,19 @@ public class Main {
             Log.e(TAG, "间隔为 "+Constant.send_tween_time);
             Constant.send_tween_time = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.SEND_TWEEN_TIME));
         }
-        //获取问候语句
+
+        //获取问候语句和时间
+        if(!StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.HELLO_CONTENT).isEmpty()){
+            Constant.hello_content = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.HELLO_CONTENT);
+        }
+        if(!StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.HELLO_TIME).isEmpty()){
+            Constant.hello_time = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.HELLO_TIME);
+        }
+
+        //获取是否随机转发
+        if(!StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_SEND_TWEEN_RANDOM).equals("true")){
+            Constant.is_send_tween_random = true;
+        }
 
         if(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1).isEmpty()){
             Constant.count_chat = 2;

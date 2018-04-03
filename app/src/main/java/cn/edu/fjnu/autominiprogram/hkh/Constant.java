@@ -40,6 +40,10 @@ public class Constant {
     public static String interval_chat_1 = "interval_chat";
 
     public static int send_tween_time; //转发的时间间隔，如果没有值，默认设置为15分钟
+    public static boolean is_send_tween_random = false; //是否为随机延时，如果是随机时间为15分钟内
+
+    public static String hello_content = "您好!!!";
+    public static String hello_time = "15:20";
 
     public static String start_now;
     public static String stop_now;

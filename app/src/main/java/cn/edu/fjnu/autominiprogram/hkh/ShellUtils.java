@@ -229,6 +229,20 @@ public class ShellUtils {
         }
     }
 
+    public static void inputtext(String context){
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String commandline = "input text " + context;
+        ShellUtils.execCommand(commandline, true);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     public static void screencap(String filePath){
         try {
             Thread.sleep(3000);
