@@ -173,4 +173,10 @@
     <string name="hello_tip">问候语</string>
     <string name="enter_hello_tip">输入问候语</string>
     <string name="enter_hello_time">输入问候时间</string>
+    <string name="upload_log">上传日志</string>
+    <string name="no_upload_log">日志文件不存在</string>
+    <string name="log_upload_succ">日志上传成功</string>
+    <string name="log_upload_failed">日志上传失败</string>
+    <string name="no_log_file">日志文件不存在</string>
+    <string name="log_upload">日志上传</string>
 </resources>

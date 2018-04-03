@@ -42,7 +42,7 @@ public class ServiceManager {
             public void log(String message) {
                 //此处写入文件日志
                 CommonUtils.weriteLogToFile(message);
-                //Log.i(TAG, message);
+                Log.i(TAG, message);
 
             }
         });

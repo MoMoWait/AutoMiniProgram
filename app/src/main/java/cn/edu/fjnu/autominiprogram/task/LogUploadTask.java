@@ -25,6 +25,17 @@ import retrofit2.Response;
 
 public class LogUploadTask extends AsyncTask<File,Integer,Integer> {
     private File mLogFile;
+    private Callback mCallback;
+
+    public interface Callback{
+        void onResult(int error);
+    }
+
+
+    public LogUploadTask(Callback callback){
+        mCallback = callback;
+    }
+
     @Override
     protected Integer doInBackground(File... files) {
         mLogFile = files[0];
@@ -59,6 +70,7 @@ public class LogUploadTask extends AsyncTask<File,Integer,Integer> {
 
     @Override
     protected void onPostExecute(Integer result) {
+        mCallback.onResult(result);
         if(result == ConstData.ErrorInfo.NO_ERR && mLogFile != null && mLogFile.exists())
             mLogFile.delete();
 

@@ -280,6 +280,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.LogUploadActivity"
+            android:label="@string/log_upload"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".accessibility.AccessibilityOpenHelperActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
