@@ -181,7 +181,10 @@ public class Main {
             ShellUtils.click_back();
 
         }
-        ShellUtils.swipe_top(sale_point.get(sale_point.size() - 1));
+        if(!sale_point.isEmpty())
+            ShellUtils.swipe_top(sale_point.get(sale_point.size() - 1));
+        else
+            Log.e(TAG, "Error here Ocr get failed.");
     }
 
 
@@ -282,7 +285,7 @@ public class Main {
         }
 
         //获取是否随机转发
-        if(!StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_SEND_TWEEN_RANDOM).equals("true")){
+        if(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_SEND_TWEEN_RANDOM).equals("true")){
             Constant.is_send_tween_random = true;
         }
 
