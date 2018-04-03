@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,8 +14,13 @@ import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.sdk.model.Location;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import cn.edu.fjnu.autominiprogram.data.ConstData;
+import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 
 /**
  * Created by hkh on 18-3-17.
@@ -39,7 +45,7 @@ public class Main {
     private void init(){
         initAccessTokenWithAkSk();
         ShellUtils.execCommand("ls", true);
-        getData();
+        //getData();
     }
     public void initRegularPosition(int x, int y){
         Point point = new Point(x, y);
@@ -87,6 +93,38 @@ public class Main {
         //将获取的点存储到数据库里面去
         saveData();
     }
+    public void start_now(){
+        //如果没有设置，默认为直接启动
+        if(Constant.start_now.isEmpty()){
+            return ;
+        }
+
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("HH:mm");
+
+        String time= sDateFormat.format(new Date());
+
+        while(!time.equals(Constant.start_now)){
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public boolean stop_now(){
+        //如果没有设置，默认为没有停止
+        if(Constant.stop_now.isEmpty()){
+            return false;
+        }
+
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("HH:mm");
+
+        String time= sDateFormat.format(new Date());
+
+        return time.equals(Constant.stop_now);
+
+    }
     public void sale(){
         ShellUtils.screencap(Constant.filePath_main);
         sale_point = new ArrayList<>();
@@ -102,6 +140,12 @@ public class Main {
 
         for(Point point: sale_point){
             ShellUtils.click_point(point);
+            try {
+                Log.e(TAG, "间隔时间为"+Constant.send_tween_time+"分钟");
+                Thread.sleep(Constant.send_tween_time*60*1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             ShellUtils.click_point(Constant.point_start);
             ShellUtils.click_point(Constant.point_tran);
             ShellUtils.click_point(Constant.point_checkbox);
@@ -163,6 +207,17 @@ public class Main {
     }
 
     public void saveData(){
+        StorageUtils.saveDataToSharedPreference(Constant.point_chat_x, String.valueOf(Constant.point_chat.m_x));
+        StorageUtils.saveDataToSharedPreference(Constant.point_chat_y, String.valueOf(Constant.point_chat.m_y));
+        StorageUtils.saveDataToSharedPreference(Constant.point_checkbox_x, String.valueOf(Constant.point_checkbox.m_x));
+        StorageUtils.saveDataToSharedPreference(Constant.point_checkbox_y, String.valueOf(Constant.point_checkbox.m_y));
+        StorageUtils.saveDataToSharedPreference(Constant.point_send_x, String.valueOf(Constant.point_send.m_x));
+        StorageUtils.saveDataToSharedPreference(Constant.point_send_y, String.valueOf(Constant.point_send.m_y));
+        StorageUtils.saveDataToSharedPreference(Constant.point_tran_x, String.valueOf(Constant.point_tran.m_x));
+        StorageUtils.saveDataToSharedPreference(Constant.point_tran_y, String.valueOf(Constant.point_tran.m_y));
+        StorageUtils.saveDataToSharedPreference(Constant.interval_chat_1, String.valueOf(Constant.interval_chat));
+
+        /*
         //1.打开Preferences，名称为setting，如果存在则打开它，否则创建新的Preferences
         SharedPreferences userSettings = mContext.getSharedPreferences("userData", 0);
         //2.让setting处于编辑状态
@@ -174,17 +229,58 @@ public class Main {
         editor.putInt(Constant.point_checkbox_y, Constant.point_checkbox.m_y);
         editor.putInt(Constant.point_send_x, Constant.point_send.m_x);
         editor.putInt(Constant.point_send_y, Constant.point_send.m_y);
-        editor.putInt(Constant.point_start_x, Constant.point_start.m_x);
-        editor.putInt(Constant.point_start_y, Constant.point_start.m_y);
+        //editor.putInt(Constant.point_start_x, Constant.point_start.m_x);
+        //editor.putInt(Constant.point_start_y, Constant.point_start.m_y);
         editor.putInt(Constant.point_tran_x, Constant.point_tran.m_x);
         editor.putInt(Constant.point_tran_y, Constant.point_tran.m_y);
         editor.putInt(Constant.count_chat_1, Constant.count_chat);
         editor.putInt(Constant.interval_chat_1, Constant.interval_chat);
         //4.提交
         editor.commit();
+        */
     }
 
     public boolean getData(){
+        //获取启动时间
+        Constant.start_now = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_START_TIME);
+        //获取结束时间
+        Constant.stop_now = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_END_TIME);
+
+        //获取发单间隔
+        if(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.SEND_TWEEN_TIME).isEmpty()){
+            //如果没有获取到值得，默认设置为15分钟
+            Log.e(TAG,"间隔默认15分钟");
+            Constant.send_tween_time = 15;
+        }else{
+            Log.e(TAG, "间隔为 "+Constant.send_tween_time);
+            Constant.send_tween_time = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.SEND_TWEEN_TIME));
+        }
+        //获取问候语句
+
+        if(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1).isEmpty()){
+            Constant.count_chat = 2;
+        }else{
+            Constant.count_chat = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1));
+        }
+
+        Constant.interval_chat = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.interval_chat_1));
+        int tmp_x, tmp_y;
+        tmp_x = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_chat_x));
+        tmp_y = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_chat_y));
+        Constant.point_chat = new Point(tmp_x, tmp_y);
+        tmp_x = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_checkbox_x));
+        tmp_y = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_checkbox_y));
+        Constant.point_checkbox = new Point(tmp_x, tmp_y);
+        tmp_x = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_send_x));
+        tmp_y = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_send_y));
+        Constant.point_send = new Point(tmp_x, tmp_y);
+        tmp_x = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_start_x));
+        tmp_y = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_start_y));
+        Constant.point_start = new Point(tmp_x, tmp_y);
+        tmp_x = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_tran_x));
+        tmp_y = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_tran_y));
+        Constant.point_tran = new Point(tmp_x, tmp_y);
+        /*
         SharedPreferences userSettings= mContext.getSharedPreferences("userData", 0);
         Constant.count_chat = userSettings.getInt(Constant.count_chat_1, 3);
 
@@ -194,11 +290,8 @@ public class Main {
         Constant.point_send = new Point(userSettings.getInt(Constant.point_send_x, -1), userSettings.getInt(Constant.point_send_y, -1));
         Constant.point_start = new Point(userSettings.getInt(Constant.point_start_x, -1), userSettings.getInt(Constant.point_start_y, -1));
         Constant.point_tran = new Point(userSettings.getInt(Constant.point_tran_x, -1), userSettings.getInt(Constant.point_tran_y, -1));
+        */
 
-        if(Constant.count_chat == 3){
-            Log.e(TAG, "getData failed!!!");
-            return false;
-        }
         return true;
     }
     private Ocr.ServiceListener tranListener = new Ocr.ServiceListener() {
