@@ -13,6 +13,7 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import cn.edu.fjnu.autominiprogram.R;
+import cn.edu.fjnu.autominiprogram.activity.SuggestionReplyActivity;
 import cn.edu.fjnu.autominiprogram.activity.SystemNotificationActivity;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
 
@@ -43,6 +44,12 @@ public class NotifactionFragment extends AppBaseFragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SystemNotificationActivity.class);
                 startActivity(intent);
+            }
+        });
+        mLayoutSuggestionReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SuggestionReplyActivity.class));
             }
         });
 

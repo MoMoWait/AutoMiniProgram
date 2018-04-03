@@ -165,6 +165,10 @@ public class ConstData {
      */
     public static final Map<String, String> WY_LOTTY_JOIN_METHOD_URLS =  getWyLottyJoinMethodUrls();
 
+    /**
+     * 奔溃文件名字
+     */
+    public static final String CRASH_FILE_NAME = "crash.log";
 
     /**
      * 异步块执行结果
@@ -284,6 +288,12 @@ public class ConstData {
         String AUTO_SEND_START_TIME = "auto_send_start_time";
         /**自动发单结束时间*/
         String AUTO_SEND_END_TIME = "auto_end_start_time";
+        /**问候时间*/
+        String HELLO_TIME = "hello_time";
+        /**问候内容*/
+        String HELLO_CONTENT = "hello_content";
+        /**闪退信息*/
+        String CRASH_MSG = "crash_msg";
     }
 
     /**

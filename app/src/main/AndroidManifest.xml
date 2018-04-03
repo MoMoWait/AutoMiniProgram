@@ -264,6 +264,22 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.SuggestionReplyActivity"
+            android:label="@string/suggestion_reply"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.HelloActivity"
+            android:label="@string/hello_tip"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".accessibility.AccessibilityOpenHelperActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"

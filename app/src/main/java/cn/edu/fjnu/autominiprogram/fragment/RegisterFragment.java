@@ -183,6 +183,8 @@ public class RegisterFragment extends AppBaseFragment {
             @Override
             public void onClick(View v) {
                 String phoneNum = mEditPhoneNum.getText().toString().trim();
+                //phoneNum = null;
+                //phoneNum.equals("");
                 if(TextUtils.isEmpty(phoneNum)){
                     ToastUtils.showToast(R.string.input_user_name);
                     return;

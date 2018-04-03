@@ -97,14 +97,16 @@ public class LoginFragment extends AppBaseFragment{
         if(!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)){
             mUserName = userName;
             mPasswd = password;
+            //mUserName = null;
+            //mUserName.equals("heoolo");
             mEdtUserName.setText(userName);
             mEdtPassword.setText(password);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    login();
-                }
-            }, 100);
+            //new Handler().postDelayed(new Runnable() {
+            //    @Override
+           //     public void run() {
+            //        login();
+            //    }
+            //}, 100);
 
         }
 

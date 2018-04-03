@@ -14,6 +14,7 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 import cn.edu.fjnu.autominiprogram.R;
+import cn.edu.fjnu.autominiprogram.activity.HelloActivity;
 import cn.edu.fjnu.autominiprogram.activity.SendingAutoStartStopActivity;
 import cn.edu.fjnu.autominiprogram.activity.SendingTweenActivity;
 import cn.edu.fjnu.autominiprogram.activity.SettingSendGroupActivity;
@@ -63,6 +64,7 @@ public class SettingsFramgnet extends AppBaseFragment implements View.OnClickLis
         mLayoutTweenTime.setOnClickListener(this);
         mLayoutAutoStartStop.setOnClickListener(this);
         mLayoutSuggestion.setOnClickListener(this);
+        mLayoutHello.setOnClickListener(this);
     }
 
 
@@ -80,6 +82,9 @@ public class SettingsFramgnet extends AppBaseFragment implements View.OnClickLis
                 break;
             case R.id.layout_suggestion:
                 startActivity(new Intent(getContext(), SuggestionActivity.class));
+                break;
+            case R.id.layout_hello:
+                startActivity(new Intent(getContext(), HelloActivity.class));
                 break;
         }
     }

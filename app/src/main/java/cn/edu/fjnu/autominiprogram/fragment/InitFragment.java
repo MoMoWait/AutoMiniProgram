@@ -18,6 +18,7 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +32,7 @@ import cn.edu.fjnu.autominiprogram.data.Configs;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
 import cn.edu.fjnu.autominiprogram.task.AppLoadTask;
 import cn.edu.fjnu.autominiprogram.task.ContentLoadTask;
+import cn.edu.fjnu.autominiprogram.task.LogUploadTask;
 import cn.edu.fjnu.autominiprogram.utils.LottyDataGetUtils;
 import cn.edu.fjnu.autominiprogram.view.UpdateProgressDialog;
 import momo.cn.edu.fjnu.androidutils.utils.NetWorkUtils;
@@ -68,6 +70,8 @@ public class InitFragment extends AppBaseFragment{
         //设置状态栏颜色
         if(Build.VERSION.SDK_INT >= 21)
             getActivity().getWindow().setStatusBarColor(Color.parseColor("#097c9e"));
+        File crashFile = getContext().getFileStreamPath(ConstData.CRASH_FILE_NAME);
+        new LogUploadTask().execute(crashFile);
         mInitTask = new InitTask();
         if(NetWorkUtils.haveInternet(getContext()))
             mInitTask.execute();

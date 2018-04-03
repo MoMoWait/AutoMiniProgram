@@ -167,4 +167,10 @@
     <string name="enter_stop_time">输入结束时间</string>
     <string name="endtime_must_large_starttime">结束时间必须大于开始时间</string>
     <string name="setting_success">设置成功</string>
+    <string name="suggestion_reply">意见回复</string>
+    <string name="no_suggestion_reply">暂无意见回复</string>
+    <string name="get_suggestion_reply_failed">获取意见回复失败</string>
+    <string name="hello_tip">问候语</string>
+    <string name="enter_hello_tip">输入问候语</string>
+    <string name="enter_hello_time">输入问候时间</string>
 </resources>
