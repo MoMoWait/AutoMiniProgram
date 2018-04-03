@@ -2,6 +2,8 @@ package cn.edu.fjnu.autominiprogram.hkh;
 
 import android.content.SharedPreferences;
 
+import cn.edu.fjnu.autominiprogram.data.ConstData;
+
 /**
  * Created by hkh on 18-3-10.
  */
@@ -24,8 +26,8 @@ public class Constant {
     public static boolean chat_status = false;
     public static boolean mContinue = false;
 
-    public static String point_start_x = "point_start_x";
-    public static String point_start_y = "point_start_y";
+    public static String point_start_x = ConstData.SharedKey.START_X;
+    public static String point_start_y = ConstData.SharedKey.START_Y;
     public static String point_tran_x = "point_tran_x";
     public static String point_tran_y = "point_tran_y";
     public static String point_checkbox_x = "point_checkbox_x";
@@ -34,9 +36,17 @@ public class Constant {
     public static String point_chat_y = "point_chat_y";
     public static String point_send_x = "point_send_x";
     public static String point_send_y = "point_send_y";
-    public static String count_chat_1 = "count_chat";
+    public static String count_chat_1 = ConstData.SharedKey.SEND_GROUP_NUM;
     public static String interval_chat_1 = "interval_chat";
 
+    public static int send_tween_time; //转发的时间间隔，如果没有值，默认设置为15分钟
+    public static boolean is_send_tween_random = false; //是否为随机延时，如果是随机时间为15分钟内
+
+    public static String hello_content = "您好!!!";
+    public static String hello_time = "15:20";
+
+    public static String start_now;
+    public static String stop_now;
 
     //三个小点点的坐标
     public static Point point_start;

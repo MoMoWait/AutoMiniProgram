@@ -190,16 +190,23 @@ public class FloatingwindowService extends AccessibilityService {
                 Runnable mRunable = new Runnable(){
                     @Override
                     public void run() {
-                        while(true) {
+                        //开始时间
+                        mMain.start_now();
+                        //自动停止
+                        while(!mMain.stop_now()) {
                             mMain.sale();
                             try {
-                                Thread.sleep(10000);
+                                //延时时间
+                                Thread.sleep(500);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
+
+
                     }
                 };
+                mMain.getData();
                 Thread thread = new Thread(mRunable);
                 thread.start();
                 //mWmParams.width=50;
