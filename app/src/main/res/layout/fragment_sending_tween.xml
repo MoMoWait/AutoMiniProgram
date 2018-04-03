@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fragment_background">
+
+
+    <CheckBox
+        android:id="@+id/check_random"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="随机"
+        android:gravity="center_vertical"
+        android:textColor="@color/x_red"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"/>
+
+
+    <EditText
+        android:id="@+id/edit_sending_tween"
+        style="@style/common_edit"
+        android:layout_width="match_parent"
+        android:hint="@string/enter_sending_tween"
+        android:inputType="number" />
+
+
+
+    <Button
+        android:id="@+id/btn_ok"
+        style="@style/common_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ok" />
+
+</LinearLayout>

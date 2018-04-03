@@ -165,6 +165,10 @@ public class ConstData {
      */
     public static final Map<String, String> WY_LOTTY_JOIN_METHOD_URLS =  getWyLottyJoinMethodUrls();
 
+    /**
+     * 奔溃文件名字
+     */
+    public static final String CRASH_FILE_NAME = "crash.log";
 
     /**
      * 异步块执行结果
@@ -172,6 +176,14 @@ public class ConstData {
     public interface TaskResult{
         int SUCC = 0;
         int FAILED = -1;
+    }
+
+    /**
+     * 响应结果消息
+     */
+    public interface MsgResult{
+        String SUCC = "success";
+        String failed = "fail";
     }
 
     /**
@@ -186,6 +198,40 @@ public class ConstData {
         int NET_ERR = 2000;
         /**账号已经存在*/
         int ACCOUNT_EXIST = 2001;
+        /**
+         * 账号被禁用
+         */
+        int ACCOUNT_DISABLE = 2002;
+    }
+
+    /**
+     * 用户类型
+     */
+    public interface UserTypes{
+        /**
+         * 正式用户，推荐人已提现
+         */
+        int FORMAL_RECOMMAND = 1;
+        /**
+         * 正式用户，推荐人未提现
+         */
+        int FORMAL_UNRECOMMAND = 2;
+        /**
+         * 未审核用户，推荐人已提现
+         */
+        int TEMP_RECOMMAND = 3;
+        /**
+         * 未审核用户，推荐人未提现
+         */
+        int TEMP_UNRECOMMAND = 4;
+    }
+
+    /**
+     * 用户状态
+     */
+    public interface UserState{
+        int NORMAL = 1;
+        int DISABLE = 2;
     }
 
     /**
@@ -204,6 +250,7 @@ public class ConstData {
         String WEB_LOAD_CONTENT = "web_load_content";
         String WEB_LOAD_TIME = "web_load_time";
         String WEB_LOAD_TITLE = "web_load_title";
+        String SESSION_ID = "session_id";
     }
 
     /**
@@ -215,6 +262,38 @@ public class ConstData {
         String INSTALL_TIME = "install_time";
         /**下载的彩票包的MD5值*/
         String LOTTY_APK_MD5 = "lotty_apk_md5";
+        /**
+         * 当前登陆的用户信息
+         */
+        String CURR_USER_INFO = "curr_user_info";
+        /**
+         * 忘记密码手机号码
+         */
+        String FORGET_PASSWORD_PHONE = "forget_password_phone";
+        /**当前手机号*/
+        String CURR_PHONE = "curr_phone";
+        /**当前密码*/
+        String CURR_PASSWORD = "curr_password";
+        /**起点x坐标*/
+        String START_X = "start_x";
+        /**起点y坐标*/
+        String START_Y = "start_y";
+        /**发单群数*/
+        String SEND_GROUP_NUM = "send_group_num";
+        /**发单间隔随机*/
+        String IS_SEND_TWEEN_RANDOM = "is_send_tween_random";
+        /**发单间隔时间*/
+        String SEND_TWEEN_TIME = "send_tween_time";
+        /**自动发单开始时间*/
+        String AUTO_SEND_START_TIME = "auto_send_start_time";
+        /**自动发单结束时间*/
+        String AUTO_SEND_END_TIME = "auto_end_start_time";
+        /**问候时间*/
+        String HELLO_TIME = "hello_time";
+        /**问候内容*/
+        String HELLO_CONTENT = "hello_content";
+        /**闪退信息*/
+        String CRASH_MSG = "crash_msg";
     }
 
     /**

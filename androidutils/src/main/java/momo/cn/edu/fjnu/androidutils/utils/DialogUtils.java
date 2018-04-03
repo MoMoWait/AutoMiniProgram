@@ -16,8 +16,14 @@ public class DialogUtils {
     private static LoadingDialog mLoadingDialog;
     /**显示载入对话框*/
     public static void showLoadingDialog(Context context,boolean isCancelable) {
-        if(mLoadingDialog != null && mLoadingDialog.isShowing())
-            mLoadingDialog.dismiss();
+        if(mLoadingDialog != null && mLoadingDialog.isShowing()){
+            try{
+                mLoadingDialog.dismiss();
+            }catch (Exception e){
+                //no handle
+            }
+        }
+
         mLoadingDialog = new LoadingDialog(context,isCancelable);
         mLoadingDialog.show();
     }

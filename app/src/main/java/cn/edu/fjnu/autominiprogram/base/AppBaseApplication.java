@@ -26,6 +26,7 @@ public class AppBaseApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        Thread.setDefaultUncaughtExceptionHandler(new AppCrashHandler());
         x.Ext.init(this);
         //写入APK第一次打开时间
         if(TextUtils.isEmpty(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.INSTALL_TIME)))

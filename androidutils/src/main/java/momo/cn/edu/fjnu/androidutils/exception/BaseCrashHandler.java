@@ -13,8 +13,15 @@ public  abstract class BaseCrashHandler implements Thread.UncaughtExceptionHandl
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         StringWriter writer = new StringWriter();
-        ex.printStackTrace(new PrintWriter(writer));
-        handleException(ex.toString());
+        PrintWriter printWriter = new PrintWriter(writer);
+        ex.printStackTrace(printWriter);
+        Throwable cause = ex.getCause();
+        while (cause != null) {
+            cause.printStackTrace(printWriter);
+            cause = cause.getCause();
+        }
+        printWriter.close();
+        handleException(writer.toString());
     }
 
     /**

@@ -56,7 +56,8 @@
 
 
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/layout_my_money"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -70,14 +71,63 @@
                     android:text="我的赏金"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
-            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:text="0"
+                    android:textColor="#8f000000"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#5f000000" />
 
+
+            <RelativeLayout
+                android:id="@+id/layout_request_money"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/list_item_background">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="申请提现"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/text_request_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:text="0"
+                    android:textColor="#8f000000"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#5f000000" />
+
+
             <LinearLayout
+                android:id="@+id/layout_recommend_list"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/list_item_background">

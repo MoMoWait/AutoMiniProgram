@@ -57,9 +57,9 @@
         <EditText
             android:id="@+id/edit_recommand_code"
             style="@style/common_edit"
-            android:inputType="text"
+            android:inputType="phone"
             android:layout_width="match_parent"
-            android:hint="@string/enter_wechat_recommand_code"/>
+            android:hint="@string/enter_recommend_phone_num"/>
 
         <EditText
             android:id="@+id/edit_wechat_nickname"
@@ -70,8 +70,8 @@
 
         <ImageView
             android:id="@+id/img_wechat_screenshot"
-            android:layout_width="320dp"
-            android:layout_height="180dp"
+            android:layout_width="180dp"
+            android:layout_height="320dp"
             android:layout_gravity="center_horizontal"
             android:scaleType="fitXY"
             android:visibility="gone"/>

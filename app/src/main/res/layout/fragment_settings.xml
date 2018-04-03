@@ -14,6 +14,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/layout_send_group_num"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -31,6 +32,7 @@
 
 
             <LinearLayout
+                android:id="@+id/layout_hello"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -48,6 +50,7 @@
 
 
             <LinearLayout
+                android:id="@+id/layout_tween_time"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -65,6 +68,7 @@
 
 
             <LinearLayout
+                android:id="@+id/layout_auto_start_stop"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -81,6 +85,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_logcat_trace"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"

@@ -37,5 +37,44 @@ public interface UrlService {
     @Headers({"Content-Type:application/json;charset=UTF-8"})
     Call<ResponseBody> register(@Body RequestBody body);
 
+    @POST("usermanage/getCode")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> getCode(@Body RequestBody body);
+
+    @POST("usermanage/checkCode")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> checkCode(@Body RequestBody body, @Header("Cookie") String sessionID);
+
+    @POST("usermanage/changepwd")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> changePassword(@Body RequestBody body);
+
+    @POST("usermanage/resetpwd")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> resetPassword(@Body RequestBody body);
+
+    @POST("usermanage/tixianApply")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> requestMoney(@Body RequestBody body);
+
+    @POST("userinfo/showSystemMsg")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> showSystemMsg(@Body RequestBody body);
+
+    @POST("userinfo/getMySpreaderList")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> getRecommendList(@Body RequestBody body);
+
+    @POST("suggestion/insertSuggestion")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> insertSuggestion(@Body RequestBody body);
+
+    @POST("userinfo/getSuggestionListByUserId")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> getSuggestionReplyList(@Body RequestBody body);
+
+    @POST("userinfo/insertAbnormal")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> uploadLogContent(@Body RequestBody body);
 
 }

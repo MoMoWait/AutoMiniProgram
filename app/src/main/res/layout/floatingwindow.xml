@@ -44,5 +44,13 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/seek_position"
             android:textColor="@android:color/white"/>
+        <Button
+            android:id="@+id/btn_min_window"
+            style="@style/common_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/min_window"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 </LinearLayout>

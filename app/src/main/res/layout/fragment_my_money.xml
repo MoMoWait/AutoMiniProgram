@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fragment_background">
+
+    <TextView
+        android:id="@+id/text_money"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:textColor="@color/x_red"
+        android:background="@color/white"
+        android:textSize="30sp"
+        android:text="money"/>
+
+    <Button
+        android:id="@+id/btn_request_money"
+        style="@style/common_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/request_money" />
+</LinearLayout>
