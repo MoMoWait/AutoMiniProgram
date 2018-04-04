@@ -48,6 +48,8 @@ public class Constant {
     public static String start_now;
     public static String stop_now;
 
+    public static boolean exit_thread = false; //退出线程
+
     //三个小点点的坐标
     public static Point point_start;
 

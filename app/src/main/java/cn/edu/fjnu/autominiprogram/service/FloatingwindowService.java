@@ -1,6 +1,8 @@
 package cn.edu.fjnu.autominiprogram.service;
 
 import java.util.Timer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 import android.accessibilityservice.AccessibilityService;
@@ -71,6 +73,8 @@ public class FloatingwindowService extends AccessibilityService {
     private int[] mColor = {Color.RED, Color.WHITE, Color.YELLOW};
     private boolean mIsSharing = false;
     private Main mMain;
+
+    private ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor(); //单线程池
     /**
      * 当前是否正在定位
      */
@@ -180,6 +184,20 @@ public class FloatingwindowService extends AccessibilityService {
         }
     }
 
+    private Runnable mRunnable = new Runnable(){
+        @Override
+        public void run() {
+            //开始时间
+            mMain.start_now();
+            //自动停止
+            while(!mMain.stop_now()) {
+                mMain.sale();
+            }
+
+
+        }
+    };
+
     private void setupViews() {
         mStartStopBtn = (Button) mView.findViewById(R.id.main_item_test_stop);
         mStartStopBtn.setOnClickListener(new OnClickListener() {
@@ -190,36 +208,16 @@ public class FloatingwindowService extends AccessibilityService {
                     mIsSharing = false;
                     mStartStopBtn.setText(R.string.start_share);
                     //这里加入停止转发功能代码
+                    Constant.exit_thread = true;
                 }else{
                     mIsSharing = true;
                     mStartStopBtn.setText(R.string.stop_share);
                     ClearData();
-                    Runnable mRunable = new Runnable(){
-                        @Override
-                        public void run() {
-                            //开始时间
-                            mMain.start_now();
-                            //自动停止
-                            while(!mMain.stop_now()) {
-                                mMain.sale();
-                                try {
-                                    //延时时间
-                                    Thread.sleep(500);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-
-                        }
-                    };
                     mMain.getData();
-                    Thread thread = new Thread(mRunable);
-                    thread.start();
+                    singleThreadExecutor.execute(mRunnable);
+
                 }
 
-                //mWmParams.width=50;
-                //mWmParams.height=50;
             }
         });
         mBtnSetting.setOnClickListener(new View.OnClickListener(){

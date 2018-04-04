@@ -96,6 +96,8 @@ public class Main {
     }
     public void start_now(){
         //如果没有设置，默认为直接启动
+        Constant.exit_thread = false;
+
         if(Constant.start_now.isEmpty()){
             return ;
         }
@@ -114,6 +116,10 @@ public class Main {
     }
 
     public boolean stop_now(){
+        if(Constant.exit_thread){
+            //退出线程
+            return true;
+        }
         //如果没有设置，默认为没有停止
         if(Constant.stop_now.isEmpty()){
             return false;
@@ -140,6 +146,9 @@ public class Main {
         }
 
         for(Point point: sale_point){
+            if(stop_now()){
+                return ;
+            }
             ShellUtils.click_point(point);
             try {
                 int tmp_time;
