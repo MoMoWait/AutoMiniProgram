@@ -179,4 +179,6 @@
     <string name="log_upload_failed">日志上传失败</string>
     <string name="no_log_file">日志文件不存在</string>
     <string name="log_upload">日志上传</string>
+    <string name="system">系统</string>
+    <string name="recommand">推荐</string>
 </resources>

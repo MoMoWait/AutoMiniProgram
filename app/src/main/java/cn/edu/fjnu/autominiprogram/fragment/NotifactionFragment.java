@@ -13,6 +13,7 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import cn.edu.fjnu.autominiprogram.R;
+import cn.edu.fjnu.autominiprogram.activity.LogUploadActivity;
 import cn.edu.fjnu.autominiprogram.activity.SuggestionReplyActivity;
 import cn.edu.fjnu.autominiprogram.activity.SystemNotificationActivity;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
@@ -29,6 +30,8 @@ public class NotifactionFragment extends AppBaseFragment {
     private LinearLayout mLayoutNotification;
     @ViewInject(R.id.layout_suggestion_reply)
     private LinearLayout mLayoutSuggestionReply;
+    @ViewInject(R.id.layout_logcat_trace)
+    private LinearLayout mLayoutLogcatTrace;
 
     @Nullable
     @Override
@@ -50,6 +53,13 @@ public class NotifactionFragment extends AppBaseFragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), SuggestionReplyActivity.class));
+            }
+        });
+
+        mLayoutLogcatTrace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), LogUploadActivity.class));
             }
         });
 
