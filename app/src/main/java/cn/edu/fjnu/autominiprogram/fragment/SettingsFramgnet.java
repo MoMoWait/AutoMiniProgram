@@ -15,6 +15,7 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 import cn.edu.fjnu.autominiprogram.R;
 import cn.edu.fjnu.autominiprogram.activity.HelloActivity;
+import cn.edu.fjnu.autominiprogram.activity.LogUploadActivity;
 import cn.edu.fjnu.autominiprogram.activity.SendingAutoStartStopActivity;
 import cn.edu.fjnu.autominiprogram.activity.SendingTweenActivity;
 import cn.edu.fjnu.autominiprogram.activity.SettingSendGroupActivity;
@@ -65,6 +66,7 @@ public class SettingsFramgnet extends AppBaseFragment implements View.OnClickLis
         mLayoutAutoStartStop.setOnClickListener(this);
         mLayoutSuggestion.setOnClickListener(this);
         mLayoutHello.setOnClickListener(this);
+        mLayoutLogcatTrace.setOnClickListener(this);
     }
 
 
@@ -85,6 +87,9 @@ public class SettingsFramgnet extends AppBaseFragment implements View.OnClickLis
                 break;
             case R.id.layout_hello:
                 startActivity(new Intent(getContext(), HelloActivity.class));
+                break;
+            case R.id.layout_logcat_trace:
+                startActivity(new Intent(getContext(), LogUploadActivity.class));
                 break;
         }
     }

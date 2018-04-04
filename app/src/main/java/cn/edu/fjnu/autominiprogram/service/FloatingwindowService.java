@@ -69,7 +69,7 @@ public class FloatingwindowService extends AccessibilityService {
     private Button mStartStopBtn = null;
     private WakeLock mWakeLock;
     private int[] mColor = {Color.RED, Color.WHITE, Color.YELLOW};
-
+    private boolean mIsSharing = false;
     private Main mMain;
     /**
      * 当前是否正在定位
@@ -186,29 +186,38 @@ public class FloatingwindowService extends AccessibilityService {
             @Override
             public void onClick(View v) {
                 reSetWindow();
-                ClearData();
-                Runnable mRunable = new Runnable(){
-                    @Override
-                    public void run() {
-                        //开始时间
-                        mMain.start_now();
-                        //自动停止
-                        while(!mMain.stop_now()) {
-                            mMain.sale();
-                            try {
-                                //延时时间
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                if(mIsSharing){
+                    mIsSharing = false;
+                    mStartStopBtn.setText(R.string.start_share);
+                    //这里加入停止转发功能代码
+                }else{
+                    mIsSharing = true;
+                    mStartStopBtn.setText(R.string.stop_share);
+                    ClearData();
+                    Runnable mRunable = new Runnable(){
+                        @Override
+                        public void run() {
+                            //开始时间
+                            mMain.start_now();
+                            //自动停止
+                            while(!mMain.stop_now()) {
+                                mMain.sale();
+                                try {
+                                    //延时时间
+                                    Thread.sleep(500);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                             }
+
+
                         }
+                    };
+                    mMain.getData();
+                    Thread thread = new Thread(mRunable);
+                    thread.start();
+                }
 
-
-                    }
-                };
-                mMain.getData();
-                Thread thread = new Thread(mRunable);
-                thread.start();
                 //mWmParams.width=50;
                 //mWmParams.height=50;
             }

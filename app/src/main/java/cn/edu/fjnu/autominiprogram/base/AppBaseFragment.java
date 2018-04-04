@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import cn.edu.fjnu.autominiprogram.R;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
+import cn.edu.fjnu.autominiprogram.utils.CommonUtils;
 import cn.edu.fjnu.autominiprogram.view.TitleView;
 import momo.cn.edu.fjnu.androidutils.base.BaseFragment;
 
@@ -126,6 +127,7 @@ public abstract class AppBaseFragment extends BaseFragment {
 
     @Override
     public void init() {
+        CommonUtils.weriteLogToFile("Load fragment name:" + getClass().getName());
         Log.i(TAG, "init->fragmentClassName:" + getClass().getName());
         initActionBar();
         canUpadteUI = true;

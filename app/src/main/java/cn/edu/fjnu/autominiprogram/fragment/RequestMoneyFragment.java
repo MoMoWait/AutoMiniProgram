@@ -44,7 +44,7 @@ public class RequestMoneyFragment extends AppBaseFragment {
     private EditText mEditAilipayAccount;
     @ViewInject(R.id.edit_request_money)
     private EditText mEditRequestMoney;
-    @ViewInject(R.id.btn_request_money)
+    @ViewInject(R.id.btn_onekey_request)
     private Button mBtnRequestMoney;
     private UserInfo mUserInfo;
     private String mAiliPayAccount;

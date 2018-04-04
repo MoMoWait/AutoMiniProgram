@@ -71,7 +71,12 @@ public class InitFragment extends AppBaseFragment{
         if(Build.VERSION.SDK_INT >= 21)
             getActivity().getWindow().setStatusBarColor(Color.parseColor("#097c9e"));
         File crashFile = getContext().getFileStreamPath(ConstData.CRASH_FILE_NAME);
-        new LogUploadTask().execute(crashFile);
+        new LogUploadTask(new LogUploadTask.Callback() {
+            @Override
+            public void onResult(int error) {
+
+            }
+        }).execute(crashFile);
         mInitTask = new InitTask();
         if(NetWorkUtils.haveInternet(getContext()))
             mInitTask.execute();
