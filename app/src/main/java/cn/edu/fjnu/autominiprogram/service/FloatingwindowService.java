@@ -184,7 +184,7 @@ public class FloatingwindowService extends AccessibilityService {
         }
     }
 
-    private Runnable mRunnable = new Runnable(){
+    private Runnable mRunnable_tran = new Runnable(){
         @Override
         public void run() {
             //开始时间
@@ -192,9 +192,36 @@ public class FloatingwindowService extends AccessibilityService {
             //自动停止
             while(!mMain.stop_now()) {
                 mMain.sale();
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
 
+        }
+    };
+
+    private Runnable mRunnable_init = new Runnable() {
+        @Override
+        public void run() {
+            int count = 0;
+            //while(true) {
+            count++;
+            Constant.chat_status = false;
+            Constant.interval_chat = -1;
+            //获取坐标
+            int startX = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.START_X));
+            int startY = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.START_Y));
+            mMain.initRegularPosition(startX, startY);
+            try {
+                Thread.sleep(5000);
+                Log.e(TAG, "count = " + count);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //}
         }
     };
 
@@ -214,7 +241,7 @@ public class FloatingwindowService extends AccessibilityService {
                     mStartStopBtn.setText(R.string.stop_share);
                     ClearData();
                     mMain.getData();
-                    singleThreadExecutor.execute(mRunnable);
+                    singleThreadExecutor.execute(mRunnable_tran);
 
                 }
 
@@ -234,28 +261,8 @@ public class FloatingwindowService extends AccessibilityService {
             public void onClick(View v) {
                 reSetWindow();
                 Log.e(TAG, "mBtnStartCalibratio click");
-                Runnable mRunable = new Runnable() {
-                    @Override
-                    public void run() {
-                        int count = 0;
-                        //while(true) {
-                            count++;
-                            Constant.chat_status = false;
-                            Constant.interval_chat = -1;
-                            //获取坐标
-                            int startX = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.START_X));
-                            int startY = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.START_Y));
-                            mMain.initRegularPosition(startX, startY);
-                            try {
-                                Thread.sleep(5000);
-                                Log.e(TAG, "count = " + count);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        //}
-                    }
-                };
-                Thread thread = new Thread(mRunable);
+
+                Thread thread = new Thread(mRunnable_init);
                 thread.start();
 
                 //OpenAccessibilitySettingHelper.jumpToSettingPage(getApplicationContext());

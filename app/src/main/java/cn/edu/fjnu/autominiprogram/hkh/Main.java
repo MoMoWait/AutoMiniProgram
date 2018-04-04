@@ -281,8 +281,8 @@ public class Main {
             Log.e(TAG,"间隔默认15分钟");
             Constant.send_tween_time = 15;
         }else{
-            Log.e(TAG, "间隔为 "+Constant.send_tween_time);
             Constant.send_tween_time = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.SEND_TWEEN_TIME));
+            Log.e(TAG, "间隔为 " + Constant.send_tween_time);
         }
 
         //获取问候语句和时间
