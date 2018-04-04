@@ -206,6 +206,8 @@ public class FloatingwindowService extends AccessibilityService {
     private Runnable mRunnable_init = new Runnable() {
         @Override
         public void run() {
+            //提示开始初始化
+
             int count = 0;
             //while(true) {
             count++;
@@ -222,6 +224,8 @@ public class FloatingwindowService extends AccessibilityService {
                 e.printStackTrace();
             }
             //}
+
+            //提示已经初始化完成了
         }
     };
 

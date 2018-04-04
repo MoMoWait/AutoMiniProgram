@@ -298,6 +298,7 @@ public class Main {
             Constant.is_send_tween_random = true;
         }
 
+        ///////飞飞，看这里，Constant.count_chat_1  读出来的值是初始化的值，不是更新后的
         if(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1).isEmpty()){
             Constant.count_chat = 2;
         }else{
