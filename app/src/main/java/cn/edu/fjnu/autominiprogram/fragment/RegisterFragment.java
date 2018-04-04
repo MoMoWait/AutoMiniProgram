@@ -315,9 +315,9 @@ public class RegisterFragment extends AppBaseFragment {
         Observable.just(info).map(new Function<UserInfo, Integer>() {
             @Override
             public Integer apply(@NonNull UserInfo userInfo) throws Exception {
-                Bitmap bitmap = BitmapUtils.getScaledBitmapFromFile(mSelectPath, 540, 960);
-                String photoBase64 = BitmapUtils.getBase64String(bitmap);
-                return  mRegisterTask.register(userInfo.getUserName(), userInfo.getPasswd(), nickName, recommendCode, photoBase64);
+                //Bitmap bitmap = BitmapUtils.getScaledBitmapFromFile(mSelectPath, 540, 960);
+                //String photoBase64 = BitmapUtils.getBase64String(bitmap);
+                return  mRegisterTask.register(userInfo.getUserName(), userInfo.getPasswd(), nickName, recommendCode, BitmapUtils.getBase64String(mSelectPath));
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Integer>() {

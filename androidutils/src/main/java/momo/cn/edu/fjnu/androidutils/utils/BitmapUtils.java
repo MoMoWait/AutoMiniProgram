@@ -11,11 +11,12 @@ import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.view.View;
-
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
+import java.io.IOException;
+import java.io.InputStream;
 /**
  * 位图处理工具
  */
@@ -159,6 +160,32 @@ public class BitmapUtils {
 			//no handle
 		}
 		return Base64.encodeToString(bytes, Base64.DEFAULT);
+	}
+
+	/**
+	 * 获取base64编码
+	 * @param imgPath
+	 * @return
+	 */
+	public static String getBase64String(String imgPath){
+		InputStream inputStream = null;
+		byte[] data = null;
+		try {
+			inputStream = new FileInputStream(imgPath);
+			data = new byte[inputStream.available()];
+			inputStream.read(data);
+			inputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//java.util.Base64.getEncoder().en
+		// 加密
+
+		BASE64Encoder encoder = new BASE64Encoder();
+		if(data != null)
+			return  encoder.encode(data);
+		return null;
+
 	}
 
 }
