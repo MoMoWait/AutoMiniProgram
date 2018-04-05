@@ -28,7 +28,7 @@ import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
  */
 
 public class Main {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "HKH_Main";
 
 
     private boolean hasGotToken = false;
@@ -49,6 +49,8 @@ public class Main {
         //getData();
     }
     public void initRegularPosition(int x, int y){
+        Log.i(TAG, "initRegularPosition->x:" + x);
+        Log.i(TAG, "initRegularPosition->y:" + y);
         Point point = new Point(x, y);
         ShellUtils.click_point(point);
         Constant.point_start = point;
@@ -304,7 +306,7 @@ public class Main {
         }else{
             Constant.count_chat = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1));
         }
-
+        Log.i(TAG, "Constant.count_chat:" + Constant.count_chat);
         Constant.interval_chat = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.interval_chat_1));
         int tmp_x, tmp_y;
         tmp_x = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_chat_x));

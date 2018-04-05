@@ -184,6 +184,10 @@ public class LoginFragment extends AppBaseFragment{
                     getActivity().finish();
                 }else if(userInfo.getState() == ConstData.UserState.DISABLE){
                     ToastUtils.showToast(R.string.account_disable);
+                }else if(userInfo.getType() == 3){
+                    ToastUtils.showToast(R.string.no_vaild_account);
+                }else{
+                    ToastUtils.showToast(getString(R.string.login_failed));
                 }
 
             }

@@ -18,7 +18,6 @@
 
     <application
         android:name=".base.AppBaseApplication"
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
@@ -193,19 +192,7 @@
         <service
             android:name=".service.FloatingwindowService"
             android:exported="true"
-            android:label="@string/accessibility_tip"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:process=":BackgroundService">
-            <intent-filter android:priority="1000">
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-            // 通过xml文件完成辅助功能相关配置，也可以在onServiceConnected中动态配置
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_config" />
-        </service>
+            android:label="@string/accessibility_tip"/>
 
         <activity
             android:name=".activity.ForgetPasswordActivity"

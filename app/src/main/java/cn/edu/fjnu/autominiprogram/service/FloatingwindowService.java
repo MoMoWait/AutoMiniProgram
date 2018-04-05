@@ -18,6 +18,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -52,7 +53,7 @@ import momo.cn.edu.fjnu.androidutils.utils.SizeUtils;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
 
-public class FloatingwindowService extends AccessibilityService {
+public class FloatingwindowService extends Service {
     public static final String TAG = "MainTestService";
 
     private Timer mTimer = null;
@@ -118,6 +119,13 @@ public class FloatingwindowService extends AccessibilityService {
         if (mWakeLock != null && mWakeLock.isHeld()) {
             mWakeLock.release();
         }
+    }
+
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     @Override
@@ -448,58 +456,13 @@ public class FloatingwindowService extends AccessibilityService {
         return false;
     }
 
-    @Override
-    protected boolean onKeyEvent(KeyEvent event) {
-        Log.d(TAG, "onKeyEvent");
-        int key = event.getKeyCode();
-        switch(key){
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-                Intent downintent = new Intent("com.exmaple.broadcaster.KEYDOWN");
-                downintent.putExtra("dtime", System.currentTimeMillis());
-                sendBroadcast(downintent);
-                Log.d(TAG, "KEYCODE_VOLUME_DOWN");
-                break;
-            case KeyEvent.KEYCODE_VOLUME_UP:
-                Intent upintent = new Intent("com.exmaple.broadcaster.KEYUP");
-                upintent.putExtra("utime", System.currentTimeMillis());
-                sendBroadcast(upintent);
-                Log.d(TAG, "KEYCODE_VOLUME_UP");
-                break;
-        }
-        return super.onKeyEvent(event);
-    }
 
-    @Override
-    public void onInterrupt() {
-
-    }
 
     @Override
     public void onCreate() {
         Log.i(TAG, "RobMoney::onCreate");
         super.onCreate();
 
-    }
-
-    @Override
-    public void onAccessibilityEvent(AccessibilityEvent event) {
-        // 此方法是在主线程中回调过来的，所以消息是阻塞执行的
-        // 获取包名
-        String pkgName = event.getPackageName().toString();
-        int eventType = event.getEventType();
-        // AccessibilityOperator封装了辅助功能的界面查找与模拟点击事件等操作
-        AccessibilityOperator.getInstance().updateEvent(this, event);
-        Log.i(TAG, "onAccessibilityEvnent->event->className:" + event.getClass().getName());
-        Log.d(TAG, "onAccessibilityEvent pkgName = "+ pkgName + " event = "+event);
-        switch (eventType) {
-            case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
-                break;
-        }
-    }
-
-    @Override
-    protected void onServiceConnected() {
-        super.onServiceConnected();
     }
 
 
