@@ -28,7 +28,7 @@ import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
  */
 
 public class Main {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "HKH_Main";
 
 
     private boolean hasGotToken = false;
@@ -49,6 +49,8 @@ public class Main {
         //getData();
     }
     public void initRegularPosition(int x, int y){
+        Log.i(TAG, "initRegularPosition->x:" + x);
+        Log.i(TAG, "initRegularPosition->y:" + y);
         Point point = new Point(x, y);
         ShellUtils.click_point(point);
         Constant.point_start = point;
@@ -96,6 +98,8 @@ public class Main {
     }
     public void start_now(){
         //如果没有设置，默认为直接启动
+        Constant.exit_thread = false;
+
         if(Constant.start_now.isEmpty()){
             return ;
         }
@@ -114,6 +118,10 @@ public class Main {
     }
 
     public boolean stop_now(){
+        if(Constant.exit_thread){
+            //退出线程
+            return true;
+        }
         //如果没有设置，默认为没有停止
         if(Constant.stop_now.isEmpty()){
             return false;
@@ -140,6 +148,9 @@ public class Main {
         }
 
         for(Point point: sale_point){
+            if(stop_now()){
+                return ;
+            }
             ShellUtils.click_point(point);
             try {
                 int tmp_time;
@@ -181,7 +192,10 @@ public class Main {
             ShellUtils.click_back();
 
         }
-        ShellUtils.swipe_top(sale_point.get(sale_point.size() - 1));
+        if(!sale_point.isEmpty())
+            ShellUtils.swipe_top(sale_point.get(sale_point.size() - 1));
+        else
+            Log.e(TAG, "Error here Ocr get failed.");
     }
 
 
@@ -269,8 +283,8 @@ public class Main {
             Log.e(TAG,"间隔默认15分钟");
             Constant.send_tween_time = 15;
         }else{
-            Log.e(TAG, "间隔为 "+Constant.send_tween_time);
             Constant.send_tween_time = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.SEND_TWEEN_TIME));
+            Log.e(TAG, "间隔为 " + Constant.send_tween_time);
         }
 
         //获取问候语句和时间
@@ -282,16 +296,17 @@ public class Main {
         }
 
         //获取是否随机转发
-        if(!StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_SEND_TWEEN_RANDOM).equals("true")){
+        if(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_SEND_TWEEN_RANDOM).equals("true")){
             Constant.is_send_tween_random = true;
         }
 
+        ///////飞飞，看这里，Constant.count_chat_1  读出来的值是初始化的值，不是更新后的
         if(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1).isEmpty()){
             Constant.count_chat = 2;
         }else{
             Constant.count_chat = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1));
         }
-
+        Log.i(TAG, "Constant.count_chat:" + Constant.count_chat);
         Constant.interval_chat = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.interval_chat_1));
         int tmp_x, tmp_y;
         tmp_x = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_chat_x));

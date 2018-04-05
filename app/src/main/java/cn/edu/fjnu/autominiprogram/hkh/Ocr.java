@@ -18,7 +18,7 @@ import java.io.File;
  */
 
 public class Ocr {
-    private static final String TAG = "Ocr";
+    private static final String TAG = "MainActivity";
     interface ServiceListener {
         public void onResult(String name, Location location);
     }

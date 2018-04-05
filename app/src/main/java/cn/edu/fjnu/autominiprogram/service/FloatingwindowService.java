@@ -1,6 +1,8 @@
 package cn.edu.fjnu.autominiprogram.service;
 
 import java.util.Timer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 import android.accessibilityservice.AccessibilityService;
@@ -16,6 +18,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -50,7 +53,7 @@ import momo.cn.edu.fjnu.androidutils.utils.SizeUtils;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
 
-public class FloatingwindowService extends AccessibilityService {
+public class FloatingwindowService extends Service {
     public static final String TAG = "MainTestService";
 
     private Timer mTimer = null;
@@ -69,8 +72,10 @@ public class FloatingwindowService extends AccessibilityService {
     private Button mStartStopBtn = null;
     private WakeLock mWakeLock;
     private int[] mColor = {Color.RED, Color.WHITE, Color.YELLOW};
-
+    private boolean mIsSharing = false;
     private Main mMain;
+
+    private ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor(); //单线程池
     /**
      * 当前是否正在定位
      */
@@ -114,6 +119,13 @@ public class FloatingwindowService extends AccessibilityService {
         if (mWakeLock != null && mWakeLock.isHeld()) {
             mWakeLock.release();
         }
+    }
+
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     @Override
@@ -180,37 +192,71 @@ public class FloatingwindowService extends AccessibilityService {
         }
     }
 
+    private Runnable mRunnable_tran = new Runnable(){
+        @Override
+        public void run() {
+            //开始时间
+            mMain.start_now();
+            //自动停止
+            while(!mMain.stop_now()) {
+                mMain.sale();
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }
+    };
+
+    private Runnable mRunnable_init = new Runnable() {
+        @Override
+        public void run() {
+            //提示开始初始化
+
+            int count = 0;
+            //while(true) {
+            count++;
+            Constant.chat_status = false;
+            Constant.interval_chat = -1;
+            //获取坐标
+            int startX = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.START_X));
+            int startY = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.START_Y));
+            mMain.initRegularPosition(startX, startY);
+            try {
+                Thread.sleep(5000);
+                Log.e(TAG, "count = " + count);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //}
+
+            //提示已经初始化完成了
+        }
+    };
+
     private void setupViews() {
         mStartStopBtn = (Button) mView.findViewById(R.id.main_item_test_stop);
         mStartStopBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 reSetWindow();
-                ClearData();
-                Runnable mRunable = new Runnable(){
-                    @Override
-                    public void run() {
-                        //开始时间
-                        mMain.start_now();
-                        //自动停止
-                        while(!mMain.stop_now()) {
-                            mMain.sale();
-                            try {
-                                //延时时间
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
+                if(mIsSharing){
+                    mIsSharing = false;
+                    mStartStopBtn.setText(R.string.start_share);
+                    //这里加入停止转发功能代码
+                    Constant.exit_thread = true;
+                }else{
+                    mIsSharing = true;
+                    mStartStopBtn.setText(R.string.stop_share);
+                    ClearData();
+                    mMain.getData();
+                    singleThreadExecutor.execute(mRunnable_tran);
 
+                }
 
-                    }
-                };
-                mMain.getData();
-                Thread thread = new Thread(mRunable);
-                thread.start();
-                //mWmParams.width=50;
-                //mWmParams.height=50;
             }
         });
         mBtnSetting.setOnClickListener(new View.OnClickListener(){
@@ -227,28 +273,8 @@ public class FloatingwindowService extends AccessibilityService {
             public void onClick(View v) {
                 reSetWindow();
                 Log.e(TAG, "mBtnStartCalibratio click");
-                Runnable mRunable = new Runnable() {
-                    @Override
-                    public void run() {
-                        int count = 0;
-                        //while(true) {
-                            count++;
-                            Constant.chat_status = false;
-                            Constant.interval_chat = -1;
-                            //获取坐标
-                            int startX = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.START_X));
-                            int startY = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.START_Y));
-                            mMain.initRegularPosition(startX, startY);
-                            try {
-                                Thread.sleep(5000);
-                                Log.e(TAG, "count = " + count);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        //}
-                    }
-                };
-                Thread thread = new Thread(mRunable);
+
+                Thread thread = new Thread(mRunnable_init);
                 thread.start();
 
                 //OpenAccessibilitySettingHelper.jumpToSettingPage(getApplicationContext());
@@ -430,58 +456,13 @@ public class FloatingwindowService extends AccessibilityService {
         return false;
     }
 
-    @Override
-    protected boolean onKeyEvent(KeyEvent event) {
-        Log.d(TAG, "onKeyEvent");
-        int key = event.getKeyCode();
-        switch(key){
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-                Intent downintent = new Intent("com.exmaple.broadcaster.KEYDOWN");
-                downintent.putExtra("dtime", System.currentTimeMillis());
-                sendBroadcast(downintent);
-                Log.d(TAG, "KEYCODE_VOLUME_DOWN");
-                break;
-            case KeyEvent.KEYCODE_VOLUME_UP:
-                Intent upintent = new Intent("com.exmaple.broadcaster.KEYUP");
-                upintent.putExtra("utime", System.currentTimeMillis());
-                sendBroadcast(upintent);
-                Log.d(TAG, "KEYCODE_VOLUME_UP");
-                break;
-        }
-        return super.onKeyEvent(event);
-    }
 
-    @Override
-    public void onInterrupt() {
-
-    }
 
     @Override
     public void onCreate() {
         Log.i(TAG, "RobMoney::onCreate");
         super.onCreate();
 
-    }
-
-    @Override
-    public void onAccessibilityEvent(AccessibilityEvent event) {
-        // 此方法是在主线程中回调过来的，所以消息是阻塞执行的
-        // 获取包名
-        String pkgName = event.getPackageName().toString();
-        int eventType = event.getEventType();
-        // AccessibilityOperator封装了辅助功能的界面查找与模拟点击事件等操作
-        AccessibilityOperator.getInstance().updateEvent(this, event);
-        Log.i(TAG, "onAccessibilityEvnent->event->className:" + event.getClass().getName());
-        Log.d(TAG, "onAccessibilityEvent pkgName = "+ pkgName + " event = "+event);
-        switch (eventType) {
-            case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
-                break;
-        }
-    }
-
-    @Override
-    protected void onServiceConnected() {
-        super.onServiceConnected();
     }
 
 

@@ -16,6 +16,7 @@ import org.xutils.x;
 import cn.edu.fjnu.autominiprogram.R;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
+import cn.edu.fjnu.autominiprogram.hkh.Constant;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
 
