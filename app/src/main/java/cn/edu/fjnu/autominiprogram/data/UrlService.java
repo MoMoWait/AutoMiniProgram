@@ -17,6 +17,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 
 /**
  * Created by GaoFei on 2018/1/27.
@@ -84,5 +85,13 @@ public interface UrlService {
     @POST("abnormal/upload")
     Call<ResponseBody> uploadLogFile(@Part MultipartBody.Part file);
 
+    @GET("manager/ downloadApps")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> getAppVersion();
+
+
+    @GET
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
+    Call<ResponseBody> downloadNewVersion(@Url String url);
 
 }

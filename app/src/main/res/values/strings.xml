@@ -184,4 +184,6 @@
     <string name="start_share">开始转发</string>
     <string name="stop_share">停止转发</string>
     <string name="no_vaild_account">账户审核不通过</string>
+    <string name="check_version_failed">版本检查失败</string>
+    <string name="curr_newest_version">当前已是最新版本</string>
 </resources>

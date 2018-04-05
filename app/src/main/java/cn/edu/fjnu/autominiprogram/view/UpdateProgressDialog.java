@@ -36,9 +36,11 @@ public class UpdateProgressDialog extends Dialog {
     private TextView mTextProgress;
     private ApkDownloadProgressTask mDownloadTask;
     private Activity mActivity;
-    public UpdateProgressDialog(@NonNull Context context) {
+    private String mDownloadUrl;
+    public UpdateProgressDialog(@NonNull Context context, String downloadUrl) {
         super(context);
         mActivity = (Activity)context;
+        mDownloadUrl = downloadUrl;
     }
 
 /*    public UpdateProgressDialog(@NonNull Context context, int themeResId) {
@@ -85,7 +87,7 @@ public class UpdateProgressDialog extends Dialog {
                 }
             }
         });
-        mDownloadTask.execute(ConstData.LOTTY_APK_URL);
+        mDownloadTask.execute(mDownloadUrl);
     }
 
     @Override
