@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Random;
 
 import cn.edu.fjnu.autominiprogram.data.ConstData;
+import cn.edu.fjnu.autominiprogram.utils.CommonUtils;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 
 /**
@@ -39,6 +40,7 @@ public class Main {
 
     public Main(Context context){
         Log.e(TAG, "start with Main");
+        CommonUtils.weriteLogToFile("start with Main");
         mContext = context;
         //mActivity = activity;
         init();
@@ -51,6 +53,8 @@ public class Main {
     public void initRegularPosition(int x, int y){
         Log.i(TAG, "initRegularPosition->x:" + x);
         Log.i(TAG, "initRegularPosition->y:" + y);
+        CommonUtils.weriteLogToFile("initRegularPosition->x:" + x);
+        CommonUtils.weriteLogToFile("initRegularPosition->y:" + y);
         Point point = new Point(x, y);
         ShellUtils.click_point(point);
         Constant.point_start = point;
@@ -75,8 +79,14 @@ public class Main {
         //点击多选
         ShellUtils.click_point(Constant.point_checkbox);
         //选择聊天
+        if(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1).isEmpty()){
+            Constant.count_chat = 2;
+        }else{
+            Constant.count_chat = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1));
+        }
         for(int i = 0; i < Constant.count_chat; i++){
             Point tmp = new Point(Constant.point_chat.m_x, Constant.point_chat.m_y+ i*Constant.interval_chat);
+            CommonUtils.weriteLogToFile("point is x = " + String.valueOf(tmp.m_x) + " y = " +String.valueOf(tmp.m_y));
             Log.e(TAG, "point is x = " + String.valueOf(tmp.m_x) + " y = " +String.valueOf(tmp.m_y));
             ShellUtils.click_point(tmp);
 
@@ -142,6 +152,7 @@ public class Main {
         while(!Constant.mContinue);
         try {
             Log.e(TAG,"识别月售之后休眠5S！！！");
+            CommonUtils.weriteLogToFile("识别月售之后休眠5S！！！");
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -161,6 +172,7 @@ public class Main {
                     tmp_time = Constant.send_tween_time*1000*60;
                 }
                 Log.e(TAG, "间隔时间为" + tmp_time +" ms");
+                CommonUtils.weriteLogToFile("间隔时间为" + tmp_time +" ms");
                 Thread.sleep(tmp_time);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -168,11 +180,16 @@ public class Main {
             ShellUtils.click_point(Constant.point_start);
             ShellUtils.click_point(Constant.point_tran);
             ShellUtils.click_point(Constant.point_checkbox);
-
+            if(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1).isEmpty()){
+                Constant.count_chat = 2;
+            }else{
+                Constant.count_chat = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1));
+            }
             //选择聊天
             for(int i = 0; i < Constant.count_chat; i++){
                 Point tmp = new Point(Constant.point_chat.m_x, Constant.point_chat.m_y+ i*Constant.interval_chat);
                 Log.e(TAG, "point is x = " + String.valueOf(tmp.m_x) + " y = " +String.valueOf(tmp.m_y));
+                CommonUtils.weriteLogToFile("point is x = " + String.valueOf(tmp.m_x) + " y = " +String.valueOf(tmp.m_y));
                 ShellUtils.click_point(tmp);
 
             }
@@ -184,6 +201,7 @@ public class Main {
             String time = sDateFormat.format(new Date());
             if(time.equals(Constant.hello_time)){
                 Log.e(TAG,"问候语句触发，内容是：" + Constant.hello_content);
+                CommonUtils.weriteLogToFile("问候语句触发，内容是：" + Constant.hello_content);
                 ShellUtils.inputtext(Constant.hello_content);
             }
 
@@ -194,8 +212,11 @@ public class Main {
         }
         if(!sale_point.isEmpty())
             ShellUtils.swipe_top(sale_point.get(sale_point.size() - 1));
-        else
+        else{
             Log.e(TAG, "Error here Ocr get failed.");
+            CommonUtils.weriteLogToFile("Error here Ocr get failed.");
+        }
+
     }
 
 
@@ -206,6 +227,7 @@ public class Main {
                 String token = result.getAccessToken();
                 hasGotToken = true;
                 Log.e(TAG, "AkSk success!!!");
+                CommonUtils.weriteLogToFile("AkSk success!!!");
             }
 
             @Override
@@ -225,6 +247,7 @@ public class Main {
     }
 
     private void alertText(final String title, final String message) {
+        CommonUtils.weriteLogToFile(message);
         Log.e(TAG, message);
 /*        mActivity.runOnUiThread(new Runnable() {
             @Override
@@ -281,10 +304,12 @@ public class Main {
         if(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.SEND_TWEEN_TIME).isEmpty()){
             //如果没有获取到值得，默认设置为15分钟
             Log.e(TAG,"间隔默认15分钟");
+            CommonUtils.weriteLogToFile("间隔默认15分钟");
             Constant.send_tween_time = 15;
         }else{
             Constant.send_tween_time = Integer.parseInt(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.SEND_TWEEN_TIME));
             Log.e(TAG, "间隔为 " + Constant.send_tween_time);
+            CommonUtils.weriteLogToFile("间隔为 " + Constant.send_tween_time);
         }
 
         //获取问候语句和时间
@@ -307,6 +332,7 @@ public class Main {
             Constant.count_chat = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1));
         }
         Log.i(TAG, "Constant.count_chat:" + Constant.count_chat);
+        CommonUtils.weriteLogToFile("Constant.count_chat:" + Constant.count_chat);
         Constant.interval_chat = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.interval_chat_1));
         int tmp_x, tmp_y;
         tmp_x = Integer.parseInt(StorageUtils.getDataFromSharedPreference(Constant.point_chat_x));
@@ -343,6 +369,7 @@ public class Main {
         public void onResult(String name, Location location) {
             if(name.contains(Constant.click_tran)){
                 Constant.point_tran = new Point(location.getLeft(), location.getTop());
+                CommonUtils.weriteLogToFile(name + "---转发:Left = " + location.getLeft() + ",Top = "+location.getTop());
                 Log.e(TAG, name + "---转发:Left = " + location.getLeft() + ",Top = "+location.getTop());
             }
 
@@ -355,12 +382,14 @@ public class Main {
             for(String string:Constant.filter){
                 if(name.contains(string)){
                     Log.e(TAG, "过滤!!!");
+                    CommonUtils.weriteLogToFile("过滤!!!");
                     return;
                 }
             }
 
             if(name.contains(Constant.click_checkbox)){
                 Log.e(TAG, name + "---多选框:Left = " + location.getLeft() + ",Top = "+location.getTop());
+                CommonUtils.weriteLogToFile(name + "---多选框:Left = " + location.getLeft() + ",Top = "+location.getTop());
                 Constant.point_checkbox = new Point(location.getLeft(), location.getTop());
             }else if(name.contains(Constant.click_chat)){
                 Constant.chat_status = true;
@@ -373,8 +402,10 @@ public class Main {
                 }else if(Constant.interval_chat == -2){
                     Constant.interval_chat = location.getTop() - Constant.point_chat.m_y;
                     Log.e(TAG, "interval_chat = " +String.valueOf(Constant.interval_chat));
+                    CommonUtils.weriteLogToFile("interval_chat = " +String.valueOf(Constant.interval_chat));
                 }
                 Log.e(TAG, name + "---Left = " + location.getLeft() + ",Top = "+location.getTop());
+                CommonUtils.weriteLogToFile(name + "---Left = " + location.getLeft() + ",Top = "+location.getTop());
             }
         }
     };
@@ -385,6 +416,7 @@ public class Main {
             if(name.contains(Constant.click_send)){
                 Constant.point_send = new Point(location.getLeft()+location.getWidth()/3*2, location.getTop());
                 Log.e(TAG, name + "---发送:Left = " + Constant.point_send.m_x + ",Top = "+Constant.point_send.m_y);
+                CommonUtils.weriteLogToFile(name + "---发送:Left = " + Constant.point_send.m_x + ",Top = "+Constant.point_send.m_y);
             }
         }
     };
@@ -395,6 +427,7 @@ public class Main {
             if(name.contains(Constant.click_swipe)){
                 sale_point.add(new Point(location.getLeft(), location.getTop()));
                 Log.e(TAG, "Left = " + location.getLeft() + ",Top = "+location.getTop());
+                CommonUtils.weriteLogToFile("Left = " + location.getLeft() + ",Top = "+location.getTop());
             }
 
         }

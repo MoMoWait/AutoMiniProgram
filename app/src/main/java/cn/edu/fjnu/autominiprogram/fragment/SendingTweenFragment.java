@@ -44,7 +44,7 @@ public class SendingTweenFragment extends AppBaseFragment {
     @Override
     public void init() {
         super.init();
-
+        mEditSendingTween.setText(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.SEND_TWEEN_TIME));
         mCheckRandom.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -41,6 +41,7 @@ public class SendingGroupFragment extends AppBaseFragment {
     @Override
     public void init() {
         super.init();
+        mEditSendGroupNum.setText(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.SEND_GROUP_NUM));
         mBtnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

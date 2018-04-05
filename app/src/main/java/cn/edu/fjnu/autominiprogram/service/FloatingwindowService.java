@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 
 import android.accessibilityservice.AccessibilityService;
 import android.app.ActivityManager;
+import android.app.Notification;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,8 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -49,6 +52,7 @@ import cn.edu.fjnu.autominiprogram.data.ConstData;
 import cn.edu.fjnu.autominiprogram.hkh.Constant;
 import cn.edu.fjnu.autominiprogram.hkh.Main;
 import cn.edu.fjnu.autominiprogram.hkh.Ocr;
+import cn.edu.fjnu.autominiprogram.utils.CommonUtils;
 import momo.cn.edu.fjnu.androidutils.utils.SizeUtils;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
@@ -134,12 +138,21 @@ public class FloatingwindowService extends Service {
         ///    Log.e(TAG, "onStartCommand(): intent = null");
           //  return -1;
         //}
+        CommonUtils.weriteLogToFile("Service started");
         createFloatingView(LayoutInflater.from(this));
         Message message = new Message();
         message.what = REFRESH_VIEW;
         mHandler.sendMessage(message);
         mMain = new Main(getApplicationContext());
-        return super.onStartCommand(intent, flags, startId);
+        ToastUtils.showToast("发单软件已成功启动");
+        NotificationCompat.Builder mBuilder=new NotificationCompat.Builder(this);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setContentTitle("小程序自动发单");
+        mBuilder.setContentText("软件正在运行");
+        Notification notification=mBuilder.build();
+        startForeground(startId, notification);
+        return Service.START_STICKY;
+       // return super.onStartCommand(intent, flags, startId);
     }
 
     private void createFloatingView(LayoutInflater inflater) {
@@ -293,6 +306,8 @@ public class FloatingwindowService extends Service {
                             mIsSeekPosition = false;
                             //获取点击的中心点坐标
                             Log.i(TAG, "click->position:" + "(" + (mViewX) + "," + (mViewY ) + ")");
+                            CommonUtils.weriteLogToFile("定位坐标:" +  "(" + (mViewX) + "," + (mViewY ) + ")");
+                            ToastUtils.showToast("已定位坐标:" +  "(" + (mViewX) + "," + (mViewY ) + ")");
                             StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.START_X, "" + mViewX);
                             StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.START_Y, "" + mViewY);
                             //mView.setBackgroundColor(Color.TRANSPARENT);
@@ -408,6 +423,7 @@ public class FloatingwindowService extends Service {
     @Override
     public void onDestroy() {
         Log.e(TAG, "onDestroy");
+        CommonUtils.weriteLogToFile("Service onDestory");
         super.onDestroy();
         if (mTimer != null) {
             mTimer.cancel();
@@ -461,6 +477,7 @@ public class FloatingwindowService extends Service {
     @Override
     public void onCreate() {
         Log.i(TAG, "RobMoney::onCreate");
+        CommonUtils.weriteLogToFile("Service onCreate");
         super.onCreate();
 
     }
@@ -470,6 +487,7 @@ public class FloatingwindowService extends Service {
      * 重置窗口
      */
     private void reSetWindow(){
+        CommonUtils.weriteLogToFile("Service->reSetWindow");
         mWmParams.x = 0;
         mWmParams.y = 0;
         refreshView();

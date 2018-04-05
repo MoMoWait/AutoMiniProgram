@@ -79,7 +79,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:text="自动启停"
+                    android:text="定时启停"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -161,7 +161,26 @@
                     android:textColor="@color/black"
                     android:textSize="18sp" />
             </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="20dp">
+        <Button
+            android:id="@+id/btn_use_des"
+            style="@style/common_btn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="使用说明"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
 
 </LinearLayout>

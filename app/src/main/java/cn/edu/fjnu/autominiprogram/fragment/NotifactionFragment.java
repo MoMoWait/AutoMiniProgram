@@ -21,6 +21,7 @@ import java.util.List;
 
 import cn.edu.fjnu.autominiprogram.R;
 import cn.edu.fjnu.autominiprogram.activity.LogUploadActivity;
+import cn.edu.fjnu.autominiprogram.activity.LoginActivity;
 import cn.edu.fjnu.autominiprogram.activity.SuggestionReplyActivity;
 import cn.edu.fjnu.autominiprogram.activity.SystemNotificationActivity;
 import cn.edu.fjnu.autominiprogram.adapter.RecommendAdapter;
@@ -58,6 +59,11 @@ public class NotifactionFragment extends AppBaseFragment {
     private LinearLayout mLayoutLogcatTrace;
     @ViewInject(R.id.layout_update)
     private LinearLayout mLayoutUpdate;
+    @ViewInject(R.id.layout_speak)
+    private LinearLayout mLayoutSpeak;
+    @ViewInject(R.id.layout_exit_login)
+    private LinearLayout mLayoutExitLogin;
+
     /**
      * 是否需要更新
      */
@@ -138,6 +144,32 @@ public class NotifactionFragment extends AppBaseFragment {
                         ToastUtils.showToast(R.string.check_version_failed);
                     }
                 });
+            }
+        });
+
+
+        mLayoutSpeak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    new AlertDialog.Builder(getContext()).setTitle("软件说明").setMessage("本软件支持\"优赚淘\"小程序\n软件版本：" + getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0).versionName).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+                }catch (Exception e){
+                    //no handle
+                }
+
+            }
+        });
+
+        mLayoutExitLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
             }
         });
 

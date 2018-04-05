@@ -161,7 +161,7 @@
     <string name="enter_send_group_num">输入发单群数</string>
     <string name="sending_tween">发单间隔</string>
     <string name="sending_tween_minute">发单间隔(分钟)</string>
-    <string name="enter_sending_tween">输入发单间隔</string>
+    <string name="enter_sending_tween">输入发单间隔(分钟)</string>
     <string name="auto_start_stop">自动启停</string>
     <string name="enter_start_time">输入开始时间</string>
     <string name="enter_stop_time">输入结束时间</string>

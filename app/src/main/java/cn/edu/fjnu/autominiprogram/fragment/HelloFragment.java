@@ -45,6 +45,10 @@ public class HelloFragment extends AppBaseFragment {
     @Override
     public void init() {
         super.init();
+
+        mEditHelloContent.setText(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.HELLO_CONTENT));
+        mEditStartTime.setText(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.HELLO_TIME));
+
         mEditStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

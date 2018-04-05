@@ -51,6 +51,9 @@ public class SendingAutoStartStopFragment extends AppBaseFragment {
     public void init() {
         super.init();
 
+        mEditStartTime.setText(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_START_TIME));
+        mEditEndTime.setText(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_END_TIME));
+
         mEditStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

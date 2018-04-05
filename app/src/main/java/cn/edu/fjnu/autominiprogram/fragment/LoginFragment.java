@@ -3,6 +3,7 @@ package cn.edu.fjnu.autominiprogram.fragment;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -86,7 +87,7 @@ public class LoginFragment extends AppBaseFragment{
         }
         if(Build.VERSION.SDK_INT >= 23){
             if (!Settings.canDrawOverlays(getContext())) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getContext().getPackageName()));
                 ToastUtils.showToast("请打开悬浮窗权限");
                 startActivity(intent);
             }
