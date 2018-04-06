@@ -21,6 +21,7 @@ public class Ocr {
     private static final String TAG = "MainActivity";
     interface ServiceListener {
         public void onResult(String name, Location location);
+        public void onError(OCRError error);
     }
 
     public static void RecognizeText(final ServiceListener listener, String filePath){

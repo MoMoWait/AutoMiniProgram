@@ -11,6 +11,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.io.File;
 
 /**
  * Created by Administrator on 2017/7/13.
@@ -189,7 +190,10 @@ public class ShellUtils {
             e.printStackTrace();
         }
         String commandline = "input tap " + String.valueOf(point.m_x) + " " + String.valueOf(point.m_y);
-        ShellUtils.execCommand(commandline, true);
+        CommandResult result = ShellUtils.execCommand(commandline, true);
+        while(result.result != 0){
+            result = ShellUtils.execCommand(commandline, true);
+        }
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -205,7 +209,10 @@ public class ShellUtils {
             e.printStackTrace();
         }
         String commandline = "input keyevent 4";
-        ShellUtils.execCommand(commandline, true);
+        CommandResult result = ShellUtils.execCommand(commandline, true);
+        while(result.result != 0){
+            result = ShellUtils.execCommand(commandline, true);
+        }
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -221,7 +228,10 @@ public class ShellUtils {
         }
         String commandline = "input swipe " + String.valueOf(point.m_x) + " " + String.valueOf(point.m_y) + " "
                 + String.valueOf(point.m_x) + " 0 " + " 5000";
-        ShellUtils.execCommand(commandline, true);
+        CommandResult result = ShellUtils.execCommand(commandline, true);
+        while(result.result != 0){
+            result = ShellUtils.execCommand(commandline, true);
+        }
         try {
             Thread.sleep(6000);
         } catch (InterruptedException e) {
@@ -236,7 +246,10 @@ public class ShellUtils {
             e.printStackTrace();
         }
         String commandline = "input text " + context;
-        ShellUtils.execCommand(commandline, true);
+        CommandResult result = ShellUtils.execCommand(commandline, true);
+        while(result.result != 0){
+            result = ShellUtils.execCommand(commandline, true);
+        }
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -249,8 +262,23 @@ public class ShellUtils {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        File file = new File(filePath);
+        if(file.exists() && file.isFile()){
+            if(!file.delete()){
+                file.delete();
+            }
+        }
+        //file.close();
+
+        file = new File(filePath);
         String commandline = "screencap -p " + filePath;
-        ShellUtils.execCommand(commandline, true);
+        CommandResult result = ShellUtils.execCommand(commandline, true);
+        while((result.result != 0) || !file.exists()){
+            result = ShellUtils.execCommand(commandline, true);
+        }
+       // file.close();
+
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {

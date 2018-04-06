@@ -2,6 +2,9 @@ package cn.edu.fjnu.autominiprogram.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import cn.edu.fjnu.autominiprogram.data.Configs;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
@@ -24,7 +27,7 @@ public class CommonUtils {
                 logFile.delete();
             }
             FileOutputStream outputStream = new FileOutputStream(logFile, true);
-            outputStream.write((message + "\r\n").getBytes());
+            outputStream.write(( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA).format(new Date()) + ":" + message + "\r\n").getBytes());
             outputStream.flush();
             outputStream.close();
         }catch (Exception e){

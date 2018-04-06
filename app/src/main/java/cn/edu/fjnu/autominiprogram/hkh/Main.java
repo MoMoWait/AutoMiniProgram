@@ -3,6 +3,8 @@ package cn.edu.fjnu.autominiprogram.hkh;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -14,6 +16,8 @@ import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.sdk.model.Location;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,8 +68,10 @@ public class Main {
         ShellUtils.screencap(Constant.filePath_tran);
         //通过ocr获取转发的 x,y坐标
         Constant.mContinue = false;
-        Ocr.RecognizeText(tranListener, Constant.filePath_tran);
+        Ocr.RecognizeText(tranListener, Constant.filePath_tran_2);
         while(!Constant.mContinue);
+
+        //while(!Constant.mContinue);
         //通过获得的x,y坐标 点击转发
         ShellUtils.click_point(Constant.point_tran);
 
@@ -145,11 +151,17 @@ public class Main {
 
     }
     public void sale(){
+        Log.e(TAG,"start with sale!!!");
+        CommonUtils.weriteLogToFile("start with sale!!!");
         ShellUtils.screencap(Constant.filePath_main);
         sale_point = new ArrayList<>();
         Constant.mContinue = false;
+        Log.e(TAG,"start with sale --- ocr!!!");
+        CommonUtils.weriteLogToFile("start with sale ---- ocr!!!");
         Ocr.RecognizeText(serviceListener, Constant.filePath_main);
         while(!Constant.mContinue);
+        Log.e(TAG,"end with sale --- ocr!!!");
+        CommonUtils.weriteLogToFile("end with sale ---- ocr!!!");
         try {
             Log.e(TAG,"识别月售之后休眠5S！！！");
             CommonUtils.weriteLogToFile("识别月售之后休眠5S！！！");
@@ -163,6 +175,8 @@ public class Main {
                 return ;
             }
             ShellUtils.click_point(point);
+            Log.e(TAG,"end with click_point point_table !!!");
+            CommonUtils.weriteLogToFile("end with click_point point_table!!!");
             try {
                 int tmp_time;
                 if(Constant.is_send_tween_random){
@@ -178,8 +192,14 @@ public class Main {
                 e.printStackTrace();
             }
             ShellUtils.click_point(Constant.point_start);
+            Log.e(TAG,"end with click_point point_start !!!");
+            CommonUtils.weriteLogToFile("end with click_point point_start!!!");
             ShellUtils.click_point(Constant.point_tran);
+            Log.e(TAG,"end with click_point point_tran !!!");
+            CommonUtils.weriteLogToFile("end with click_point point_tran!!!");
             ShellUtils.click_point(Constant.point_checkbox);
+            Log.e(TAG,"end with click_point point_checkbox 11111 !!!");
+            CommonUtils.weriteLogToFile("end with click_point point_checkbox 1111!!!");
             if(StorageUtils.getDataFromSharedPreference(Constant.count_chat_1).isEmpty()){
                 Constant.count_chat = 2;
             }else{
@@ -193,21 +213,29 @@ public class Main {
                 ShellUtils.click_point(tmp);
 
             }
+            Log.e(TAG,"end with click_point point_chat!!!");
+            CommonUtils.weriteLogToFile("end with click_point point_chat!!!");
 
             ShellUtils.click_point(Constant.point_checkbox);
+            Log.e(TAG,"end with click_point point_checkbox 2222!!!");
+            CommonUtils.weriteLogToFile("end with click_point point_checkbox 2222!!!");
 
             //发送问候语句
+            /*
             SimpleDateFormat sDateFormat = new SimpleDateFormat("HH:mm");
             String time = sDateFormat.format(new Date());
             if(time.equals(Constant.hello_time)){
                 Log.e(TAG,"问候语句触发，内容是：" + Constant.hello_content);
                 CommonUtils.weriteLogToFile("问候语句触发，内容是：" + Constant.hello_content);
                 ShellUtils.inputtext(Constant.hello_content);
-            }
-
+            }*/
             ShellUtils.click_point(Constant.point_send);
+            Log.e(TAG,"end with click_point point_send!!!");
+            CommonUtils.weriteLogToFile("end with click_point point_send!!!");
 
             ShellUtils.click_back();
+            Log.e(TAG,"end with click_back!!!");
+            CommonUtils.weriteLogToFile("end with click_back!!!");
 
         }
         if(!sale_point.isEmpty())
@@ -217,6 +245,8 @@ public class Main {
             CommonUtils.weriteLogToFile("Error here Ocr get failed.");
         }
 
+        Log.e(TAG,"end with sale!!!");
+        CommonUtils.weriteLogToFile("end with sale!!!");
     }
 
 
@@ -374,6 +404,11 @@ public class Main {
             }
 
         }
+
+        @Override
+        public void onError(OCRError error) {
+
+        }
     };
 
     private Ocr.ServiceListener checkboxListener = new Ocr.ServiceListener() {
@@ -408,6 +443,11 @@ public class Main {
                 CommonUtils.weriteLogToFile(name + "---Left = " + location.getLeft() + ",Top = "+location.getTop());
             }
         }
+
+        @Override
+        public void onError(OCRError error) {
+
+        }
     };
 
     private Ocr.ServiceListener sendListener = new Ocr.ServiceListener() {
@@ -419,6 +459,11 @@ public class Main {
                 CommonUtils.weriteLogToFile(name + "---发送:Left = " + Constant.point_send.m_x + ",Top = "+Constant.point_send.m_y);
             }
         }
+
+        @Override
+        public void onError(OCRError error) {
+
+        }
     };
 
     private Ocr.ServiceListener serviceListener = new Ocr.ServiceListener() {
@@ -429,6 +474,11 @@ public class Main {
                 Log.e(TAG, "Left = " + location.getLeft() + ",Top = "+location.getTop());
                 CommonUtils.weriteLogToFile("Left = " + location.getLeft() + ",Top = "+location.getTop());
             }
+
+        }
+
+        @Override
+        public void onError(OCRError error) {
 
         }
     };

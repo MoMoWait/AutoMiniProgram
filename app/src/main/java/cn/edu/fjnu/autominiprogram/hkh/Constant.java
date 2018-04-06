@@ -19,6 +19,7 @@ public class Constant {
 
     public static final String filePath_main = "/storage/emulated/0/main.png"; //主界面图片
     public static final String filePath_tran = "/storage/emulated/0/tran.png";//转发图片
+    public static final String filePath_tran_2 = "/storage/emulated/0/tran2.jpg";//转发图片
     public static final String filePath_chat = "/storage/emulated/0/chat.png";//聊天界面
     public static final String filePath_send= "/storage/emulated/0/send.png";//发送界面
 

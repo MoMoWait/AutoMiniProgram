@@ -199,7 +199,6 @@ public class FloatingwindowService extends Service {
             // wmParams.y = (d.heightPixels - mHeight) / 2;
             mWmParams.x = 0;
             mWmParams.y = 0;
-
             mWmParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
             mWmParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         }

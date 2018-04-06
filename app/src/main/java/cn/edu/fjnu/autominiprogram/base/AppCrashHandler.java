@@ -11,8 +11,10 @@ import java.io.FileOutputStream;
 
 import cn.edu.fjnu.autominiprogram.activity.InitActivity;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
+import cn.edu.fjnu.autominiprogram.utils.CommonUtils;
 import momo.cn.edu.fjnu.androidutils.data.CommonValues;
 import momo.cn.edu.fjnu.androidutils.exception.BaseCrashHandler;
+import momo.cn.edu.fjnu.androidutils.utils.ActivityExitUtils;
 import momo.cn.edu.fjnu.androidutils.utils.LogUtils;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 
@@ -25,14 +27,16 @@ public class AppCrashHandler extends BaseCrashHandler{
     private static final String TAG = AppCrashHandler.class.getName();
     @Override
     public void handleException(String errorMsg) {
+
         Intent intent = new Intent(CommonValues.application, InitActivity.class);
         PendingIntent restartIntent = PendingIntent.getActivity(
                 CommonValues.application, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         //退出程序
         AlarmManager mgr = (AlarmManager)CommonValues.application.getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 3000, restartIntent); // 1秒钟后重启应用
-        Log.i(TAG, "errorMsg:" + errorMsg);
-        //StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.CRASH_MSG, errorMsg);
+        //Log.i(TAG, "errorMsg:" + errorMsg);
+        //StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.CRASH_MSG, errorMsg)
+        CommonUtils.weriteLogToFile(errorMsg);
         try{
             File crashFile = CommonValues.application.getFileStreamPath(ConstData.CRASH_FILE_NAME);
             FileOutputStream fileOutputStream = new FileOutputStream(crashFile);
@@ -41,8 +45,7 @@ public class AppCrashHandler extends BaseCrashHandler{
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
+        ActivityExitUtils.exitAllActivitys();
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 }
