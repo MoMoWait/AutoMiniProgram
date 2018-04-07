@@ -151,7 +151,7 @@ public class FloatingwindowService extends Service {
         mBuilder.setContentText("软件正在运行");
         Notification notification=mBuilder.build();
         startForeground(startId, notification);
-        return Service.START_STICKY;
+        return Service.START_NOT_STICKY;
        // return super.onStartCommand(intent, flags, startId);
     }
 
