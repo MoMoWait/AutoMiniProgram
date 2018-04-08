@@ -68,7 +68,7 @@ public class Main {
         ShellUtils.screencap(Constant.filePath_tran);
         //通过ocr获取转发的 x,y坐标
         Constant.mContinue = false;
-        Ocr.RecognizeText(tranListener, Constant.filePath_tran_2);
+        Ocr.RecognizeText(tranListener, Constant.filePath_tran);
         while(!Constant.mContinue);
 
         //while(!Constant.mContinue);
@@ -427,6 +427,7 @@ public class Main {
                 CommonUtils.weriteLogToFile(name + "---多选框:Left = " + location.getLeft() + ",Top = "+location.getTop());
                 Constant.point_checkbox = new Point(location.getLeft(), location.getTop());
             }else if(name.contains(Constant.click_chat)){
+                Log.e(TAG, name);
                 Constant.chat_status = true;
                 return ;
             }

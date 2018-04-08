@@ -7,7 +7,9 @@ import java.util.concurrent.Executors;
 
 import android.accessibilityservice.AccessibilityService;
 import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -53,6 +55,7 @@ import cn.edu.fjnu.autominiprogram.hkh.Constant;
 import cn.edu.fjnu.autominiprogram.hkh.Main;
 import cn.edu.fjnu.autominiprogram.hkh.Ocr;
 import cn.edu.fjnu.autominiprogram.utils.CommonUtils;
+import momo.cn.edu.fjnu.androidutils.data.CommonValues;
 import momo.cn.edu.fjnu.androidutils.utils.SizeUtils;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
@@ -248,7 +251,7 @@ public class FloatingwindowService extends Service {
             //提示已经初始化完成了
         }
     };
-
+    
     private void setupViews() {
         mStartStopBtn = (Button) mView.findViewById(R.id.main_item_test_stop);
         mStartStopBtn.setOnClickListener(new OnClickListener() {
@@ -260,6 +263,18 @@ public class FloatingwindowService extends Service {
                     mStartStopBtn.setText(R.string.start_share);
                     //这里加入停止转发功能代码
                     Constant.exit_thread = true;
+
+                    //singleThreadExecutor.shutdown();
+                    //singleThreadExecutor.shutdownNow();
+
+                    Intent serviceIntent = new Intent(CommonValues.application, FloatingwindowService.class);
+                    PendingIntent restartServiceIntent =  PendingIntent.getService(
+                            CommonValues.application, 0, serviceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager alarmManager = (AlarmManager)CommonValues.application.getSystemService(Context.ALARM_SERVICE);
+                    alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 2000, restartServiceIntent);
+
+
+                    android.os.Process.killProcess(android.os.Process.myPid());
                 }else{
                     mIsSharing = true;
                     mStartStopBtn.setText(R.string.stop_share);
