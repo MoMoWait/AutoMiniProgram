@@ -230,7 +230,7 @@ public class FloatingwindowService extends Service {
         @Override
         public void run() {
             //提示开始初始化
-
+            mHandler.sendEmptyMessage(Toast_start_init);
             int count = 0;
             //while(true) {
             count++;
@@ -247,11 +247,11 @@ public class FloatingwindowService extends Service {
                 e.printStackTrace();
             }
             //}
-
+            mHandler.sendEmptyMessage(Toast_stop_int);
             //提示已经初始化完成了
         }
     };
-    
+
     private void setupViews() {
         mStartStopBtn = (Button) mView.findViewById(R.id.main_item_test_stop);
         mStartStopBtn.setOnClickListener(new OnClickListener() {
@@ -266,7 +266,7 @@ public class FloatingwindowService extends Service {
 
                     //singleThreadExecutor.shutdown();
                     //singleThreadExecutor.shutdownNow();
-
+                    mHandler.sendEmptyMessage(Toast_stop_tran);
                     Intent serviceIntent = new Intent(CommonValues.application, FloatingwindowService.class);
                     PendingIntent restartServiceIntent =  PendingIntent.getService(
                             CommonValues.application, 0, serviceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -276,6 +276,7 @@ public class FloatingwindowService extends Service {
 
                     android.os.Process.killProcess(android.os.Process.myPid());
                 }else{
+                    mHandler.sendEmptyMessage(Toast_start_tran);
                     mIsSharing = true;
                     mStartStopBtn.setText(R.string.stop_share);
                     ClearData();
@@ -300,13 +301,12 @@ public class FloatingwindowService extends Service {
             public void onClick(View v) {
                 reSetWindow();
                 Log.e(TAG, "mBtnStartCalibratio click");
-
                 Thread thread = new Thread(mRunnable_init);
                 thread.start();
-
                 //OpenAccessibilitySettingHelper.jumpToSettingPage(getApplicationContext());
             }
         });
+
         mBtnSeekPosition.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -448,6 +448,10 @@ public class FloatingwindowService extends Service {
     }
 
     private static final int REFRESH_VIEW = 0;
+    private static final int Toast_start_init = 1;
+    private static final int Toast_stop_int = 2;
+    private static final int Toast_start_tran = 3;
+    private static final int Toast_stop_tran = 4;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -460,6 +464,20 @@ public class FloatingwindowService extends Service {
                     message.what = REFRESH_VIEW;
                     mHandler.sendMessageDelayed(message, 1000);
                     break;
+                case Toast_start_init:
+                    ToastUtils.showToast("开始初始化，请勿触碰", 1000);
+                    break;
+
+                case Toast_stop_int:
+                    ToastUtils.showToast("初始化完成", 1000);
+                    break;
+
+                case Toast_start_tran:
+                    ToastUtils.showToast("开始转发", 1000);
+                    break;
+
+                case Toast_stop_tran:
+                    ToastUtils.showToast("即将退出转发，请等待几秒钟", 1000);
                 default:
                     break;
             }
