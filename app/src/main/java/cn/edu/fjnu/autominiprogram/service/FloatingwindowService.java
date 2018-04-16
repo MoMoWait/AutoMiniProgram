@@ -5,7 +5,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-import android.accessibilityservice.AccessibilityService;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -22,18 +21,15 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
-import android.view.accessibility.AccessibilityEvent;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,21 +38,13 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import cn.edu.fjnu.autominiprogram.R;
-import cn.edu.fjnu.autominiprogram.accessibility.AccessibilityOpenHelperActivity;
-import cn.edu.fjnu.autominiprogram.accessibility.AccessibilityOperator;
-import cn.edu.fjnu.autominiprogram.accessibility.OpenAccessibilitySettingHelper;
 import cn.edu.fjnu.autominiprogram.activity.MainActivity;
 
-import android.accessibilityservice.AccessibilityService;
-import android.view.accessibility.AccessibilityEvent;
-import cn.edu.fjnu.autominiprogram.accessibility.OpenAccessibilitySettingHelper;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
 import cn.edu.fjnu.autominiprogram.hkh.Constant;
 import cn.edu.fjnu.autominiprogram.hkh.Main;
-import cn.edu.fjnu.autominiprogram.hkh.Ocr;
 import cn.edu.fjnu.autominiprogram.utils.CommonUtils;
 import momo.cn.edu.fjnu.androidutils.data.CommonValues;
-import momo.cn.edu.fjnu.androidutils.utils.SizeUtils;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
 

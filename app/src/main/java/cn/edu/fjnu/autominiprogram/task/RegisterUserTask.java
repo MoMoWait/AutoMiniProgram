@@ -1,22 +1,13 @@
 package cn.edu.fjnu.autominiprogram.task;
 
 import android.os.AsyncTask;
-import android.text.TextUtils;
 import android.util.Log;
 
 import org.json.JSONObject;
 
-import java.net.SocketTimeoutException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import cn.edu.fjnu.autominiprogram.data.ConstData;
 import cn.edu.fjnu.autominiprogram.data.ServiceManager;
 import cn.edu.fjnu.autominiprogram.data.UrlService;
-import momo.cn.edu.fjnu.androidutils.utils.PackageUtils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;

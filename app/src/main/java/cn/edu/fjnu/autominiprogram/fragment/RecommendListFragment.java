@@ -2,7 +2,6 @@ package cn.edu.fjnu.autominiprogram.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +13,12 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.fjnu.autominiprogram.R;
-import cn.edu.fjnu.autominiprogram.adapter.NotifactionAdapter;
 import cn.edu.fjnu.autominiprogram.adapter.RecommendAdapter;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
-import cn.edu.fjnu.autominiprogram.bean.NotifactionInfo;
 import cn.edu.fjnu.autominiprogram.bean.RecommendUserInfo;
 import cn.edu.fjnu.autominiprogram.bean.UserInfo;
 import cn.edu.fjnu.autominiprogram.data.ConstData;

@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import cn.edu.fjnu.autominiprogram.data.Configs;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
 import momo.cn.edu.fjnu.androidutils.data.CommonValues;
 

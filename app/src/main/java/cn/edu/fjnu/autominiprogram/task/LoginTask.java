@@ -1,12 +1,10 @@
 package cn.edu.fjnu.autominiprogram.task;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONObject;
 
 import cn.edu.fjnu.autominiprogram.bean.UserInfo;
-import cn.edu.fjnu.autominiprogram.data.ConstData;
 import cn.edu.fjnu.autominiprogram.data.ServiceManager;
 import cn.edu.fjnu.autominiprogram.data.UrlService;
 import okhttp3.MediaType;

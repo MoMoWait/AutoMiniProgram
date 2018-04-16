@@ -2,11 +2,7 @@ package cn.edu.fjnu.autominiprogram.hkh;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,8 +12,6 @@ import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.sdk.model.Location;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -265,7 +259,7 @@ public class Main {
                 error.printStackTrace();
                 alertText("AK，SK方式获取token失败", error.getMessage());
             }
-        }, mContext.getApplicationContext(), "iu76ZuXOqPuluG5GKWT95Zza", "ma8o0qpZG5BfZqKrFL1GTseiLDsWAWz2");
+        }, mContext.getApplicationContext(), "hWhRxR3T0tl4ulhpCI6qzOdS", "ie7j8mganSmgxc0d0m8A9lKDIGGdvgve");
     }
 
 

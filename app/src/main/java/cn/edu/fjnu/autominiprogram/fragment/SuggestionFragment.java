@@ -20,8 +20,6 @@ import cn.edu.fjnu.autominiprogram.bean.UserInfo;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
 import cn.edu.fjnu.autominiprogram.data.ServiceManager;
 import cn.edu.fjnu.autominiprogram.data.UrlService;
-import cn.edu.fjnu.autominiprogram.task.RegisterUserTask;
-import cn.edu.fjnu.autominiprogram.task.SuggestionUploadTask;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;

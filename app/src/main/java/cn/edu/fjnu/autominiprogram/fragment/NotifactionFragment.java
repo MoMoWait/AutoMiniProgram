@@ -10,23 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import cn.edu.fjnu.autominiprogram.R;
 import cn.edu.fjnu.autominiprogram.activity.LogUploadActivity;
 import cn.edu.fjnu.autominiprogram.activity.LoginActivity;
 import cn.edu.fjnu.autominiprogram.activity.SuggestionReplyActivity;
 import cn.edu.fjnu.autominiprogram.activity.SystemNotificationActivity;
-import cn.edu.fjnu.autominiprogram.adapter.RecommendAdapter;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
-import cn.edu.fjnu.autominiprogram.bean.RecommendUserInfo;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
 import cn.edu.fjnu.autominiprogram.data.ServiceManager;
 import cn.edu.fjnu.autominiprogram.data.UrlService;
@@ -37,10 +31,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import momo.cn.edu.fjnu.androidutils.utils.DialogUtils;
-import momo.cn.edu.fjnu.androidutils.utils.PackageUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**

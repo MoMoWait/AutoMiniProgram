@@ -17,21 +17,21 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".base.AppBaseApplication"
+        android:name="cn.edu.fjnu.autominiprogram.base.AppBaseApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.LoginActivity"
             android:label="@string/user_login"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.InitActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.InitActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -52,7 +52,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SuggestionActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.SuggestionActivity"
             android:label="@string/suggestion_feedback"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -60,7 +60,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AboutActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.AboutActivity"
             android:label="@string/message_center"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -68,7 +68,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.BrowserActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.BrowserActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -76,7 +76,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.RegisterActivity"
             android:label="@string/user_register"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -84,7 +84,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ChartActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.ChartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -92,7 +92,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ToolActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.ToolActivity"
             android:label=""
             android:screenOrientation="portrait">
             <intent-filter>
@@ -100,7 +100,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LotteryDisplayActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.LotteryDisplayActivity"
             android:label=""
             android:screenOrientation="portrait">
             <intent-filter>
@@ -108,7 +108,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.FcTrendsInfoActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.FcTrendsInfoActivity"
             android:label="@string/trend_chart"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -116,7 +116,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.FcTrendChartActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.FcTrendChartActivity"
             android:label=""
             android:screenOrientation="landscape">
             <intent-filter>
@@ -124,7 +124,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.WyTrendChartActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.WyTrendChartActivity"
             android:label=""
             android:screenOrientation="landscape">
             <intent-filter>
@@ -132,7 +132,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.HistoryOpenActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.HistoryOpenActivity"
             android:label=""
             android:screenOrientation="portrait">
             <intent-filter>
@@ -140,7 +140,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ForcaestInfoDisplayActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.ForcaestInfoDisplayActivity"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -149,7 +149,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LottyNowOpenActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.LottyNowOpenActivity"
             android:label="@string/newst_lotty_open"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -157,7 +157,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.FCTrendsTypeActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.FCTrendsTypeActivity"
             android:label="@string/trend_any"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -165,7 +165,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ForecastInfoActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.ForecastInfoActivity"
             android:label="@string/lotty_forecast"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -173,7 +173,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.WyJoinMethodActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.WyJoinMethodActivity"
             android:label="@string/join_method_introduce"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -181,7 +181,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.WyJoinMethodDisplayActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.WyJoinMethodDisplayActivity"
             android:label=""
             android:screenOrientation="portrait">
             <intent-filter>
@@ -190,12 +190,12 @@
         </activity>
         // 注册辅助功能服务
         <service
-            android:name=".service.FloatingwindowService"
+            android:name="cn.edu.fjnu.autominiprogram.service.FloatingwindowService"
             android:exported="true"
             android:label="@string/accessibility_tip"/>
 
         <activity
-            android:name=".activity.ForgetPasswordActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.ForgetPasswordActivity"
             android:label="@string/forget_passwd_title"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -203,7 +203,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MyMoneyActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.MyMoneyActivity"
             android:label="@string/request_money"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -211,7 +211,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SystemNotificationActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.SystemNotificationActivity"
             android:label="@string/system_notification"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -219,7 +219,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.RecommendListActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.RecommendListActivity"
             android:label="@string/recommend_list"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -227,7 +227,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SettingSendGroupActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.SettingSendGroupActivity"
             android:label="@string/sending_group_num"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -235,7 +235,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SendingTweenActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.SendingTweenActivity"
             android:label="@string/sending_tween"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -243,7 +243,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SendingAutoStartStopActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.SendingAutoStartStopActivity"
             android:label="@string/auto_start_stop"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -251,7 +251,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SuggestionReplyActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.SuggestionReplyActivity"
             android:label="@string/suggestion_reply"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -259,7 +259,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.HelloActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.HelloActivity"
             android:label="@string/hello_tip"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -267,7 +267,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LogUploadActivity"
+            android:name="cn.edu.fjnu.autominiprogram.activity.LogUploadActivity"
             android:label="@string/log_upload"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -275,18 +275,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".accessibility.AccessibilityOpenHelperActivity"
+            android:name="cn.edu.fjnu.autominiprogram.accessibility.AccessibilityOpenHelperActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:process=":BackgroundService"
             android:taskAffinity="com.open.helper"
             android:theme="@style/Accessibility.Transparent.Activity" />
         <activity
-            android:name=".accessibility.AccessibilityNormalSample"
+            android:name="cn.edu.fjnu.autominiprogram.accessibility.AccessibilityNormalSample"
             android:process=":BackgroundService" />
         // 注册辅助功能服务
         <service
-            android:name=".accessibility.AccessibilitySampleService"
+            android:name="cn.edu.fjnu.autominiprogram.accessibility.AccessibilitySampleService"
             android:exported="true"
             android:label="@string/accessibility_tip"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"

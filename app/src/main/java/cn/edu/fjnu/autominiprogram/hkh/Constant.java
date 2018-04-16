@@ -1,7 +1,5 @@
 package cn.edu.fjnu.autominiprogram.hkh;
 
-import android.content.SharedPreferences;
-
 import cn.edu.fjnu.autominiprogram.data.ConstData;
 
 /**

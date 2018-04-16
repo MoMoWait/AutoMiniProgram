@@ -24,7 +24,6 @@ import cn.edu.fjnu.autominiprogram.bean.UserInfo;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
 import cn.edu.fjnu.autominiprogram.data.ServiceManager;
 import cn.edu.fjnu.autominiprogram.data.UrlService;
-import cn.edu.fjnu.autominiprogram.task.LogUploadTask;
 import momo.cn.edu.fjnu.androidutils.utils.DialogUtils;
 import momo.cn.edu.fjnu.androidutils.utils.JsonUtils;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;

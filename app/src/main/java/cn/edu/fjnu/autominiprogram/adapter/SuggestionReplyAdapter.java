@@ -14,7 +14,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import cn.edu.fjnu.autominiprogram.R;
-import cn.edu.fjnu.autominiprogram.bean.RecommendUserInfo;
 import cn.edu.fjnu.autominiprogram.bean.SuggestionReplyInfo;
 
 /**

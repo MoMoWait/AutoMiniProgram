@@ -1,43 +1,30 @@
 package cn.edu.fjnu.autominiprogram.fragment;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.io.File;
-import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import cn.edu.fjnu.autominiprogram.R;
 import cn.edu.fjnu.autominiprogram.activity.LoginActivity;
-import cn.edu.fjnu.autominiprogram.activity.MainActivity;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
-import cn.edu.fjnu.autominiprogram.bean.TrendInfo;
 import cn.edu.fjnu.autominiprogram.data.Configs;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
 import cn.edu.fjnu.autominiprogram.task.AppLoadTask;
 import cn.edu.fjnu.autominiprogram.task.ContentLoadTask;
 import cn.edu.fjnu.autominiprogram.task.LogUploadTask;
-import cn.edu.fjnu.autominiprogram.utils.LottyDataGetUtils;
-import cn.edu.fjnu.autominiprogram.view.UpdateProgressDialog;
 import momo.cn.edu.fjnu.androidutils.utils.NetWorkUtils;
-import momo.cn.edu.fjnu.androidutils.utils.PackageUtils;
-import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 
 /**
  * 初始化封面

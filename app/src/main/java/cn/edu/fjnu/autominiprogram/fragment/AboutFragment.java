@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.x;
 
-import java.text.SimpleDateFormat;
-
 import cn.edu.fjnu.autominiprogram.R;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
 

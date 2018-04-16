@@ -1,12 +1,10 @@
 package cn.edu.fjnu.autominiprogram.fragment;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -28,7 +26,6 @@ import cn.edu.fjnu.autominiprogram.R;
 import android.app.ActivityManager.RunningServiceInfo;
 
 import cn.edu.fjnu.autominiprogram.activity.ForgetPasswordActivity;
-import cn.edu.fjnu.autominiprogram.activity.MainActivity;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
 import cn.edu.fjnu.autominiprogram.bean.UserInfo;
 import cn.edu.fjnu.autominiprogram.data.ConstData;

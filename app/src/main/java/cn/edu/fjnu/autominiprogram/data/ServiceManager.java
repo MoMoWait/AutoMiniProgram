@@ -1,15 +1,11 @@
 package cn.edu.fjnu.autominiprogram.data;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import cn.edu.fjnu.autominiprogram.utils.CommonUtils;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 

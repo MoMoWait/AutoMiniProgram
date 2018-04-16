@@ -14,7 +14,6 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 import cn.edu.fjnu.autominiprogram.R;
-import cn.edu.fjnu.autominiprogram.adapter.RecommendAdapter;
 import cn.edu.fjnu.autominiprogram.adapter.SuggestionReplyAdapter;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
 import cn.edu.fjnu.autominiprogram.bean.SuggestionReplyInfo;
