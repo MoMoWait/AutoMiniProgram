@@ -259,7 +259,7 @@ public class Main {
                 error.printStackTrace();
                 alertText("AK，SK方式获取token失败", error.getMessage());
             }
-        }, mContext.getApplicationContext(), "kRI7qgi31vl1u5j6i1n6i3NW", "gSMlmuGkaGoQ3ifEU4uT3jkADMLLqncR");
+        }, mContext.getApplicationContext(), "hWhRxR3T0tl4ulhpCI6qzOdS", "ie7j8mganSmgxc0d0m8A9lKDIGGdvgve");
     }
 
 
