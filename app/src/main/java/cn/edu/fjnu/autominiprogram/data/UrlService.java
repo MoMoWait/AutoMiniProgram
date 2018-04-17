@@ -80,7 +80,7 @@ public interface UrlService {
     @POST("abnormal/upload")
     Call<ResponseBody> uploadLogFile(@Part MultipartBody.Part file);
 
-    @GET("manager/ downloadApps")
+    @GET("manager/downloadApp")
     @Headers({"Content-Type:application/json;charset=UTF-8"})
     Call<ResponseBody> getAppVersion();
 

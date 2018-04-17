@@ -1,6 +1,7 @@
 package cn.edu.fjnu.autominiprogram.fragment;
 
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import org.json.JSONObject;
+import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
@@ -36,6 +38,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import momo.cn.edu.fjnu.androidutils.utils.BitmapUtils;
 import momo.cn.edu.fjnu.androidutils.utils.DialogUtils;
+import momo.cn.edu.fjnu.androidutils.utils.SizeUtils;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
 import okhttp3.MediaType;
@@ -149,11 +152,12 @@ public class RegisterFragment extends AppBaseFragment {
                         .subscribe(new Consumer<Integer>() {
                             @Override
                             public void accept(Integer errrorCode) throws Exception {
-                                DialogUtils.closeLoadingDialog();
+
                                 if(errrorCode == ConstData.ErrorInfo.NO_ERR){
                                     mIsCheckCodeSucc = true;
                                     register(userName, password, nickeName, recommandCode);
                                 }else{
+                                    DialogUtils.closeLoadingDialog();
                                     mIsCheckCodeSucc = false;
                                     ToastUtils.showToast(R.string.check_code_failed);
                                 }
@@ -302,7 +306,8 @@ public class RegisterFragment extends AppBaseFragment {
                 mSelectPath = cursor.getString(column_index);
             }
             Log.i(TAG, "mSelectPath:" + mSelectPath);
-            x.image().bind(mImgWechatScreenshot, mSelectPath);
+            ImageOptions options = new ImageOptions.Builder().setSize(SizeUtils.dp2px(180), SizeUtils.dp2px(320)).setImageScaleType(ImageView.ScaleType.CENTER_INSIDE).build();
+            x.image().bind(mImgWechatScreenshot, mSelectPath, options);
             //mSelectPath = uri.getPath();
         }
     }
@@ -323,14 +328,22 @@ public class RegisterFragment extends AppBaseFragment {
                     @Override
                     public void accept(Integer status) throws Exception {
                         DialogUtils.closeLoadingDialog();
-                        if(status == ConstData.ErrorInfo.NO_ERR){
+                        if (status == ConstData.ErrorInfo.NO_ERR) {
                             ToastUtils.showToast(getString(R.string.register_succ));
                             getActivity().finish();
-                        }else if(status == ConstData.ErrorInfo.ACCOUNT_EXIST){
+                        } else if (status == ConstData.ErrorInfo.ACCOUNT_EXIST) {
                             ToastUtils.showToast(getString(R.string.account_exist));
-                        }else if(status == ConstData.ErrorInfo.UNKNOW_ERR){
+                        } else if (status == ConstData.ErrorInfo.UNKNOW_ERR) {
+                            ToastUtils.showToast(getString(R.string.register_failed));
+                        } else {
                             ToastUtils.showToast(getString(R.string.register_failed));
                         }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        DialogUtils.closeLoadingDialog();
+                        ToastUtils.showToast(getString(R.string.register_failed));
                     }
                 });
     }
