@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import momo.cn.edu.fjnu.androidutils.utils.DialogUtils;
+import momo.cn.edu.fjnu.androidutils.utils.LogUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
 import okhttp3.ResponseBody;
 
@@ -41,7 +43,7 @@ import okhttp3.ResponseBody;
 
 @ContentView(R.layout.fragment_notifaction)
 public class NotifactionFragment extends AppBaseFragment {
-
+    private static final String TAG = NotifactionFragment.class.getSimpleName();
     @ViewInject(R.id.layout_notification)
     private LinearLayout mLayoutNotification;
     @ViewInject(R.id.layout_suggestion_reply)
@@ -106,9 +108,10 @@ public class NotifactionFragment extends AppBaseFragment {
                         if(responseBody != null){
                             String result = responseBody.string();
                             JSONObject resultObject = new JSONObject(result);
-                            int appVersion = resultObject.getInt("file_verson");
+                            int appVersion = resultObject.getInt("file_version");
                             mDownloadUrl = resultObject.getString("file_url");
                             mIsNeedUpdate = appVersion > getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0).versionCode;
+
                             return ConstData.ErrorInfo.NO_ERR;
 
                         }
@@ -125,6 +128,7 @@ public class NotifactionFragment extends AppBaseFragment {
                                 ToastUtils.showToast(R.string.curr_newest_version);
                             }
                         }else{
+                            //LogUtils.i(TAG, "failed:" + Log.getStackTraceString(new Throwable()));
                             ToastUtils.showToast(R.string.check_version_failed);
                         }
                     }
@@ -132,6 +136,7 @@ public class NotifactionFragment extends AppBaseFragment {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         DialogUtils.closeLoadingDialog();
+                        LogUtils.i(TAG, "failed:" + throwable);
                         ToastUtils.showToast(R.string.check_version_failed);
                     }
                 });

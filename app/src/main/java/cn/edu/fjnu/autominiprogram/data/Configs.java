@@ -14,5 +14,5 @@ public class Configs {
      * 接口的基地址
      */
     //public static final String BASE_URL = "http://welldone.eicp.net:40514/YouLeTao/";
-    public static final String BASE_URL = "http://47.97.202.52:8080/YouLeTao/";
+    public static final String BASE_URL = "http://47.98.234.250:80/TaoZheKou/";
 }
