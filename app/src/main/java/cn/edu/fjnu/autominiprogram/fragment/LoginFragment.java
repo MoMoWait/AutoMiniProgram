@@ -170,6 +170,15 @@ public class LoginFragment extends AppBaseFragment{
                 if(userInfo == null){
                     ToastUtils.showToast(getString(R.string.login_failed));
                 }else if(userInfo.getState() == ConstData.UserState.NORMAL){
+                    if(userInfo.getType() == 2){
+                        ToastUtils.showToast("账户待审核");
+                        return;
+                    }
+
+                    if(userInfo.getType() == 3){
+                        ToastUtils.showToast("账户未审核通过");
+                        return;
+                    }
                     //此处保存用户信息
                     StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.CURR_USER_INFO, JsonUtils.objectToJson(userInfo).toString());
                     StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.CURR_PHONE, userInfo.getPhone());
@@ -180,12 +189,8 @@ public class LoginFragment extends AppBaseFragment{
                     }
                     getContext().startService(intent);
                     getActivity().finish();
-                }else if(userInfo.getState() == ConstData.UserState.DISABLE){
-                    ToastUtils.showToast(R.string.account_disable);
-                }else if(userInfo.getType() == 3){
-                    ToastUtils.showToast(R.string.no_vaild_account);
                 }else{
-                    ToastUtils.showToast(getString(R.string.login_failed));
+                    ToastUtils.showToast(R.string.account_disable);
                 }
 
             }
