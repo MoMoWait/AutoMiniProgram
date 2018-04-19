@@ -486,8 +486,14 @@ public class FloatingwindowService extends Service {
                     singleThreadExecutor.execute(mRunnable_tran);
                     break;
                 case AUTO_STOP_SHARE:
-                    ToastUtils.showToast("自动转发结束");
-                    CommonUtils.restartFloatingWindowService();
+                    ToastUtils.showToast("自动转发结束,主动重启");
+                    postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            CommonUtils.restartFloatingWindowService();
+                        }
+                    }, 5000);
+
                     break;
                 default:
                     break;
