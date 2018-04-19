@@ -1,8 +1,13 @@
 package cn.edu.fjnu.autominiprogram.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 import android.app.ActivityManager;
@@ -71,6 +76,7 @@ public class FloatingwindowService extends Service {
     private Main mMain;
 
     private ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor(); //单线程池
+    private ScheduledExecutorService mScheduleExecutorService = Executors.newScheduledThreadPool(1); //定时执行线程池
     /**
      * 当前是否正在定位
      */
@@ -246,23 +252,21 @@ public class FloatingwindowService extends Service {
             @Override
             public void onClick(View v) {
                 reSetWindow();
+                //此处判断是否开启自动转发
+                boolean isAutoStartStop = "true".equals(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_AUTO_START_STOP));
+                if(isAutoStartStop){
+                    ToastUtils.showToast("定时启停已开启，无法手动转发");
+                    return;
+                }
                 if(mIsSharing){
                     mIsSharing = false;
                     mStartStopBtn.setText(R.string.start_share);
                     //这里加入停止转发功能代码
                     Constant.exit_thread = true;
-
                     //singleThreadExecutor.shutdown();
                     //singleThreadExecutor.shutdownNow();
                     mHandler.sendEmptyMessage(Toast_stop_tran);
-                    Intent serviceIntent = new Intent(CommonValues.application, FloatingwindowService.class);
-                    PendingIntent restartServiceIntent =  PendingIntent.getService(
-                            CommonValues.application, 0, serviceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager alarmManager = (AlarmManager)CommonValues.application.getSystemService(Context.ALARM_SERVICE);
-                    alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 2000, restartServiceIntent);
-
-
-                    android.os.Process.killProcess(android.os.Process.myPid());
+                    CommonUtils.restartFloatingWindowService();
                 }else{
                     mHandler.sendEmptyMessage(Toast_start_tran);
                     mIsSharing = true;
@@ -440,6 +444,10 @@ public class FloatingwindowService extends Service {
     private static final int Toast_stop_int = 2;
     private static final int Toast_start_tran = 3;
     private static final int Toast_stop_tran = 4;
+    /**自动启停开始*/
+    private static final int AUTO_START_SHARE = 5;
+    /**自动启停结束*/
+    private static final int AUTO_STOP_SHARE = 6;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -466,6 +474,16 @@ public class FloatingwindowService extends Service {
 
                 case Toast_stop_tran:
                     ToastUtils.showToast("即将退出转发，请等待几秒钟", 1000);
+                case AUTO_START_SHARE:
+                    ToastUtils.showToast("自动转发开始");
+                    ClearData();
+                    mMain.getData();
+                    singleThreadExecutor.execute(mRunnable_tran);
+                    break;
+                case AUTO_STOP_SHARE:
+                    ToastUtils.showToast("自动转发结束");
+                    CommonUtils.restartFloatingWindowService();
+                    break;
                 default:
                     break;
             }
@@ -498,8 +516,36 @@ public class FloatingwindowService extends Service {
     public void onCreate() {
         Log.i(TAG, "RobMoney::onCreate");
         CommonUtils.weriteLogToFile("Service onCreate");
-        super.onCreate();
+        //开启定时任务,30s执行一次时间获取
+        mScheduleExecutorService.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.CHINA);
+                boolean isAutoStartStop = "true".equals(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_AUTO_START_STOP));
+                if(isAutoStartStop){
+                    //获取当前时间
+                    String currTime = sdf.format(new Date());
+                    Log.i(TAG, "currTime:" + currTime);
+                    String autoStartTime = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_START_TIME);
+                    String autoEndTime = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_END_TIME);
+                    boolean isAutoStarted = "true".equals(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_AUTO_STARTED));
+                    boolean isAutoStoped = "true".equals(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_AUTO_STOPPED));
+                    if(currTime.equals(autoStartTime) && !isAutoStarted){
+                        //发送自动启停开始消息
+                        StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.IS_AUTO_STARTED, "true");
+                        StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.IS_AUTO_STOPPED, "false");
+                        mHandler.sendEmptyMessage(AUTO_START_SHARE);
+                    }
 
+                    if(currTime.equals(autoEndTime) && !isAutoStoped){
+                        StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.IS_AUTO_STARTED, "false");
+                        StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.IS_AUTO_STOPPED, "true");
+                        //发送自动启停停止消息
+                        mHandler.sendEmptyMessage(AUTO_STOP_SHARE);
+                    }
+                }
+            }
+        },0, 30, TimeUnit.SECONDS);
     }
 
 

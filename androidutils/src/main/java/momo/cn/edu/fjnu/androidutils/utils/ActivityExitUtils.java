@@ -27,6 +27,11 @@ public class ActivityExitUtils {
 
     }
 
+
+    public static void removeActivity(Activity activity){
+        activities.remove(activity);
+    }
+
     /***
      * 退出所有的activity
      *
@@ -43,7 +48,7 @@ public class ActivityExitUtils {
      * 获取所有已经添加的Activity
      * @return
      */
-    public List<Activity> getActivities(){
+    public static List<Activity> getActivities(){
         return activities;
     }
 

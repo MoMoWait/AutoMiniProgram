@@ -23,6 +23,7 @@ import java.util.Locale;
 import cn.edu.fjnu.autominiprogram.R;
 import cn.edu.fjnu.autominiprogram.base.AppBaseFragment;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
+import cn.edu.fjnu.autominiprogram.utils.CommonUtils;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 import momo.cn.edu.fjnu.androidutils.utils.TextUtils;
 import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
@@ -45,7 +46,10 @@ public class SendingAutoStartStopFragment extends AppBaseFragment implements Che
 
     @ViewInject(R.id.btn_ok)
     private Button mBtnOK;
-
+    /**
+     * 之前是否开启自动启停
+     */
+    private boolean mIsOldOpenAutoStartStop;
 
     @Nullable
     @Override
@@ -56,7 +60,8 @@ public class SendingAutoStartStopFragment extends AppBaseFragment implements Che
     @Override
     public void init() {
         super.init();
-
+        mIsOldOpenAutoStartStop = "true".equals(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_AUTO_START_STOP));
+        mCheckAutoStartStop.setChecked(mIsOldOpenAutoStartStop);
         mEditStartTime.setText(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_START_TIME));
         mEditEndTime.setText(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_END_TIME));
 
@@ -79,35 +84,46 @@ public class SendingAutoStartStopFragment extends AppBaseFragment implements Che
         mBtnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String startTime = mEditStartTime.getText().toString();
-                String endTime = mEditEndTime.getText().toString();
-                if(TextUtils.isEmpty(startTime)){
-                    ToastUtils.showToast(R.string.enter_start_time);
-                    return;
+                //获取当前是否勾选
+                boolean isChecked = mCheckAutoStartStop.isChecked();
+                boolean isNeedSave = isChecked == !mIsOldOpenAutoStartStop;
+                if(isNeedSave){
+                    //保存至数据库
+                    StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.IS_AUTO_START_STOP, "" + isChecked);
                 }
+                if(isChecked){
+                    String startTime = mEditStartTime.getText().toString();
+                    String endTime = mEditEndTime.getText().toString();
+                    if(TextUtils.isEmpty(startTime)){
+                        ToastUtils.showToast(R.string.enter_start_time);
+                        return;
+                    }
 
-                if(TextUtils.isEmpty(endTime)){
-                    ToastUtils.showToast(R.string.enter_stop_time);
-                    return;
+                    if(TextUtils.isEmpty(endTime)){
+                        ToastUtils.showToast(R.string.enter_stop_time);
+                        return;
+                    }
+                    int startHour = Integer.parseInt(startTime.split(":")[0]);
+                    int startMinute = Integer.parseInt(startTime.split(":")[1]);
+                    int endHour = Integer.parseInt(endTime.split(":")[0]);
+                    int endMinute = Integer.parseInt(endTime.split(":")[1]);
+                    if((startHour * 60 + startMinute) >= (endHour * 60 + endMinute)){
+                        ToastUtils.showToast(R.string.endtime_must_large_starttime);
+                        return;
+                    }
+                    StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.AUTO_SEND_START_TIME, startTime);
+                    StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.AUTO_SEND_END_TIME, endTime);
                 }
-                int startHour = Integer.parseInt(startTime.split(":")[0]);
-                int startMinute = Integer.parseInt(startTime.split(":")[1]);
-                int endHour = Integer.parseInt(endTime.split(":")[0]);
-                int endMinute = Integer.parseInt(endTime.split(":")[1]);
-                if((startHour * 60 + startMinute) >= (endHour * 60 + endMinute)){
-                    ToastUtils.showToast(R.string.endtime_must_large_starttime);
-                    return;
-                }
-                StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.AUTO_SEND_START_TIME, startTime);
-                StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.AUTO_SEND_END_TIME, endTime);
                 ToastUtils.showToast(R.string.setting_success);
                 getActivity().finish();
+                if(isNeedSave){
+                    //重启服务
+                    CommonUtils.restartFloatingWindowService();
+                }
 
             }
         });
-
         refreshView();
-
     }
 
     private void showTimePickerDialog(final EditText editText){
@@ -123,8 +139,15 @@ public class SendingAutoStartStopFragment extends AppBaseFragment implements Che
     }
 
     private void refreshView(){
-        //boolean isAutoStartStop =
+       // boolean isAutoStartStop = StorageUtils.getDataFromSharedPreference(ConstData.IntentKey.IS_AUTO_START_STOP, "" + )
         //mCheckAutoStartStop.setChecked();
+        if(mCheckAutoStartStop.isChecked()){
+            mEditStartTime.setEnabled(true);
+            mEditEndTime.setEnabled(true);
+        }else{
+            mEditEndTime.setEnabled(false);
+            mEditStartTime.setEnabled(false);
+        }
     }
 
 
@@ -132,7 +155,6 @@ public class SendingAutoStartStopFragment extends AppBaseFragment implements Che
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()){
             case R.id.check_auto_start_stop:
-                StorageUtils.saveDataToSharedPreference(ConstData.IntentKey.IS_AUTO_START_STOP, "" + isChecked);
                 refreshView();
                 break;
         }

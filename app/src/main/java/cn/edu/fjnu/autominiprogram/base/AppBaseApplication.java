@@ -9,6 +9,7 @@ import java.util.Date;
 import cn.edu.fjnu.autominiprogram.data.ConstData;
 import cn.edu.fjnu.autominiprogram.utils.CommonUtils;
 import momo.cn.edu.fjnu.androidutils.base.BaseApplication;
+import momo.cn.edu.fjnu.androidutils.utils.ActivityExitUtils;
 import momo.cn.edu.fjnu.androidutils.utils.StorageUtils;
 
 /**
@@ -27,6 +28,7 @@ public class AppBaseApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        ActivityExitUtils.getActivities().clear();
         CommonUtils.weriteLogToFile("application onCreate");
         Thread.setDefaultUncaughtExceptionHandler(new AppCrashHandler());
         x.Ext.init(this);
