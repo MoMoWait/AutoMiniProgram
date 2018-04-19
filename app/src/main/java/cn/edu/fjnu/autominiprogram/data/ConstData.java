@@ -251,7 +251,6 @@ public class ConstData {
         String WEB_LOAD_TIME = "web_load_time";
         String WEB_LOAD_TITLE = "web_load_title";
         String SESSION_ID = "session_id";
-        String IS_AUTO_START_STOP = "is_auto_start_stop";
     }
 
     /**
@@ -295,6 +294,12 @@ public class ConstData {
         String HELLO_CONTENT = "hello_content";
         /**闪退信息*/
         String CRASH_MSG = "crash_msg";
+        /**是否开启自动启停*/
+        String IS_AUTO_START_STOP = "is_auto_start_stop";
+        /**是否已经开始自动启停*/
+        String IS_AUTO_STARTED = "is_auto_started";
+        /**是否已经停止自动启停*/
+        String IS_AUTO_STOPPED = "is_auto_started";
     }
 
     /**
