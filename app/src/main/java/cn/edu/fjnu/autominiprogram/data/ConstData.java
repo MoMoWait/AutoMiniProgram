@@ -299,7 +299,7 @@ public class ConstData {
         /**是否已经开始自动启停*/
         String IS_AUTO_STARTED = "is_auto_started";
         /**是否已经停止自动启停*/
-        String IS_AUTO_STOPPED = "is_auto_started";
+        String IS_AUTO_STOPPED = "is_auto_stopped";
     }
 
     /**

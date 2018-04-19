@@ -7,8 +7,8 @@ android {
         applicationId "cn.edu.fjnu.autominiprogram02"
         minSdkVersion 18
         targetSdkVersion 22
-        versionCode 1000
-        versionName "1.2.0"
+        versionCode 1001
+        versionName "1.2.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {

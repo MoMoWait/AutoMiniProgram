@@ -15,8 +15,10 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Build;
@@ -39,6 +41,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
@@ -76,7 +79,6 @@ public class FloatingwindowService extends Service {
     private Main mMain;
 
     private ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor(); //单线程池
-    private ScheduledExecutorService mScheduleExecutorService = Executors.newScheduledThreadPool(1); //定时执行线程池
     /**
      * 当前是否正在定位
      */
@@ -103,11 +105,13 @@ public class FloatingwindowService extends Service {
     private LinearLayout mLayoutBtnContainer;
     @ViewInject(R.id.btn_min_window)
     private Button mBtnMinWindow;
+    private TimeReceiver mTimeReceiver;
     /*
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
+
 */
     private void holdWakeLock() {
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
@@ -428,6 +432,7 @@ public class FloatingwindowService extends Service {
 
     @Override
     public void onDestroy() {
+        unregisterReceiver(mTimeReceiver);
         Log.e(TAG, "onDestroy");
         CommonUtils.weriteLogToFile("Service onDestory");
         super.onDestroy();
@@ -516,36 +521,9 @@ public class FloatingwindowService extends Service {
     public void onCreate() {
         Log.i(TAG, "RobMoney::onCreate");
         CommonUtils.weriteLogToFile("Service onCreate");
-        //开启定时任务,30s执行一次时间获取
-        mScheduleExecutorService.scheduleWithFixedDelay(new Runnable() {
-            @Override
-            public void run() {
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.CHINA);
-                boolean isAutoStartStop = "true".equals(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_AUTO_START_STOP));
-                if(isAutoStartStop){
-                    //获取当前时间
-                    String currTime = sdf.format(new Date());
-                    Log.i(TAG, "currTime:" + currTime);
-                    String autoStartTime = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_START_TIME);
-                    String autoEndTime = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_END_TIME);
-                    boolean isAutoStarted = "true".equals(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_AUTO_STARTED));
-                    boolean isAutoStoped = "true".equals(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_AUTO_STOPPED));
-                    if(currTime.equals(autoStartTime) && !isAutoStarted){
-                        //发送自动启停开始消息
-                        StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.IS_AUTO_STARTED, "true");
-                        StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.IS_AUTO_STOPPED, "false");
-                        mHandler.sendEmptyMessage(AUTO_START_SHARE);
-                    }
+        mTimeReceiver = new TimeReceiver();
+        registerReceiver(mTimeReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 
-                    if(currTime.equals(autoEndTime) && !isAutoStoped){
-                        StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.IS_AUTO_STARTED, "false");
-                        StorageUtils.saveDataToSharedPreference(ConstData.SharedKey.IS_AUTO_STOPPED, "true");
-                        //发送自动启停停止消息
-                        mHandler.sendEmptyMessage(AUTO_STOP_SHARE);
-                    }
-                }
-            }
-        },0, 30, TimeUnit.SECONDS);
     }
 
 
@@ -572,6 +550,32 @@ public class FloatingwindowService extends Service {
                 mLayoutBtnContainer.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    class TimeReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.CHINA);
+            boolean isAutoStartStop = "true".equals(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.IS_AUTO_START_STOP));
+            if(isAutoStartStop){
+                //获取当前时间
+                String currTime = sdf.format(new Date());
+                Log.i(TAG, "currTime:" + currTime);
+                String autoStartTime = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_START_TIME);
+                String autoEndTime = StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_END_TIME);
+                Log.i(TAG, "autoStartTime:" + autoStartTime);
+                Log.i(TAG, "autoEndTime:" + autoEndTime);
+                if(currTime.equals(autoStartTime)){
+                    //发送自动启停开始消息
+                    mHandler.sendEmptyMessage(AUTO_START_SHARE);
+                }
+
+                if(currTime.equals(autoEndTime)){
+                    //发送自动启停停止消息
+                    mHandler.sendEmptyMessage(AUTO_STOP_SHARE);
+                }
+            }
+        }
     }
 
 }
