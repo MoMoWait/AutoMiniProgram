@@ -251,6 +251,7 @@ public class ConstData {
         String WEB_LOAD_TIME = "web_load_time";
         String WEB_LOAD_TITLE = "web_load_title";
         String SESSION_ID = "session_id";
+        String IS_AUTO_START_STOP = "is_auto_start_stop";
     }
 
     /**
