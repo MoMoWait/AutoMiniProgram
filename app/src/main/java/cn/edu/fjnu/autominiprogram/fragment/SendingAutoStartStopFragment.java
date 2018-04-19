@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
@@ -29,7 +32,10 @@ import momo.cn.edu.fjnu.androidutils.utils.ToastUtils;
  * 自动启停页面
  */
 @ContentView(R.layout.fragment_sending_auto_start_stop)
-public class SendingAutoStartStopFragment extends AppBaseFragment {
+public class SendingAutoStartStopFragment extends AppBaseFragment implements CheckBox.OnCheckedChangeListener{
+
+    @ViewInject(R.id.check_auto_start_stop)
+    private CheckBox mCheckAutoStartStop;
 
     @ViewInject(R.id.edit_start_time)
     private EditText mEditStartTime;
@@ -53,6 +59,8 @@ public class SendingAutoStartStopFragment extends AppBaseFragment {
 
         mEditStartTime.setText(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_START_TIME));
         mEditEndTime.setText(StorageUtils.getDataFromSharedPreference(ConstData.SharedKey.AUTO_SEND_END_TIME));
+
+        mCheckAutoStartStop.setOnCheckedChangeListener(this);
 
         mEditStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +106,8 @@ public class SendingAutoStartStopFragment extends AppBaseFragment {
             }
         });
 
+        refreshView();
+
     }
 
     private void showTimePickerDialog(final EditText editText){
@@ -112,5 +122,19 @@ public class SendingAutoStartStopFragment extends AppBaseFragment {
         }, hour, minute, true).show();
     }
 
+    private void refreshView(){
+        //boolean isAutoStartStop =
+        //mCheckAutoStartStop.setChecked();
+    }
 
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()){
+            case R.id.check_auto_start_stop:
+                StorageUtils.saveDataToSharedPreference(ConstData.IntentKey.IS_AUTO_START_STOP, "" + isChecked);
+                refreshView();
+                break;
+        }
+    }
 }

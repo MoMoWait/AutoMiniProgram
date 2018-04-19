@@ -5,10 +5,22 @@
     android:layout_height="match_parent"
     android:background="@color/fragment_background">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/check_auto_start_stop"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:text="定时启停"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
